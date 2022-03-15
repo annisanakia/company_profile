@@ -169,11 +169,20 @@ return [
         /*
          * Application Service Providers...
          */
+
+        App\Providers\DirectiveServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Modules\ModulesServiceProvider::class,
+        Lib\LibServiceProvider::class,
+        // Maatwebsite\Excel\ExcelServiceProvider::class,
+        // Barryvdh\DomPDF\ServiceProvider::class,
+        // Jenssegers\Agent\AgentServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
 
     ],
 
