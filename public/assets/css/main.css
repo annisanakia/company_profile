@@ -12,7 +12,7 @@ body{
     background: #f0f0f0
 }
 .bg-green{
-    background:#f15929
+    background:#1b8359
 }
 a,
 a:hover{
@@ -287,7 +287,7 @@ a:hover{
     font-size: 13px
 }
 .dropdown-item.active, .dropdown-item:active {
-    background-color: #f15929
+    background-color: #278e9e
 }
 .note-editor.note-frame .note-placeholder{
     color: #959595 !important
