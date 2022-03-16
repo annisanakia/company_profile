@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/roboto/Roboto-Regular.ttf')  format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.login-panel{
+    width:100%;
+    max-width:430px;
+    padding:20px;
+    font-size:15px;
+    background:#fff;
+    color:#929699
+}
+.login-panel .login-logo{
+    padding:15px 0;
+    width:100%;
+    max-width:240px
+}
+.login-panel .login-title{
+    font-size:22px;
+    font-family: Helvetica;
+    color: #4a4a4a;
+    padding:5px 0
+}
+.login-panel .login-form{
+    padding:10px 0
+}
+.login-panel .login-form .form-field{
+    padding:10px 0
+}
+.login-panel .login-form .input-group .input-group-prepend,
+.login-panel .login-form .input-group .form-control{
+    height:50px;
+    border-color: #e0e3e5
+}
+.login-panel .login-form .input-group .input-group-text{
+    padding: 10px 15px;
+    font-size: 21px;
+    color:#929699;
+    border-color: #e0e3e5;
+    background: transparent
+}
+.login-panel .login-form .input-group .form-control:focus{
+    border-color: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+.login-panel .login-form .is-invalid .input-group .form-control,
+.login-panel .login-form .is-invalid .input-group .input-group-text,
+.login-panel .login-form .is-invalid .input-group .input-group-append{
+    border-color: #de3a3a;
+}
+.is-invalid .invalid-feedback{
+    display: block;
+}
+.login-panel .login-form .input-group .input-group-append{
+    border: 1px solid #e0e3e5;
+    border-left:none;
+}
+.login-panel .login-form .input-group .input-group-append .btn{
+    color:#929699;
+    font-size: 21px;
+    border-color: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+.login-panel .login-form .input-group .input-group-append .btn:hover{
+    color:#7e8488;
+}
+.login-panel ::placeholder{
+    color: #929699
+}
+.login-panel :-ms-input-placeholder{
+    color: #929699 !important
+}
+.login-panel ::-ms-input-placeholder{
+    color: #929699 !important
+}
+.login-panel .btn-login{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+    padding: 12px 10px;
+    border-radius: 10px
+}
+@media (min-width: 768px) {
+    .login-panel{
+        padding:35px 55px;
+        width:auto
+    }
+}

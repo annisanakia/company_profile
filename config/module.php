@@ -3,5 +3,6 @@
 return [
     'modules' => [
         'Home',
+        'Job'
     ]
 ];

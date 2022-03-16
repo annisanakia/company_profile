@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Contracts\LogoutResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -82,98 +83,48 @@ class FortifyServiceProvider extends ServiceProvider
             //     }
             // }
 
-            // return view('auth.login');
+            return view('auth.login');
         });
 
         Fortify::authenticateUsing(function (Request $request) {
-            $domain = request()->getHost();
+            $user = \App\Models\User::where('username', $request->username)
+                ->where('status',1)
+                ->whereNull('deleted_at')
+                ->first();
 
-            $apps = \Models\app::where('domain_local', $domain)->OrWhere('domain_production', $domain)->first();
+            if ($user && Hash::check($request->password, $user->password)) {
+                $agent = new \Jenssegers\Agent\Agent();
+                $ng_user_access = new \Models\ng_user_access();
+    
+                $ng_user_access->users_id = $user->id;
+                $ng_user_access->access_date = date('Y-m-d H:i:s');
+                $ng_user_access->platform = $agent->platform();
+                $ng_user_access->browser = $agent->browser();
+                $ng_user_access->device = $agent->device();
+                $ng_user_access->ip_address = \Request::ip();
+                $ng_user_access->save();
 
-            if ($apps) {
-                $client = $apps->client;
+                $request->session()->put('alert', 1);
+                return $user;
+            } elseif (!$user) {
+                throw ValidationException::withMessages([
+                    'user_valid' => 'Data pengguna tidak ditemukan'
+                ]);
+            } elseif (!Hash::check($request->password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'user_valid' => 'Password tidak benar, silahkan ulangi menggunakan password yang benar'
+                ]);
             } else {
-                $client = \Models\client::where('url_bo', $domain)
-                    ->first();
+                throw ValidationException::withMessages([
+                    'user_valid' => 'Mohon maaf, akun anda telah dinonaktifkan sehingga tidak dapat mengakses portal kembali.'
+                ]);
             }
+        });
 
-            if ($client) {
-                $user = \App\Models\User::where('username', $request->username)
-                    ->where('client_id', $client->id)
-                    ->whereNull('deleted_at')
-                    ->whereHas('user_group', function ($builder) {
-                        $builder->whereHas('groups', function ($builder) {
-                            $builder->whereNotIn('code', ['APPL', 'appl', 'crstu']);
-                        });
-                    });
-
-                if ($request->has('ng_department_id')) {
-                    $user->where('ng_department_id', $request->ng_department_id);
-                }
-
-                $user = $user->first();
-
-                $valid_user = true;
-                if ($user) {
-                    /**
-                     * Cek is Employee
-                     */
-                    $employee = \Models\ng_employee::where('users_id', $user->id)->first();
-
-                    if ($employee) {
-                        $valid_user = $employee->status == 1;
-                    }
-
-                    /**
-                     * Cek is Student
-                     *
-                     */
-                    $student = \Models\ng_student::where('users_id', $user->id)->first();
-                    if ($student) {
-                        $valid_user = $student->status == 1;
-                    }
-                }
-
-                if ($apps) {
-                    \Session::put('client_detail', $client);
-                    \Session::put('client_id', $apps->client_id);
-                    \Session::put('app_id', $apps->id);
-                    \Session::put('login_logo', $apps->client->web_template_login_logo);
-                    \Session::put('web_template_login_logo', $apps->client->web_template_login_logo);
-                    \Session::put('web_template_login_bg', $apps->client->web_template_login_bg);
-                    \Session::put('fee', $apps->client->fee);
-                    \Session::put('url_verification', $apps->tiny_url_verification);
-                }
-
-                if ($user && Hash::check($request->password, $user->password) && $valid_user) {
-                    $agent = new \Jenssegers\Agent\Agent();
-                    $ng_user_activity = new \Models\ng_user_access();
-
-                    $ng_user_activity->users_id = $user->id;
-                    $ng_user_activity->name = $user->name;
-                    $ng_user_activity->username = $user->username;
-                    $ng_user_activity->access_date = date('Y-m-d H:i:s');
-                    $ng_user_activity->platform = $agent->platform();
-                    $ng_user_activity->browser = $agent->browser();
-                    $ng_user_activity->device = $agent->device();
-                    $ng_user_activity->ip_address = \Request::ip();
-                    $ng_user_activity->client_id = $user->client_id;
-                    $ng_user_activity->save();
-                    $request->session()->put('alert', 1);
-                    return $user;
-                } elseif (!$user) {
-                    throw ValidationException::withMessages([
-                        'user_valid' => say('Data pengguna tidak ditemukan')
-                    ]);
-                } elseif (!Hash::check($request->password, $user->password)) {
-                    throw ValidationException::withMessages([
-                        'user_valid' => say('Password tidak benar, silahkan ulangi menggunakan password yang benar')
-                    ]);
-                } else {
-                    throw ValidationException::withMessages([
-                        'user_valid' => say('Mohon maaf, akun anda telah dinonaktifkan sehingga tidak dapat mengakses portal kembali.')
-                    ]);
-                }
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+            public function toResponse($request)
+            {
+                return redirect('/admin');
             }
         });
     }

@@ -1,0 +1,200 @@
+.navbar-brand{
+    width:260px
+}
+.navbar-top{
+    display: block;
+    height: 3.2rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1
+}
+.navbar.navbar-top{
+    background: #fff;
+    color: #000;
+    padding: .5rem 1rem;
+    box-shadow: 0 0px 4px 0 rgba(208, 208, 208, 0.2), 0 1px 4px 0 rgba(181, 181, 181, 0.19)
+}
+.navbar-toggle{
+    position: absolute;
+    left: 20px;
+    top: -45px;
+    background: #ef9a1e;
+    padding: 5px;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    font-size: 20px;
+    z-index:5
+}
+.sidebar.navbar-side{
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 15px 5px; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background:#f15929;
+    color:#fff;
+    width:100%;
+    -webkit-transition: width 0.3s ease-out
+}
+.sidebar.navbar-side .side-header{
+    padding:10px;
+    text-align: center;
+    min-height: 55px
+}
+.sidebar.navbar-side .side-logo{
+    height: 77px;
+    padding:0 25px 0 15px;
+    -webkit-transition: all 0.3s ease-out
+}
+.sidebar-sticky {
+    top: 0;
+    margin: 10px;
+    overflow-y:auto;
+    height: calc(100% - 95px)
+}
+.sidebar-sticky:hover{
+    overflow-x: hidden;
+    overflow-y: auto
+}
+.sidebar-sticky .nav-link{
+    padding: 12px 10px
+}
+.sidebar-sticky .nav-link:hover,
+.sidebar-sticky .nav-link:focus,
+.sidebar-sticky .nav-link.active{
+    background: #da4d20
+}
+.sidebar-sticky a i{
+    font-size: 18px;
+    margin-right: 10px;
+    float: left;
+    position: relative
+}
+.sidebar-sticky .nav-link .arrow:before{
+    font-size: 12px;
+    font-family: 'Font Awesome 5 Free';
+    content: "\f054";
+    font-weight: 900
+}
+.sidebar-sticky .nav-item.open .arrow:before{
+    content: "\f078";
+}
+.sidebar-sticky .nav-item .menu-content{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0
+}
+.sidebar-sticky .nav-item.open .menu-content{
+    max-height: 200px;
+    transition: max-height 0.3s ease-in
+}
+.sidebar-sticky .menu-content li{
+    list-style: none
+}
+.sidebar-sticky .menu-content li a{
+    padding: 12px 10px 12px 30px;
+    display: block
+}
+.sidebar-sticky .menu-content li a:hover,
+.sidebar-sticky .menu-content li a:focus,
+.sidebar-sticky .menu-content li a.active{
+    text-decoration: none;
+    background: #da4d20
+}
+.menu-collapsed .sidebar.navbar-side{
+    width: 0;
+    padding:0;
+    -webkit-transition: width 0.2s ease-in
+}
+.menu-collapsed .sidebar-sticky{
+    margin:0;
+    height: calc(100% - 40px)
+}
+.menu-collapsed .side-logo{
+    width: 0;
+    padding: 0 !important;
+    height: 0 !important
+}
+.menu-collapsed .sidebar-sticky .nav-item .menu-content,
+.menu-collapsed .nav-link .menu-title,
+.menu-collapsed .nav-link .arrow{
+    display:none
+}
+.menu-collapsed .sidebar-sticky a i{
+    margin: 0;
+    float: unset
+}
+.menu-collapsed .sidebar-sticky .nav-link{
+    text-align: center
+}
+.menu-collapsed .sidebar-sticky .nav-link:hover{
+    margin:0 -10px
+}
+.menu-collapsed .nav-item:hover .nav-link .menu-title{
+    position: absolute;
+    left: 70px;
+    background: #da4d20;
+    padding: 13px 10px;
+    display: block;
+    margin-top:-33px;
+    width:250px;
+    text-align:left;
+    text-transform: uppercase
+}
+.menu-collapsed .nav-item:hover .menu-content{
+    display: block;
+    position: absolute;
+    max-height: unset;
+    background: #278e9d;
+    left: 70px;
+    padding:0;
+    width:250px
+}
+.menu-collapsed .nav-item:hover .menu-content li a{
+    padding: 10px 12px
+}
+.navbar-nav .nav-item{
+    display:inline;
+    font-size:23px
+}
+.navbar-nav .nav-item .nav-link{
+    display:inline;
+    padding:0 8px
+}
+@media (min-width: 768px) {
+    .navbar-toggle{
+        left: unset;
+        right: -17px;
+        top: 30px
+    }
+    .sidebar.navbar-side{
+        top:0px
+    }
+    .menu-collapsed .sidebar.navbar-side{
+        padding: 15px 5px;
+        width: 70px
+    }
+    .sidebar-sticky {
+        height: calc(100% - 93px);
+        overflow: hidden
+    }
+    .sidebar.navbar-side{
+        width:270px
+    }
+    .navbar.navbar-top{
+        padding: .5rem 1.5rem;
+        background: #f7f7f7
+    }
+    .navbar-nav .nav-item{
+        font-size:20px
+    }
+    .menu-collapsed .sidebar-sticky{
+        margin:0 -5px
+    }
+}
