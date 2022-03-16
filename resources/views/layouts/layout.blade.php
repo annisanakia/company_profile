@@ -1,7 +1,7 @@
 @php
 
-$users = \App\User::find(Auth::user()->id);
-$users_photo = \Models\users_photo::where('users_id',Auth::user()->id)->first();
+$users = Auth::user();
+$users_photo = \Models\users_photo::where('users_id',$users->id)->first();
 $department_level = isset($users->ng_department->ng_department_level->code) ? $users->ng_department->ng_department_level->code : null;
 $layout = 'layouts.app';
 

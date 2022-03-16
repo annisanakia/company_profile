@@ -21,6 +21,9 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+        if (auth()->user()) {
+            return '/admin';
+        }
     }
 
     public function handle($request, Closure $next, ...$guards){
@@ -45,11 +48,9 @@ class Authenticate extends Middleware
             }
             
             $ng_department_id = Auth::user()->ng_department_id;
-            $client_id = Auth::user()->client_id;
             $ng_department_ids = \Models\ng_department::getChildRecursive($ng_department_id);
             
             $request->session()->put('ng_department_ids', $ng_department_ids);
-            $request->session()->put('client_id', $client_id);
             
             $code = $request->segment(1);
             if ($request->segment(1) == 'blank') {

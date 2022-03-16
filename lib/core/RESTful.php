@@ -16,7 +16,6 @@ class RESTful extends Controller
 
     protected $model;
     protected $controller_name;
-    protected $controller_mutiple;
     protected $max_row = 50;
     protected $user;
     protected $priv;
@@ -39,20 +38,20 @@ class RESTful extends Controller
     protected $detail_view_path = 'detail';
     protected $job_id;
     protected $request = NULL;
-    protected $add_param_to_custom_filters = [];
+
 
     public function __construct($model, $controller_name)
     {
         $this->middleware('auth', ['except' => $this->middleware_except]);
         $this->user = Auth::user();
-        
+
         if (Auth::check()) {
             $this->model = $model;
             $this->controller_name = $controller_name;
             $this->priv['edit_priv'] = false;
             $this->priv['add_priv'] = false;
             $this->priv['delete_priv'] = false;
-            // $this->setMaxRow(50);
+
             $globalTools = new globalTools();
 
             $this->view_path = $this->view_path != '' ? $this->view_path : $this->controller_name;
@@ -60,14 +59,14 @@ class RESTful extends Controller
 
             $grup_as = Session()->get('group_as', '');
             $job = jobModel::select(['id', 'icon', 'name'])
-                ->where('code', '=', $this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($controller_name))
+                ->where('code', '=', strtolower($controller_name))
                 ->whereHas('acl', function ($builder) use ($grup_as) {
                     $builder->where('groups_id', $grup_as);
                 })
                 ->first();
 
             Session()->put('menu_as', strtolower($controller_name));
-            Session()->put('url_path', $this->url_path);
+
             if (!Session()->has('group_as')) {
                 Redirect::to('/')->send();
             }
@@ -84,19 +83,17 @@ class RESTful extends Controller
                     $this->priv['delete_priv'] = $acl->remove_priv;
                 }
 
-                $this->setTitle(say($this->title ? $this->title : $job->name));
+                $this->setTitle($job->name);
 
                 view::share('icon', $job->icon != '' ? $job->icon : 'fa fa-th-list');
             }
 
-            view::share('jobid', isset($job) ? $job->id : '');
             view::share('priv', $this->priv);
             view::share('title', $this->title);
             view::share('subtitle', $this->subtitle);
             view::share('user', $this->user);
-            view::share('channel_code', null);
             view::share('globalTools', $globalTools);
-            view::share('controller_name', ($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->controller_name)));
+            view::share('controller_name', strtolower($controller_name));
             view::share('view_path', $this->view_path);
         }
     }
@@ -126,7 +123,6 @@ class RESTful extends Controller
         $table = $this->table_name != '' ? $this->table_name : strtolower($this->controller_name);
         $this->filter($data, $request, $table);
         $this->order($data, $request);
-
         if ($request->has('max_row')) {
             $this->setMaxRow($request->input('max_row'));
         }
@@ -134,18 +130,18 @@ class RESTful extends Controller
         $this->filter_string = http_build_query($request->all());
 
         if ($this->priv['add_priv'])
-            $this->actions[] = array('name' => say('Tambah Data'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->controller_name)) . '/create', 'class' => 'blue-button', 'img' => 'assets/images/templates/add-page.png');
+            $this->actions[] = array('name' => 'Tambah Data', 'url' => strtolower($this->controller_name) . '/create', 'class' => 'orange-button add-data', 'icon' => 'far fa-plus-square', 'attr'=>'data-toggle=modal data-target=#addModal data-target2=#container-add');
         if ($this->priv['delete_priv'])
-            $this->actions[] = array('name' => say('Hapus'), 'type' => 'button', 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->controller_name)) . '/delete_row', 'class' => 'purple-button delete-row', 'img' => 'assets/images/templates/delete-page.png');
+            $this->actions[] = array('name' => 'Hapus', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row', 'icon' => 'far fa-trash-alt');
 
         $url_xls = '#';
         if ($this->enable_xls) {
-            $url_xls = ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '/getListAsXls?' . $this->filter_string;
+            $url_xls = strtolower($this->url_path) . '/getListAsXls?' . $this->filter_string;
         }
 
         $url_pdf = '#';
         if ($this->enable_pdf) {
-            $url_pdf = ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '/getListAsPdf?' . $this->filter_string;
+            $url_pdf = strtolower($this->url_path) . '/getListAsPdf?' . $this->filter_string;
         }
 
         if ($this->enable_xls_button) {
@@ -156,12 +152,11 @@ class RESTful extends Controller
             $this->actions[] = array('name' => 'Export PDF', 'url' => $url_pdf, 'attr' => 'target="_blank"', 'class' => 'red-button', 'img' => 'assets/images/templates/pdf-page.png');
         }
 
-        //$this->setAction($action);
-
         $this->beforeIndex($data);
 
         $data = $data->paginate($this->max_row);
-        $data->chunk(100); 
+        $data->chunk(100);
+
         $with['datas'] = $data;
         $with['param'] = $request->all();
 
@@ -171,8 +166,7 @@ class RESTful extends Controller
     }
 
     public function beforeIndex($data)
-    {
-    }
+    { }
 
     public function filter($data, $request, $table)
     {
@@ -234,14 +228,13 @@ class RESTful extends Controller
 
     public function create(Request $request)
     {
-        $content = array('title_form' => $this->create_title != '' ? $this->create_title : say('Tambah data'), 'subtitle_form' => '');
-        $action[] = array('name' => say('Simpan'), 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
-        $action[] = array('name' => say('Batal'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+        $content = array('title_form' => $this->create_title != '' ? $this->create_title : 'Tambah data', 'subtitle_form' => '');
+        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Batal', 'type' => 'button', 'attr'=>'data-dismiss=modal', 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
         $this->setAction($action);
-        $client = \Models\client::find(Session()->get('client_id'));
         $content['actions'] = $this->actions;
-        $content['client'] = $client;
         $content['data'] = null;
+
         return view($this->view_path . '::' . $this->create_view_path, $content);
     }
 
@@ -252,9 +245,9 @@ class RESTful extends Controller
 
         if ($validation->passes()) {
             $this->model->create($input);
-            return Redirect::route(($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '.index');
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
-        return Redirect::route(($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '.create')
+        return Redirect::route(strtolower($this->controller_name) . '.create')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -264,14 +257,14 @@ class RESTful extends Controller
     {
         $data = $this->model->find($id);
         if (is_null($data)) {
-            return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
-        $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : say('Edit data'), 'subtitle_form' => '', 'data' => $data);
+        $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : 'Edit data', 'subtitle_form' => '', 'data' => $data);
 
-        $action[] = array('name' => say('Simpan'), 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
         if ($this->priv['delete_priv'])
-            $action[] = array('name' => say('Hapus'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
-        $action[] = array('name' => say('Batal'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+            $action[] = array('name' => 'Hapus', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
+        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
 
         $this->setAction($action);
         $content['actions'] = $this->actions;
@@ -283,15 +276,13 @@ class RESTful extends Controller
     {
         $data = $this->model->find($id);
         if (is_null($data)) {
-            return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
-        $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : say('Detail data'), 'subtitle_form' => '', 'data' => $data);
+        $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : 'Detail data', 'subtitle_form' => '', 'data' => $data);
 
         if ($this->priv['delete_priv'])
-            $action[] = array('name' => say('Hapus'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
-        if ($this->priv['edit_priv'])
-            $action[] = array('name' => say('Ubah'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)) . '/edit/' . $id, 'class' => 'blue-button', 'icon' => 'fa fa-pencil fa-2');
-        $action[] = array('name' => say('Batal'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+            $action[] = array('name' => 'Hapus', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
+        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
 
         $this->setAction($action);
         $content['actions'] = $this->actions;
@@ -307,9 +298,9 @@ class RESTful extends Controller
         if ($validation->passes()) {
             $data = $this->model->find($id);
             $data->update($input);
-            return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.edit', $id)
+        return Redirect::route(strtolower($this->controller_name) . '.edit', $id)
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -318,9 +309,12 @@ class RESTful extends Controller
     public function delete($id)
     {
         if ($this->priv['delete_priv']) {
-            $this->model->find($id)->delete();
+            $data = $this->model->find($id);
+            if($data){
+                $data->delete();
+            }
         }
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+        return Redirect::route(strtolower($this->controller_name) . '.index');
     }
 
     public function delete_row(Request $request)
@@ -343,8 +337,8 @@ class RESTful extends Controller
                 ->get();
         }
 
-        $action[] = array('name' => say('Simpan'), 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
-        $action[] = array('name' => say('Batal'), 'url' => ($this->controller_mutiple != '' ? strtolower($this->controller_mutiple) : strtolower($this->url_path)), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
 
         $this->setAction($action);
         $with['actions'] = $this->actions;
@@ -372,7 +366,7 @@ class RESTful extends Controller
             $this->model->create($data[$k]);
         }
 
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+        return Redirect::route(strtolower($this->url_path) . '.index');
     }
 
     function setMaxRow($max)

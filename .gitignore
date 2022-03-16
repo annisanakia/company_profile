@@ -23,3 +23,4 @@ storage/framework
 /public/assets/images/temp
 !/storage/fonts/
 sftp.json
+/public/assets/file
