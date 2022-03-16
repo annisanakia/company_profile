@@ -12,9 +12,10 @@
 */
 
 Route::group(['prefix' => 'job', 'namespace' => 'App\Modules\Job\Controllers', 'middleware' => ['web']], function () {
-    Route::get('/', ['as' => 'job.index', 'uses' => 'Job@index']);
+	Route::get('/', ['as' => 'job.index', 'uses' => 'Job@index']);
     Route::post('/store', ['as' => 'job.store', 'uses' => 'Job@store']);
     Route::get('/edit/{id}', ['as' => 'job.edit', 'uses' => 'Job@edit']);
+    Route::get('/detail/{id}', ['as' => 'job.detail', 'uses' => 'Job@detail']);
     Route::patch('/update/{id}', ['as' => 'job.update', 'uses' => 'Job@update']);
     Route::get('/delete/{id}', ['as' => 'job.delete', 'uses' => 'Job@delete']);
     Route::get('/create', ['as' => 'job.create', 'uses' => 'Job@create']);
