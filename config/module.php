@@ -3,6 +3,7 @@
 return [
     'modules' => [
         'Home',
-        'Job'
+        'Job',
+        'Ng_users'
     ]
 ];
