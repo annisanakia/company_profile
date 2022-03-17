@@ -91,7 +91,7 @@
     padding: 0
 }
 .sidebar-sticky .nav-item.open .menu-content{
-    max-height: 200px;
+    max-height: 400px;
     transition: max-height 0.3s ease-in
 }
 .sidebar-sticky .menu-content li{
@@ -174,7 +174,8 @@
         top: 30px
     }
     .sidebar.navbar-side{
-        top:0px
+        top:0px;
+        width:300px
     }
     .menu-collapsed .sidebar.navbar-side{
         padding: 15px 5px;
@@ -184,15 +185,12 @@
         height: calc(100% - 93px);
         overflow: hidden
     }
-    .sidebar.navbar-side{
-        width:270px
-    }
     .navbar.navbar-top{
         padding: .5rem 1.5rem;
         background: #f7f7f7
     }
     .navbar-nav .nav-item{
-        font-size:20px
+        font-size:23px
     }
     .menu-collapsed .sidebar-sticky{
         margin:0 -5px

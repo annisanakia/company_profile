@@ -7,12 +7,15 @@
 body{
     min-width:300px;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size:13px;
+    font-size:14px;
     color:#4a4a4a;
     background: #f0f0f0
 }
 .bg-green{
     background:#1b8359
+}
+.bg-orange{
+    background:#e46d10
 }
 a,
 a:hover{
@@ -28,7 +31,7 @@ a:hover{
     border-radius:10px
 }
 ::-webkit-scrollbar-track:hover {
-    background: #ffffff52;
+    background: #cbcbcb;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -36,7 +39,7 @@ a:hover{
     border-radius:10px
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #d8d8d8
+    background: #cfcfcf
 }
 .container-content {
     padding-top: 75px
@@ -54,11 +57,12 @@ a:hover{
 }
 .title-table{
     margin: 5px 0 15px 0;
-    font-size: 22px
+    font-size: 22px;
+    font-weight: bold
 }
 .detail-content{
     background: #fff;
-    padding: 20px 15px 40px 15px;
+    padding: 20px 20px 40px 20px;
     margin-bottom: 25px
 }
 .action-container{
@@ -70,7 +74,7 @@ a:hover{
     border: none;
     color: #fff;
     padding: 10px 15px;
-    margin: 0 5px;
+    margin: 5px;
     border-radius: 20px
 }
 .action-container .action-button i{
@@ -155,12 +159,12 @@ a:hover{
 }
 .page-item .page-link{
     border-color: #d7d7d7;
-    color:#025d8c;
+    color:#636363;
     padding: .4rem 0.75rem
 }
 .page-item.active .page-link {
-    background-color: #278e9d;
-    border-color: #278e9d
+    background-color: #f15929;
+    border-color: #f15929
 }
 .page-item.disabled .page-link{
     border-color: #d7d7d7;
@@ -254,11 +258,15 @@ a:hover{
     color:#2f2d2d
 }
 .btn-click.btn-green{
-    background:#35ab38;
+    background:#1b8359;
     color:#fff
 }
 .btn-click.btn-red{
     background: #d52b3a;
+    color:#fff
+}
+.btn-click.btn-orange{
+    background: #e46d10;
     color:#fff
 }
 .btn-click:hover{
@@ -267,7 +275,8 @@ a:hover{
 .block-form .form-control{
     font-size: 13px;
     padding: 18px 18px;
-    border-radius: 10px
+    border-radius: 10px;
+    border-color: #cbcbcb;
 }
 .block-form .form-control.bootstrap-select{
     padding: 0
@@ -287,7 +296,7 @@ a:hover{
     font-size: 13px
 }
 .dropdown-item.active, .dropdown-item:active {
-    background-color: #278e9e
+    background-color: #1b8359
 }
 .note-editor.note-frame .note-placeholder{
     color: #959595 !important
@@ -348,7 +357,7 @@ a.link {
     text-decoration: none
 }
 .action-list .green{
-    background:#4eab4c
+    background:#1b8359
 }
 .action-list .yellow{
     background:#f5a623
@@ -546,10 +555,27 @@ a.link {
 .border-table {
     border-top: 2px solid #c7c7c7
 }
+.title-table{
+    padding-left:20px
+}
+.title-form{
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid #1b8359;
+    /* display: inline-block; */
+    margin-bottom: 19px;
+    padding: 8px 5px;
+}
+.form-group .control-label{
+    padding-left: 8px;
+}
+.card{
+    margin-bottom:20px
+}
 @media (min-width: 768px) {
     .container-content{
         padding-top: 80px;
-        margin-left: 285px;
+        margin-left: 315px;
         -webkit-transition: all 0.3s ease-out
     }
     .menu-collapsed .container-content{
@@ -557,7 +583,7 @@ a.link {
         -webkit-transition: all 0.2s ease-in
     }
     ::-webkit-scrollbar {
-        width: 6px
+        width: 4px
     }
     .table-list-footer{
         display: flex;

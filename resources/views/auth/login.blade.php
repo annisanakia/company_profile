@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/main.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/css/login.css')}}">
     </head> 
-    <body class="bg-green h-100">
+    <body class="bg-orange h-100">
         <div class="container h-100">
             <div class="row align-items-center h-100">
                 <div class="col-lg-6 mx-auto">
@@ -71,10 +71,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <input type="checkbox" name="remember" id="remember" class="iCheck" style="margin-right:5px" {{ old('remember') ? 'checked' : '' }}> &nbsp;Remember Me
                                     <button type="submit" class="btn btn-login mt-4 mb-3 btn-success btn-lg btn-block" type>LOGIN</button>
-                                    <a href="#" class="float-left">Forgot password?</a>
-                                    <a href="#" class="float-right">Register now</a>
                                 </div>
                                 </form>
                             </div>

@@ -130,9 +130,9 @@ class RESTful extends Controller
         $this->filter_string = http_build_query($request->all());
 
         if ($this->priv['add_priv'])
-            $this->actions[] = array('name' => 'Tambah Data', 'url' => strtolower($this->controller_name) . '/create', 'class' => 'orange-button add-data', 'icon' => 'far fa-plus-square', 'attr'=>'data-toggle=modal data-target=#addModal data-target2=#container-add');
+            $this->actions[] = array('name' => 'Add Data', 'url' => strtolower($this->controller_name) . '/create', 'class' => 'orange-button', 'icon' => 'far fa-plus-square');
         if ($this->priv['delete_priv'])
-            $this->actions[] = array('name' => 'Hapus', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row', 'icon' => 'far fa-trash-alt');
+            $this->actions[] = array('name' => 'Delete', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row', 'icon' => 'far fa-trash-alt');
 
         $url_xls = '#';
         if ($this->enable_xls) {
@@ -226,12 +226,14 @@ class RESTful extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        $content = array('title_form' => $this->create_title != '' ? $this->create_title : 'Tambah data', 'subtitle_form' => '');
-        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
-        $action[] = array('name' => 'Batal', 'type' => 'button', 'attr'=>'data-dismiss=modal', 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+        $content = array('title_form' => $this->create_title != '' ? $this->create_title : 'Add data', 'subtitle_form' => '');
+        
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'btn btn-click btn-green responsive');
         $this->setAction($action);
+
         $content['actions'] = $this->actions;
         $content['data'] = null;
 
@@ -261,12 +263,12 @@ class RESTful extends Controller
         }
         $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : 'Edit data', 'subtitle_form' => '', 'data' => $data);
 
-        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');if ($this->priv['delete_priv'])
         if ($this->priv['delete_priv'])
-            $action[] = array('name' => 'Hapus', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
-        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
-
+            $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'btn btn-click btn-green responsive');
         $this->setAction($action);
+
         $content['actions'] = $this->actions;
 
         return View($this->view_path . '::' . $this->edit_view_path, $content);
@@ -280,12 +282,10 @@ class RESTful extends Controller
         }
         $content = array('title_form' => $this->edit_title != '' ? $this->edit_title : 'Detail data', 'subtitle_form' => '', 'data' => $data);
 
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');
         if ($this->priv['delete_priv'])
-            $action[] = array('name' => 'Hapus', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'red-button', 'attr' => 'ng-click=confirm($event)', 'img' => 'assets/images/templates/delete-page-red.png');
-        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
-
+            $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
         $this->setAction($action);
-        $content['actions'] = $this->actions;
 
         return View($this->view_path . '::' . $this->detail_view_path, $content);
     }
