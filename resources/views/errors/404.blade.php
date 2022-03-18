@@ -7,43 +7,66 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>LEKAR</title>
+
+        <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
         <style>
-            @font-face {
-                font-family: 'helvetica-neue-bold';
-                src: url('{{ asset("assets/fonts/helvetica-neue/HelveticaNeueBold.ttf") }}')  format('truetype');
-                font-weight: bold;
-                font-style: normal;
-            }
             body{
-                background: #29090a;
+                background: #ef9a1e;
                 margin: 0px;
+                position:relative;
                 background-image: url('{{ asset("assets/images/error/inspiration-geometry3.png") }}');
+                font-family: 'Helvetica', 'Arial', sans-serif;
+                color: #fff;
             }
             .container{
+                padding-top: 120px;
+            }
+            .panel{
                 text-align: center;
-                padding-top: 100px;
+                width: 100%;
+                height:100%;
+                margin: auto;
+                border-collapse: collapse;
             }
-            .person{
-                width: 200px;
+            .panel td{
+                padding: 0 20px;
             }
-            .text{
-                width: 450px;
+            i{
+                font-size:70px;
+                margin-bottom:5px
             }
-            .link{
-                background: #ed1c24;
-                color: #fff;
-                text-decoration: none;
-                padding: 14px 27px;
-                font-family: 'helvetica-neue-bold';
-                font-size: 15px;
+            .title{
+                margin:10px;
+                font-size:20px
+            }
+            a{
+                margin-top:20px;
+                background:#fff;
+                text-decoration:none;
+                padding:15px 20px;
+                color: #e46d10;
+                border-radius:10px;
+                display:inline-block
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <img class="person" src="{{ asset('assets/images/error/icon-404.png') }}"><br>
-            <img class="text" src="{{ asset('assets/images/error/icon-text404.png') }}"><br><br>
-            <a class="link" href="{{ url('/') }}">Try going to our HOMEPAGE</a>
+            <table class="panel">
+                <tr>
+                    <td>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <br>
+                        <div class="title">404 NOT FOUND</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>You have tried to access a page that you have no permission to view.</div>
+                        <a href="{{ url('/') }}">Go Back Home</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
