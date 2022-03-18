@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
                     {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
-                    {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Urutan')) }}
+                    {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
                     {!!$errors->first('ordering', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>

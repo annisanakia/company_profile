@@ -38,7 +38,7 @@ class RESTful extends Controller
     protected $detail_view_path = 'detail';
     protected $job_id;
     protected $request = NULL;
-
+    protected $add_param_to_custom_filters = [];
 
     public function __construct($model, $controller_name)
     {

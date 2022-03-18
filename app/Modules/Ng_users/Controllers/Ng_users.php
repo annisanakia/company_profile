@@ -67,29 +67,22 @@ class Ng_users extends RESTful {
 
                 $image = $request->file('filename');
                 $imagename = time() . '.' . $image->getClientOriginalExtension();
-                // $destinationPath = public_path('assets/images/temp');
                 $destinationPath = public_path('assets/file/users');
-                // dd($destinationPath);
+
                 if (!file_exists($destinationPath)) {
                     File::makeDirectory($destinationPath, $mode = 0777, true, true);
                 }
 
                 $image->move($destinationPath, $imagename);
-
-                // $sftp = new \Lib\sftp\sftpLib();
-                // $s = $sftp->connect();
-                // $s->put($destinationPath . $imagename, file_get_contents($destinationPath . '/' . $imagename));
-
-                // if (file_exists($destinationPath . '/' . $imagename)) {
-                //     unlink($destinationPath . '/' . $imagename);
-                // }
-
-                // $host = $s->getAdapter()->getRemotePath();
                 $path = $request->getSchemeAndHttpHost() . '/assets/file/users/' . $imagename;
-                // dd($path);
                 $filename = $path;
             }
+            
+            $input['password'] = \Hash::make($input['password']);
             $data = $this->model->create($input);
+            $data->status = 1;
+            $data->save();
+            
             if(isset($filename)){
                 $users_photo = \Models\users_photo::where('users_id',$data->id)
                         ->first();
@@ -100,12 +93,68 @@ class Ng_users extends RESTful {
                 $users_photo->filename = $filename;
                 $users_photo->save();
             }
-            return json_decode(true);
+
+            $groups = $request->input('groups_id');
+            $status = $request->input('status');
+            $default = $request->input('default');
+            $id = $data->id;
+            
+            $user_group = new \Models\user_group;
+            foreach ($groups as $key => $n) {
+                $deff = 0;
+                if($n == $default){
+                    $deff = 1;
+                }
+                $param = array(
+                    'groups_id' => $n,
+                    'users_id' => $id,
+                    'default' => $deff
+                );
+                
+                if ($status[$key] == 'disabled') {
+                    $acl = $user_group->where('users_id', '=', $id)
+                            ->where('groups_id', '=', $n);
+                    if ($acl) {
+                        $acl->delete();
+                    }
+                } else {
+                    $acl = $user_group->where('users_id', '=', $id)
+                            ->where('groups_id', '=', $n)
+                            ->first();
+                    if ($acl) {
+                        $acl->update($param);
+                    } else {
+                        $user_group->create($param);
+                    }
+                }
+            }
+
+            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
         }
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.create')
+        return Redirect::route(strtolower($this->controller_name) . '.create')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
+    }
+
+    public function create()
+    {
+        $groups = \Models\groups::all();
+        $temp = array();
+        foreach ($groups as $ug) {
+            $temp[] = array('groups_id' => $ug->id, 'name' => $ug->name, 'status' => 'disabled', 'default' => false);
+        }
+        
+        $content = array('title_form' => $this->create_title != '' ? $this->create_title : 'Add data', 'subtitle_form' => '', 'user_group' => $temp);
+        
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'btn btn-click btn-green responsive');
+        $this->setAction($action);
+
+        $content['actions'] = $this->actions;
+        $content['data'] = null;
+
+        return view($this->view_path . '::' . $this->create_view_path, $content);
     }
 
     public function edit($id) {
@@ -132,8 +181,15 @@ class Ng_users extends RESTful {
                 $temp[] = array('groups_id' => $ug->id, 'name' => $ug->name, 'status' => 'disabled', 'default' => $default);
             }
         }
+
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');if ($this->priv['delete_priv'])
+        if ($this->priv['delete_priv'])
+            $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'btn btn-click btn-green responsive');
+        $this->setAction($action);
         
         $content = array('title_form' => 'Edit data', 'data' => $data, 'user_group' => $temp);
+        $content['actions'] = $this->actions;
 
         return View($this->controller_name . '::edit', $content);
     }
@@ -142,12 +198,14 @@ class Ng_users extends RESTful {
     {
         $input = Request()->all();
 
-        $rules = [
-            'ng_department_id' => 'required',
+        $rules = array(
+            'username' => 'required|unique:users,username,' . $id . ',id,deleted_at,NULL',
             'name' => 'required',
+            'email' => 'email',
+            'phone' => 'numeric',
             'email' => 'email|nullable',
             'phone' => 'numeric|nullable'
-        ];
+        );
     
         $customMessages = [
             'required' => 'This field required.',
@@ -167,32 +225,24 @@ class Ng_users extends RESTful {
 
                 $image = $request->file('filename');
                 $imagename = time() . '.' . $image->getClientOriginalExtension();
-                // $destinationPath = public_path('assets/images/temp');
                 $destinationPath = public_path('assets/file/users');
-                // dd($destinationPath);
+
                 if (!file_exists($destinationPath)) {
                     File::makeDirectory($destinationPath, $mode = 0777, true, true);
                 }
                 
                 $image->move($destinationPath, $imagename);
-
-                // $sftp = new \Lib\sftp\sftpLib();
-                // $s = $sftp->connect();
-                // $s->put($destinationPath . $imagename, file_get_contents($destinationPath . '/' . $imagename));
-
-                // if (file_exists($destinationPath . '/' . $imagename)) {
-                //     unlink($destinationPath . '/' . $imagename);
-                // }
-
-                // $host = $s->getAdapter()->getRemotePath();
                 $path = 'assets/file/users/' . $imagename;
-                // dd($path);
                 $filename = $path;
             }
+
             $data = $this->model->find($id);
-            if ($request->input('password') == '') {
+            if ($request['password'] == '') {
                 unset($input['password']);
+            }else{
+                $input['password'] = \Hash::make($input['password']);
             }
+            
             $data->update($input);
             if(isset($filename)){
                 $users_photo = \Models\users_photo::where('users_id',$data->id)
@@ -238,9 +288,9 @@ class Ng_users extends RESTful {
                     }
                 }
             }
-            return json_decode(true);
+            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
         }
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.edit', $id)
+        return Redirect::route(strtolower($this->controller_name) . '.edit', $id)
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -277,12 +327,14 @@ class Ng_users extends RESTful {
     {
         if ($this->priv['delete_priv']) {
             $data = $this->model->find($id);
-            \Models\user_group::where('users_id',$data->id)
-                    ->delete();
-            \Models\users_photo::where('users_id',$data->id)
-                    ->delete();
-            $data->delete();
+            if($data){
+                \Models\user_group::where('users_id',$data->id)
+                        ->delete();
+                \Models\users_photo::where('users_id',$data->id)
+                        ->delete();
+                $data->delete();
+            }
         }
-        return Redirect::route(($this->controller_mutiple != '' ? $this->controller_mutiple : strtolower($this->url_path)) . '.index');
+        return Redirect::route(strtolower($this->controller_name) . '.index');
     }
 }

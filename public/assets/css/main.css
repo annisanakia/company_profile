@@ -322,9 +322,9 @@ a.link {
 .form-text{
     margin-left: 5px
 }
-.form-group.has-error input,
-.form-group.has-error select{
-    border-color:#d52b3a
+.has-error input,
+.has-error select{
+    border-color:#d52b3a !important
 }
 .error{
     color:#d52b3a
@@ -457,6 +457,9 @@ a.link {
 }
 .form-control{
     font-size: 13px
+}
+.img-thumbnail{
+    text-align: center;
 }
 .img-thumbnail i{
     font-size: 50px;

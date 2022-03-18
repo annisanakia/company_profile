@@ -28,32 +28,39 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('code')) echo 'has-error' ?>">
+                    {{ Form::label('Code', 'Code', array('class'=>'control-label')) }}
                     {{ Form::text('code', null, array('class'=>'form-control', 'placeholder'=>'Code')) }}
                     {!!$errors->first('code', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
+                    {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
                     {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
                     {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
+                    {{ Form::label('Parent', 'Parent', array('class'=>'control-label')) }}
                     {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\job::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
                     {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
-                    {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Urutan')) }}
+                    {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
+                    {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
                     {!!$errors->first('ordering', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('display')) echo 'has-error' ?>">
+                    {{ Form::label('Display', 'Display', array('class'=>'control-label')) }}
                     {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], null, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('menu_type_id')) echo 'has-error' ?>">
+                    {{ Form::label('Menu Type', 'Menu Type', array('class'=>'control-label')) }}
                     {{ Form::select('menu_type_id', [''=>'-- Select Tipe Menu --']+Models\menu_type::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('menu_type_id', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('icon')) echo 'has-error' ?>">
+                    {{ Form::label('Icon', 'Icon', array('class'=>'control-label')) }}
                     {{ Form::text('icon', null, array('class'=>'form-control', 'placeholder'=>'Icon ex : fa fa-folder fa-lg')) }}
                     <span class="form-text text-muted">Dictonary Icon : <a href="http://fontawesome.io/icons/" target="_blank">Fontawesome</a>.</span>
                     {!!$errors->first('icon', ' <span class="form-text error">:message</span>')!!}

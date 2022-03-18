@@ -5,11 +5,15 @@ namespace Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class job extends Model {
 
+    use SoftDeletes;
     protected $table = 'job';
     protected $guarded = ['id'];
+    protected $dates = ['deleted_at'];
+
     public static $rules = array(
         'code' => 'required',
         'name' => 'required',

@@ -43,15 +43,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public static $rules = array(
-        'username' => 'required',
-        'name' => 'required'
-    );
     protected $dates = ['deleted_at'];
+
+    
+    public static $rules = array(
+        'username' => 'required|unique:users,username,NULL,id,deleted_at,NULL',
+        'name' => 'required',
+        'password' => 'required',
+        'email' => 'email|nullable',
+        'phone' => 'numeric|nullable'
+    );
+
+    public static $customMessages = array(
+        'required' => 'This field required.',
+        'username.unique' => 'Username has been taken.',
+        'email' => 'Invalid Email Address.'
+    );
 
     public function validate($data)
     {
-        $v = Validator::make($data, user::$rules);
+        $v = Validator::make($data, user::$rules, user::$customMessages);
         return $v;
     }
 

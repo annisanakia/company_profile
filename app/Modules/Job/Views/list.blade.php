@@ -60,7 +60,7 @@
                             <i class="fas fa-list-alt"></i>
                         </a>
                         @if ($priv['delete_priv'])
-                            <a href="{{ route($controller_name.'.delete',[$data->id]) }}" class="red" ng-click="confirm($event)">
+                            <a href="{{ route($controller_name.'.delete',[$data->id]) }}" class="red delete-data" ng-click="confirm($event)">
                                 <i class="fas fa-trash"></i>
                             </a>
                         @endif

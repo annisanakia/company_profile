@@ -23,7 +23,18 @@ $('.delete-row').click(function (event) {
     $('.deleteConfirm #delete-this').attr('href', '');
 });
 
+$('.delete-data').click(function (event) {
+    event.preventDefault();
+    $('.deleteConfirm').modal('show');
+    $('.deleteConfirm #delete-this').attr("href", $(this).attr('href'));
+    console.log($(this).attr('href'));
+
+    $target = $(this).data('target');
+    $('.deleteConfirm #delete-this').attr("data-target", $target);
+});
+
 $('#delete-this').click(function (event) {
+    console.log($('.deleteConfirm #delete-this').attr('href'));
     if ($('.deleteConfirm #delete-this').attr('href') == '') {
         event.preventDefault();
         var target = $(this).data('target');
