@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Request;
 
 class menuComposerFront {
-    public function compose($menu_type_id) {
+    public function compose() {
         $menu = ng_menu::where('display', 1)
-                    ->where('ng_menu_type_id', $menu_type_id)
-                    ->where('parent',0)
+                    // ->where('parent',0)
                     ->orderBy('ordering', 'asc')
                     ->get()
                     ->toArray();
@@ -57,9 +56,9 @@ class menuComposerFront {
         return $this->makeTree($menu);
     }
 
-    function makeTree($menu, $class = 'navbar-nav mr-auto', $attribute = '') {
+    function makeTree($menu, $class = 'navbar-nav', $attribute = '') {
         $tree = '<ul  class="' . $class . '" ' . $attribute . '>';
-        $component_types = [1 => 'article', 'news', 'facilities', 'gallery', 'contact', 'module', 'external Link'];
+        $component_types = getComponentType();
         foreach ($menu as $id => $menuItem) {
             $link_class = '';
             $nav_class = '';
@@ -68,14 +67,14 @@ class menuComposerFront {
             $component_type = array_key_exists($menuItem['component_type'],$component_types)? $component_types[$menuItem['component_type']] : '';
             $url = 'category/'.$menuItem['slug'].'.html';
             $nav_class = 'nav-item';
-            if (!empty($menuItem['children'])) {
-                $link_class = 'nav-link parent';
+            if (!empty($menuItem['children'])){
+                $nav_class = 'nav-item dropdown';
+                $link_class = 'nav-link dropdown-toggle';
             } else {
                 $link_class = 'nav-link';
-                if($menuItem['slug'] == 'home'){
+                if($menuItem['slug'] == 'dashboard'){
                     $url = '';
                 }elseif(ng_menu::where('parent', '=', $id)->first()) {
-                    // $child = ng_menu::where('parent', '=', $id)->orderBy('id','desc')->first();
                     $url = 'category/'.$menuItem['slug'].'.html';
                 }elseif($menuItem['parent'] != 0){
                     $nav_class = '';
@@ -83,7 +82,7 @@ class menuComposerFront {
                 }
             }
             $target = '';
-            if($menuItem['component_type'] == 8){
+            if($menuItem['component_type'] == 6){ //eksternal link
                 $url = $menuItem['component_link'];
                 $target = 'target="_blank"';
             }
@@ -94,10 +93,14 @@ class menuComposerFront {
                 }
             }
 
-            $tree .= '<li class="' . $nav_class . ' ' . $active . '"><a '.$target.' href="' . url($url) . '" class="' . $link_class . '">' . strtoupper($menuItem['name']) . '</a>';
-
             if (!empty($menuItem['children'])) {
-                $tree .= $this->makeTree($menuItem['children'], 'menu-content', '');
+                $tree .= '<li class="' . $nav_class . ' ' . $active . '">
+                    <a class="' . $link_class . '" href="' . url($url) . '"
+                    id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">' . $menuItem['name'] . '</a>';
+                $tree .= $this->makeTreeSubMenu($menuItem['children'], 'menu-content', '');
+            }else{
+                $tree .= '<li class="' . $nav_class . ' ' . $active . '"><a '.$target.' href="' . url($url) . '" class="' . $link_class . '">' . $menuItem['name'] . '</a>';
             }
 
             $tree .= '</li>';
@@ -106,181 +109,32 @@ class menuComposerFront {
         return $tree . '</ul>';
     }
 
-    public function compose2($menu_type_id,$department) {
-        $menu = ng_menu::where('display', 1)
-                    ->where('ng_menu_type_id', $menu_type_id)
-                    ->orderBy('ordering', 'asc')
-                    ->get()
-                    ->toArray();
-                    
-        if ($menu) {
-            $menu = $this->createMenu2($menu,$department);
-        }
-
-        return $menu;
-    }
-
-    function createMenu2($data,$department) {
-        foreach ($data as $row) {
-            $menu[$row['id']] = $row;
-        }
-
-        $addedAsChildren = array();
-
-        foreach ($menu as $id => &$menuItem) { // note that we use a reference so we don't duplicate the array
-            if (!empty($menuItem['parent']) && $menuItem['parent'] != 0) {
-                if (!array_key_exists($menuItem['parent'], $menu)) {
-                    unset($menu[$id]);
-                } else {
-                    $addedAsChildren[] = $id; // it should be removed from root, but we'll do that later
-
-                    if (!isset($menu[$menuItem['parent']]['children'])) {
-                        $menu[$menuItem['parent']]['children'] = array($menuItem['id'] => &$menuItem); // & means we use the REFERENCE
-                    } else {
-                        $menu[$menuItem['parent']]['children'][$menuItem['id']] = &$menuItem; // & means we use the REFERENCE
-                    }
-                }
-            }
-            // unset($menuItem['parent']); // we don't need parent any more                
-        }
-
-        unset($menuItem); // unset the reference
-
-        foreach ($addedAsChildren as $itemID) {
-            unset($menu[$itemID]); // remove it from root so it's only in the ['children'] subarray
-        }
-
-        return $this->makeTree2($menu,$department);
-    }
-
-    function makeTree2($menu,$department, $class = 'navbar-nav ml-auto', $attribute = '') {
-        $tree = '<ul  class="' . $class . '" ' . $attribute . '>';
-        $component_types = [1 => 'article', 'news', 'facilities', 'gallery', 'contact', 'module', 'external Link'];
+    function makeTreeSubMenu($menu, $class = 'navbar-nav', $attribute = '') {
+        $tree = '<div class="dropdown-menu">';
+        $component_types = getComponentType();
         foreach ($menu as $id => $menuItem) {
-            $link_class = '';
-            $nav_class = '';
+            $link_class = 'dropdown-item';
             $active = '';
             
             $component_type = array_key_exists($menuItem['component_type'],$component_types)? $component_types[$menuItem['component_type']] : '';
-            $url = $department.'/category/'.$menuItem['slug'].'.html';
-            $nav_class = 'nav-item';
-            $div = '';
-            if (!empty($menuItem['children'])) {
-                $link_class = 'nav-link parent';
-            }
-            $link_class = 'nav-link';
-            if($menuItem['slug'] == 'home'){
-                $url = $department;
-            }elseif(ng_menu::where('parent', '=', $id)->first()) {
-                // $child = ng_menu::where('parent', '=', $id)->orderBy('id','desc')->first();
-                $url = $department.'/category/'.$menuItem['slug'].'.html';
-            }elseif($menuItem['parent'] != 0){
-                $nav_class = '';
-                $link_class = 'menu-sub';
-            }
-            $icon = !empty($menuItem['icon']) ? $menuItem['icon'] : 'fa fa-th-list';
-            $div = '<div class="d-block text-lg-center"><i class="'. $icon .'" aria-hidden="true"></i>' . $menuItem['name'] . '</div>';
-            
-            $target = '';
-            if($menuItem['component_type'] == 8){
-                $url = $menuItem['component_link'];
-                $target = 'target="_blank"';
-            }
+            $url = 'category/'.$menuItem['slug'].'.html';
 
             if (Session()->has('menu_as')) {
                 if (Session()->get('menu_as', '') == $menuItem['slug']) {
                     $active = 'active';
                 }
             }
-
-            $tree .= '<li class="' . $nav_class . ' ' . $active . '"><a '.$target.' href="' . url($url) . '" class="' . $link_class . '">'.$div.'</a>';
-
-            if (!empty($menuItem['children'])) {
-                // $tree .= $this->makeTree($menuItem['children'], 'menu-content', '');
-            }
-
-            $tree .= '</li>';
-        }
-
-        return $tree . '</ul>';
-    }
-
-    public function composeProfile($menu_type_id) {
-        $datas = ng_menu::where('display', 1)
-                    ->where('ng_menu_type_id', $menu_type_id)
-                    ->orderBy('ordering', 'asc')
-                    ->whereHas('parents',function($builder) use($menu_type_id){
-                        $builder->where('ng_menu_type_id', $menu_type_id)
-                            ->where('component_type',1);
-                    })
-                    ->where('component_type',1)
-                    ->get();
-
-        if ($datas) {
-            $datas = $this->makeTreeProfile($datas);
-        }
-
-        return $datas;
-    }
-
-    function makeTreeProfile($datas, $class = 'nav flex-column navbar-nav mr-auto', $attribute = '') {
-        $tree = '<ul  class="' . $class . '" ' . $attribute . '>';
-        foreach ($datas as $data) {
-            $nav_class = 'nav-item text-center';
-            $link_class = 'nav-link';
-            $active = '';
             
-            $url = 'category/'.$data->slug.'.html';
-            if (Session()->has('menu_profile')) {
-                if (Session()->get('menu_profile', '') == $data->slug) {
-                    $active = 'active';
-                }
+            $target = '';
+            if($menuItem['component_type'] == 6){ //eksternal link
+                $url = $menuItem['component_link'];
+                $target = 'target="_blank"';
             }
-            $tree .= '<li class="' . $nav_class . '">';
-            $tree .= '<a href="' . url($url) . '" class="' . $link_class . ' ' . $active . '">' . ucwords(strtolower($data->name)) . '</a>';
-            $tree .= '</li>';
+
+            $tree .= '<a '.$target.' href="' . url($url) . '" class="' . $link_class . '">' . $menuItem['name'] . '</a>';
         }
 
-        return $tree . '</ul>';
-    }
-
-    public function composeProfile2($menu_type_id,$department) {
-        $datas = ng_menu::where('display', 1)
-                    ->where('ng_menu_type_id', $menu_type_id)
-                    ->orderBy('ordering', 'asc')
-                    ->whereHas('parents',function($builder) use($menu_type_id){
-                        $builder->where('ng_menu_type_id', $menu_type_id)
-                            ->where('component_type',1);
-                    })
-                    ->where('component_type',1)
-                    ->get();
-
-        if ($datas) {
-            $datas = $this->makeTreeProfile2($datas,$department);
-        }
-
-        return $datas;
-    }
-
-    function makeTreeProfile2($datas,$department, $class = 'nav flex-column navbar-nav mr-auto', $attribute = '') {
-        $tree = '<ul  class="' . $class . '" ' . $attribute . '>';
-        foreach ($datas as $data) {
-            $nav_class = 'nav-item text-center';
-            $link_class = 'nav-link';
-            $active = '';
-            
-            $url = $department.'/category/'.$data->slug.'.html';
-            if (Session()->has('menu_profile')) {
-                if (Session()->get('menu_profile', '') == $data->slug) {
-                    $active = 'active';
-                }
-            }
-            $tree .= '<li class="' . $nav_class . '">';
-            $tree .= '<a href="' . url($url) . '" class="' . $link_class . ' ' . $active . '">' . ucwords(strtolower($data->name)) . '</a>';
-            $tree .= '</li>';
-        }
-
-        return $tree . '</ul>';
+        return $tree . '</div>';
     }
 
     public function getSegment() {

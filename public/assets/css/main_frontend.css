@@ -296,6 +296,9 @@ section.list{
 .section-detail .list-article img{
     max-width:100%;
 }
+nav .nav-item{
+    text-align:center
+}
 @media (min-width: 768px) {
     .container-fluid{
         padding: 10px 60px;

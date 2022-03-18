@@ -17,7 +17,6 @@
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Name', array('sort_field'=> 'name'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Link', array('sort_field'=> 'slug'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Parent', array('sort_field'=> 'parent'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Type Menu', array('sort_field'=> 'ng_menu_type_id'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'ordering'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Display', array('sort_field'=> 'display'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th data-tablesaw-priority="1" class="text-center">Action</th>
@@ -28,7 +27,6 @@
                 <th>{{ Form::text('filter[name]') }}</th>
                 <th>{{ Form::text('filter[slug]') }}</th>
                 <th>{{ Form::select('filter[parent]', ([''=>''] + Models\job::nestedSelect())) }}</th>
-                <th>{{ Form::select('filter[ng_menu_type_id]', ([''=>''] + Models\ng_menu_type::pluck('name','id')->all())) }}</th>
                 <th>{{ Form::text('filter[ordering]') }}</th>
                 <th>{{ Form::select('filter[display]', ([''=>''] + array(1=>'Publish', 2=>'Draft'))) }}</th>
                 <th></th>
@@ -48,7 +46,6 @@
                     <td>{{ isset($data->name)? $data->name : '' }}</td>
                     <td>{{ isset($data->slug)? $data->slug : ''}}</td>
                     <td>{{ isset($data->parents) ? $data->parents->name : '' }}</td>
-                    <td>{{ isset($data->ng_menu_type->name) ? $data->ng_menu_type->name : '' }}</td>
                     <td>{{ isset($data->ordering)? $data->ordering : '' }}</td>
                     <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
                     <td ng-controller="actionController" class="action-list" nowrap>
