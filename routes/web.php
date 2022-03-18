@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/admin', ['as' => 'home.index', 'uses' => '\App\Modules\Home\Controllers\Home@index']);
+Route::get('/', ['as' => 'dashboard.index', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@index']);
+Route::get('/dashboard.html', ['as' => 'dashboard.index', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@index']);
 
 

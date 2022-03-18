@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('display')) echo 'has-error' ?>">
-                    {{ Form::label('Display', 'Display', array('class'=>'control-label')) }}
+                    {{ Form::label('Publish', 'Publish', array('class'=>'control-label')) }}
                     {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], null, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
                 </div>

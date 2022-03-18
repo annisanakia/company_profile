@@ -7,73 +7,63 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>LEKAR</title>
+
+        <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
         <style>
-            @font-face {
-                font-family: 'lato';
-                src: url('{{ asset("assets/fonts/lato/Lato-Regular.ttf") }}')  format('truetype');
-                font-weight: bold;
-                font-style: normal;
-            }
             body{
-                background: #29090a;
+                background: #ef9a1e;
                 margin: 0px;
+                position:relative;
                 background-image: url('{{ asset("assets/images/error/inspiration-geometry3.png") }}');
-                font-family: 'lato';
-                color: #111111;
+                font-family: 'Helvetica', 'Arial', sans-serif;
+                color: #fff;
             }
             .container{
                 padding-top: 120px;
             }
             .panel{
                 text-align: center;
-                background: #ffffff;
-                width: 600px;
+                width: 100%;
+                height:100%;
                 margin: auto;
                 border-collapse: collapse;
             }
-            .lock{
-                border-right: 1px solid #d6d6d6;
-                border-bottom: 1px solid #d6d6d6;
+            .panel td{
+                padding: 0 20px;
             }
-            .lock img{
-                width: 80px;
+            i{
+                font-size:70px;
+                margin-bottom:5px
             }
-            .access{
-                border-bottom: 1px solid #d6d6d6;
+            .title{
+                margin:10px;
+                font-size:20px
             }
-            .access img{
-            }
-            .panel-head{
-                border-bottom: 1px solid #d6d6d6;
-            }
-            .panel-head td{
-                padding: 10px 15px;
-            }
-            .panel-body td{                
-                padding: 30px 20px 40px 20px;
-            }
-            .panel-body img{
-                vertical-align: middle;
-            }
-            .link{
-                color: #d80707;
-                text-decoration: none;
-                font-size: 18px;
+            a{
+                margin-top:20px;
+                background:#fff;
+                text-decoration:none;
+                padding:15px 20px;
+                color: #e46d10;
+                border-radius:10px;
+                display:inline-block
             }
         </style>
     </head>
     <body>
         <div class="container">
             <table class="panel">
-                <tr class="panel-head">
-                    <td class="lock" ><img src="{{ asset('assets/images/error/padlock.png') }}"></td>
-                    <td class="access"><img src="{{ asset('assets/images/error/access-denied.png') }}"></td>
+                <tr>
+                    <td>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <br>
+                        <div class="title">ACCESS DENIED</div>
+                    </td>
                 </tr>
-                <tr class="panel-body">
-                    <td colspan="2">
-                        <p>You have tried to access a page that you have no permission to view. </p>
-                        <a class="link" href="{{ url('/') }}"><img width="25px" src="{{ asset('assets/images/error/back.png') }}">
-                        Go Back Home</a>
+                <tr>
+                    <td>
+                        <div>You have tried to access a page that you have no permission to view.</div>
+                        <a href="{{ url('/') }}">Go Back Home</a>
                     </td>
                 </tr>
             </table>
