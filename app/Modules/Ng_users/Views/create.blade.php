@@ -13,7 +13,7 @@
         font-weight: normal;
     }
 </style>
-{{ Form::open(array('route' => $controller_name.'.store', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'linkIndex'=>url($controller_name))) }}
+{{ Form::open(array('route' => $controller_name.'.store', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
 
 <div class="title-table">
     {{$title}}
@@ -25,38 +25,39 @@
         {{$title_form}}
     </div>
     <div class="block-form">
-        <div class="form-group row">
-            <div class="col-md-6 <?php if ($errors->has('name')) echo 'has-error' ?>">
-                {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
-                {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
-                {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group  <?php if ($errors->has('name')) echo 'has-error' ?>">
+                    {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
+                    {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
+                    {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group  <?php if ($errors->has('username')) echo 'has-error' ?>">
+                    {{ Form::label('Username', 'Username', array('class'=>'control-label')) }}
+                    {{ Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'Username')) }}
+                    {!!$errors->first('username', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('password')) echo 'has-error' ?>">
+                    {{ Form::label('Password', 'Password', array('class'=>'control-label')) }}
+                    {{ Form::password('password', array('class'=>'form-control', 'placeholder'=>'Password')) }}
+                    {!!$errors->first('password', ' <span class="form-text error">:message</span>')!!}
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-6 <?php if ($errors->has('username')) echo 'has-error' ?>">
-                {{ Form::label('Username', 'Username', array('class'=>'control-label')) }}
-                {{ Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'Username')) }}
-                {!!$errors->first('username', ' <span class="form-text error">:message</span>')!!}
-            </div>
-            <div class="col-md-6 <?php if ($errors->has('password')) echo 'has-error' ?>">
-                {{ Form::label('Password', 'Password', array('class'=>'control-label')) }}
-                {{ Form::password('password', array('class'=>'form-control', 'placeholder'=>'Password')) }}
-                {!!$errors->first('password', ' <span class="form-text error">:message</span>')!!}
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-6 <?php if ($errors->has('email')) echo 'has-error' ?>">
-                {{ Form::label('Email', 'Email', array('class'=>'control-label')) }}
-                {{ Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'Email')) }}
-                {!!$errors->first('email', ' <span class="form-text error">:message</span>')!!}
-            </div>
-            <div class="col-md-6 <?php if ($errors->has('phone')) echo 'has-error' ?>">
-                {{ Form::label('Phone', 'Phone', array('class'=>'control-label')) }}
-                {{ Form::text('phone', null, array('class'=>'form-control', 'placeholder'=>'Phone')) }}
-                {!!$errors->first('phone', ' <span class="form-text error">:message</span>')!!}
+            <div class="col-md-6">
+                <div class="form-group <?php if ($errors->has('email')) echo 'has-error' ?>">
+                    {{ Form::label('Email', 'Email', array('class'=>'control-label')) }}
+                    {{ Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'Email')) }}
+                    {!!$errors->first('email', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('phone')) echo 'has-error' ?>">
+                    {{ Form::label('Phone', 'Phone', array('class'=>'control-label')) }}
+                    {{ Form::text('phone', null, array('class'=>'form-control', 'placeholder'=>'Phone')) }}
+                    {!!$errors->first('phone', ' <span class="form-text error">:message</span>')!!}
+                </div>
             </div>
         </div>
         <div class="form-group <?php if ($errors->has('filename')) echo 'has-error' ?>">
+            {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}
             <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 135px; height: 150px;object-fit:cover">
                     <i class="fas fa-camera"></i>
