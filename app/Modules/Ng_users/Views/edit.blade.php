@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="form-group <?php if ($errors->has('filename')) echo 'has-error' ?>">
-            {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}
+            {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}<br>
             <div class="fileinput fileinput-new" data-provides="fileinput">
                 @if(isset($data->users_photo->filename))
                     <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 135px; height: 150px;object-fit:cover">
