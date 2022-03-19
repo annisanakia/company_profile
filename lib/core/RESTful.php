@@ -348,8 +348,8 @@ class RESTful extends Controller
                 ->get();
         }
 
-        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
-        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
 
         $this->setAction($action);
         $with['actions'] = $this->actions;

@@ -1,24 +1,17 @@
 @extends('layouts.layout')
 
 @section('content')
-<style>
-    .groups{
-        cursor: pointer;
-        font-weight: bold;
-        color: #3c8dbc;
-    }
 
-    .disabled{		
-        color:rgb(136, 136, 136);
-        font-weight: normal;
-    }
-</style>
 {{ Form::model($data, ['method' => 'PATCH','route'=>[$controller_name.'.update',$data->id], 'class'=>'form-validation', 'enctype'=>'multipart/form-data']) }}
+
+<div class="title-table">
+    {{$title}}
+</div>
 
 <div class="card">
 <div class="card-body">
     <div class="title-form">
-        {{$title_form}}
+        Edit Account
     </div>
     <div class="block-form">
         <div class="row">
@@ -76,37 +69,6 @@
             <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
             {!!$errors->first('filename', ' <span class="form-text error">:message</span>')!!}
         </div>
-        <table id="privilege" class="table table-bordered" >
-            <thead>
-                <tr>
-                    <th>User Group</th>
-                    <th>Default</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if(count($user_group) > 0)
-                @foreach ($user_group as $ug)
-                <tr>
-                    <td class="groups {{$ug['status']}}">          
-                        {{$ug['name']}}
-                        <input type="hidden" name="groups_id[]" value="{{$ug['groups_id']}}">
-                        <input type="hidden" class="status" name="status[]" value="{{$ug['status']}}">
-                    </td>
-                    <td>
-                        <div class="checkbox">
-                            <label>
-                                <label class="switch-btn hak">
-                                    <input class="hak" type="radio" name="default" value="{{$ug['groups_id']}}" {{$ug['default'] ? 'checked' : ''}}  {{$ug['status']}}>
-                                    <div class="slider"></div>
-                                </label>
-                            </label>
-                        </div>
-                    </td>
-                </tr>	
-                @endforeach
-                @endif                    
-            </tbody>
-        </table>
         @include('component.actions')
     </div>
 </div>
@@ -114,23 +76,6 @@
 
 {{ Form::close() }}
 
-<script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/jasny-bootstrap.min.css')}}"/>
 <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-fileinput/js/jasny-bootstrap.min.js')}}"></script>
-<script>
-    $(document).ready(function() {
-        $(".selectpicker").selectpicker();
-        $('#privilege').on('click', '.groups', function (e) {
-            if ($(this).hasClass('disabled')) {
-                $(this).removeClass('disabled');
-                $(this).parent('tr').find('.hak').removeAttr('disabled');
-                $(this).parent('tr').find('.status').val('');
-            } else {
-                $(this).addClass('disabled');
-                $(this).parent('tr').find('.hak').attr('disabled', true);
-                $(this).parent('tr').find('.status').val('disabled');
-            }
-        });
-    });
-</script>
 @endsection
