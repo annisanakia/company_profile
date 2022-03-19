@@ -1,5 +1,4 @@
 {{ Form::model($param, array('route' => $controller_name.'.search', 'ng-controller'=>'formController', 'ng-submit'=>'submit($event)')) }}
-<a href="{{ url($controller_name) }}" class="linkIndex hidden"></a>
 
 <div class="float-right">
     @include('component.actions')

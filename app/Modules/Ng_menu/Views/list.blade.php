@@ -1,5 +1,4 @@
 {{ Form::model($param, array('route' => $controller_name.'.search', 'ng-controller'=>'formController', 'ng-submit'=>'submit($event)')) }}
-<a href="{{ url($controller_name) }}" class="linkIndex hidden"></a>
 
 <div class="float-right">
     @include('component.actions')
@@ -17,8 +16,8 @@
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Name', array('sort_field'=> 'name'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Link', array('sort_field'=> 'slug'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Parent', array('sort_field'=> 'parent'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'ordering'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Display', array('sort_field'=> 'display'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'ordering'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Display', array('sort_field'=> 'display'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th data-tablesaw-priority="1" class="text-center">Action</th>
             </tr>
             <tr>

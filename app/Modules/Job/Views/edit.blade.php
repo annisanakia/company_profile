@@ -13,7 +13,7 @@
         font-weight: normal;
     }
 </style>
-{{ Form::model($data, ['method' => 'PATCH','route'=>[$controller_name.'.update',$data->id], 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'linkIndex'=>url($controller_name)]) }}
+{{ Form::model($data, ['method' => 'PATCH','route'=>[$controller_name.'.update',$data->id], 'class'=>'form-validation']) }}
 
 <div class="title-table">
     {{$title}}

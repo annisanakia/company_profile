@@ -13,7 +13,7 @@
         font-weight: normal;
     }
 </style>
-{{ Form::open(array('route' => $controller_name.'.store', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'linkIndex'=>url($controller_name))) }}
+{{ Form::open(array('route' => $controller_name.'.store', 'class'=>'form-validation')) }}
 
 <div class="title-table">
     {{$title}}
