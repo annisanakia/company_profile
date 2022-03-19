@@ -1,40 +1,65 @@
-{{ Form::model($data, ['method' => 'PATCH','route'=>[$controller_name.'.update',$data->id], 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'linkIndex'=>url($controller_name)]) }}
+@extends('layouts.layout')
 
-<div class="block-form">
-    <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
-        {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
-        {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
+@section('content')
+
+{{ Form::model($data, ['method' => 'PATCH','route'=>[$controller_name.'.update',$data->id], 'class'=>'form-validation']) }}
+
+<div class="title-table">
+    {{$title}}
+</div>
+
+<div class="card">
+<div class="card-body">
+    <div class="title-form">
+        {{$title_form}}
     </div>
-    <div class="form-group <?php if ($errors->has('slug')) echo 'has-error' ?>">
-        {{ Form::text('slug', null, array('class'=>'form-control', 'placeholder'=>'Link')) }}
-        {!!$errors->first('slug', ' <span class="form-text error">:message</span>')!!}
+    <div class="block-form">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
+                    {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
+                    {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
+                    {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('slug')) echo 'has-error' ?>">
+                    {{ Form::label('Link', 'Link', array('class'=>'control-label')) }}
+                    {{ Form::text('slug', null, array('class'=>'form-control', 'placeholder'=>'Link')) }}
+                    {!!$errors->first('slug', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
+                    {{ Form::label('Parent', 'Parent', array('class'=>'control-label')) }}
+                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\ng_menu::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
+                    {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
+                    {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
+                    {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
+                    {!!$errors->first('ordering', ' <span class="form-text error">:message</span>')!!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group <?php if ($errors->has('component_type')) echo 'has-error' ?>">
+                    {{ Form::label('Component Type', 'Component Type', array('class'=>'control-label')) }}
+                    {{ Form::select('component_type', [''=>'-- Select Component Type --']+getComponentType(), null, array('class'=>'form-control selectpicker', 'id'=>'component_type')) }}
+                    {!!$errors->first('component_type', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('component_link')) echo 'has-error' ?>">
+                    {{ Form::label('Component Link', 'Component Link', array('class'=>'control-label')) }}
+                    {{ Form::select('component_link', [''=>'-- Select Component --'], null, array('class'=>'form-control selectpicker', 'id'=>'component_link')) }}
+                    {{ Form::text('component_link',  null, array('class'=>'form-control', 'id'=>'component_link_text', 'placeholder'=>'Component Link')) }}
+                    {!!$errors->first('component_link', ' <span class="form-text error">:message</span>')!!}
+                    <span class="help-block">Diisi jika ingin menu ke postingan khusus</span>
+                </div>
+                <div class="form-group <?php if ($errors->has('display')) echo 'has-error' ?>">
+                    {{ Form::label('Publish', 'Publish', array('class'=>'control-label')) }}
+                    {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], 1, array('class'=>'form-control selectpicker')) }}
+                    {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
+                </div>
+            </div>
+        </div>
+        @include('component.actions')
     </div>
-    <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
-        {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\ng_menu::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
-        {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
-    </div>
-    <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
-        {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Urutan')) }}
-        {!!$errors->first('ordering', ' <span class="form-text error">:message</span>')!!}
-    </div>
-    <div class="form-group <?php if ($errors->has('display')) echo 'has-error' ?>">
-        {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], null, array('class'=>'form-control selectpicker')) }}
-        {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
-    </div>
-    <div class="form-group <?php if ($errors->has('component_type')) echo 'has-error' ?>">
-        {{ Form::select('component_type', [''=>'-- Select Component Type --']+getComponentType(), null, array('class'=>'form-control selectpicker', 'id'=>'component_type')) }}
-        {!!$errors->first('component_type', ' <span class="form-text error">:message</span>')!!}
-    </div>
-    <div class="form-group <?php if ($errors->has('component_link')) echo 'has-error' ?>">
-        {{ Form::select('component_link', [''=>'-- Select Component --'], null, array('class'=>'form-control selectpicker', 'id'=>'component_link')) }}
-        {{ Form::text('component_link',  null, array('class'=>'form-control', 'id'=>'component_link_text', 'placeholder'=>'Component Link')) }}
-        {!!$errors->first('component_link', ' <span class="form-text error">:message</span>')!!}
-    </div>
-    <div class="form-group <?php if ($errors->has('icon')) echo 'has-error' ?>">
-        {{ Form::text('icon', null, array('class'=>'form-control', 'placeholder'=>'Icon ex : fa fa-folder fa-lg')) }}
-        <span class="form-text text-muted">Dictonary Icon : <a href="http://fontawesome.io/icons/" target="_blank">Fontawesome</a>.</span>
-        {!!$errors->first('icon', ' <span class="form-text error">:message</span>')!!}
-    </div>
+</div>
 </div>
 
 {{ Form::close() }}
@@ -45,7 +70,7 @@
         $(".selectpicker").selectpicker();
 
         function filterComponent(component_type, selected){
-            if(component_type != 8){
+            if(component_type != 6){
                 $('#component_link').prop('disabled', false);
                 $('#component_link').removeClass('sr-only');
                 $('.bootstrap-select').removeClass('sr-only');
@@ -76,3 +101,4 @@
         });
     });
 </script>
+@endsection

@@ -286,6 +286,8 @@ class RESTful extends Controller
         if ($this->priv['delete_priv'])
             $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
         $this->setAction($action);
+        
+        $content['actions'] = $this->actions;
 
         return View($this->view_path . '::' . $this->detail_view_path, $content);
     }

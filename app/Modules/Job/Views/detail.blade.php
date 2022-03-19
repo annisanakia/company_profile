@@ -55,7 +55,7 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td>Publish</td>
+                            <td width="150px">Publish</td>
                             <td width="10px">:</td>
                             <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
                         </tr>

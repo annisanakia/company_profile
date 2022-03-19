@@ -575,7 +575,15 @@ a.link {
 .card{
     margin-bottom:20px
 }
+.help-block{
+    font-size: 12px;
+    margin-left: 10px;
+    color: #676767;
+}
 @media (min-width: 768px) {
+    .form-group.row .col-md-6{
+        margin-bottom:0
+    }
     .container-content{
         padding-top: 80px;
         margin-left: 315px;

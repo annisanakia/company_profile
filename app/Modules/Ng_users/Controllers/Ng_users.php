@@ -318,7 +318,14 @@ class Ng_users extends RESTful {
             }
         }
         
+
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'btn btn-click btn-grey responsive');
+        if ($this->priv['delete_priv'])
+            $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
+        $this->setAction($action);
+
         $content = array('title_form' => 'Detail data', 'data' => $data, 'user_group' => $temp);
+        $content['actions'] = $this->actions;
 
         return View($this->controller_name . '::detail', $content);
     }

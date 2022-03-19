@@ -50,15 +50,15 @@
                     <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
                     <td ng-controller="actionController" class="action-list" nowrap>
                         @if ($priv['edit_priv'])
-                            <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green edit-data" data-toggle="modal" data-target="#editModal" data-target2="#container-edit">
+                            <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                         @endif
-                        <a href="{{ route($controller_name.'.detail',[$data->id]) }}" class="yellow detail-data"  data-toggle="modal" data-target="#detailModal" data-target2="#container-detail">
+                        <a href="{{ route($controller_name.'.detail',[$data->id]) }}" class="yellow">
                             <i class="fas fa-list-alt"></i>
                         </a>
                         @if ($priv['delete_priv'])
-                            <a href="{{ route($controller_name.'.delete',[$data->id]) }}" class="red" ng-click="confirm($event)">
+                            <a href="{{ route($controller_name.'.delete',[$data->id]) }}" class="red delete-data" ng-click="confirm($event)">
                                 <i class="fas fa-trash"></i>
                             </a>
                         @endif

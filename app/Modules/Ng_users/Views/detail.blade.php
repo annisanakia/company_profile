@@ -108,6 +108,7 @@
                 @endif                    
             </tbody>
         </table>
+        @include('component.actions')
     </div>
 </div>
 </div>
