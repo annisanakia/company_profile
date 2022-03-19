@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
                     {{ Form::label('Parent', 'Parent', array('class'=>'control-label')) }}
-                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\job::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
+                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\job::nestedSelect()), 0, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
                     {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('menu_type_id')) echo 'has-error' ?>">
                     {{ Form::label('Menu Type', 'Menu Type', array('class'=>'control-label')) }}
-                    {{ Form::select('menu_type_id', [''=>'-- Select Menu Type --']+Models\menu_type::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
+                    {{ Form::select('menu_type_id', [''=>'-- Select Menu Type --']+Models\menu_type::pluck('name','id')->all(), 1, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('menu_type_id', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('icon')) echo 'has-error' ?>">

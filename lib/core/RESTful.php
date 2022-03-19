@@ -68,7 +68,16 @@ class RESTful extends Controller
             Session()->put('menu_as', strtolower($controller_name));
 
             if (!Session()->has('group_as')) {
-                Redirect::to('/')->send();
+                $group_as = \Models\user_group::select(['groups_id'])
+                        ->where('users_id', '=', Auth::user()->getAttributes()['id'])
+                        ->where('default', '=', 1)
+                        ->first();
+
+                if($group_as){
+                    request()->session()->put('group_as', $group_as->groups_id);
+                }else{
+                    Redirect::to('/admin')->send();
+                }
             }
 
             if ($job) {
