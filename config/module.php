@@ -9,7 +9,7 @@ return [
         'Dashboard',
         'Groups',
         'Account',
-        'Company',
+        'Company_profile',
         'Product',
         'Product_category',
         'Article',

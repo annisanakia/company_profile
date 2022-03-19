@@ -18,7 +18,6 @@
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Parent', array('sort_field'=> 'parent'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'ordering'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Display', array('sort_field'=> 'display'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="0">{{ link_to_route($controller_name.'.search', 'Type Menu', array('sort_field'=> 'menu_type_id'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th data-tablesaw-priority="1" class="text-center">Action</th>
             </tr>
             <tr>
@@ -29,14 +28,13 @@
                 <th>{{ Form::select('filter[parent]', ([''=>''] + Models\job::nestedSelect())) }}</th>
                 <th>{{ Form::text('filter[ordering]') }}</th>
                 <th>{{ Form::select('filter[display]', ([''=>''] + array(1=>'Publish', 2=>'Draft'))) }}</th>
-                <th>{{ Form::select('filter[menu_type_id]', ([''=>''] + Models\menu_type::pluck('name','id')->all())) }}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @if (count($datas) <= 0)
                 <tr>                         
-                    <td colspan="9" style="text-align: center">{{ 'Data Tidak Ditemukan' }}</td> 
+                    <td colspan="8" style="text-align: center">{{ 'Data Tidak Ditemukan' }}</td> 
                 </tr>
             @else
                 @php $i = 0 @endphp
@@ -49,7 +47,6 @@
                     <td>{{ isset($data->parents) ? $data->parents->name : '' }}</td>
                     <td>{{ $data->ordering }}</td>
                     <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
-                    <td>{{ isset($data->menu_type->name) ? $data->menu_type->name : '' }}</td>
                     <td ng-controller="actionController" class="action-list" nowrap>
                         @if ($priv['edit_priv'])
                             <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green">

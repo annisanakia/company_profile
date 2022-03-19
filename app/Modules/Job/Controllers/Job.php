@@ -162,7 +162,6 @@ class Job extends RESTful
             $data->parent = $request->input('parent');
             $data->ordering = $request->input('ordering');
             $data->display = $request->input('display');
-            $data->menu_type_id = $request->input('menu_type_id');
             $data->icon = $request->input('icon');            
             $data->save();
 
