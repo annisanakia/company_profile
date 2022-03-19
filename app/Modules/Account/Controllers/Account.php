@@ -36,7 +36,6 @@ class Account extends RESTful {
         $input = Request()->all();
 
         $rules = array(
-            'username' => 'required|unique:users,username,' . $id . ',id,deleted_at,NULL',
             'name' => 'required',
             'email' => 'email',
             'phone' => 'numeric',
