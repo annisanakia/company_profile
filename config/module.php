@@ -7,6 +7,14 @@ return [
         'Ng_users',
         'Ng_menu',
         'Dashboard',
-        'Groups'
+        'Groups',
+        'Account',
+        'Company',
+        'Product',
+        'Product_category',
+        'Article',
+        'Article_category',
+        'Contact',
+        'Career'
     ]
 ];
