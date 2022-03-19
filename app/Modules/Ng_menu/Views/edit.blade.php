@@ -21,10 +21,6 @@
         {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], null, array('class'=>'form-control selectpicker')) }}
         {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
     </div>
-    <div class="form-group <?php if ($errors->has('ng_menu_type_id')) echo 'has-error' ?>">
-        {{ Form::select('ng_menu_type_id', [''=>'-- Select Menu Type --']+Models\ng_menu_type::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
-        {!!$errors->first('ng_menu_type_id', ' <span class="form-text error">:message</span>')!!}
-    </div>
     <div class="form-group <?php if ($errors->has('component_type')) echo 'has-error' ?>">
         {{ Form::select('component_type', [''=>'-- Select Component Type --']+getComponentType(), null, array('class'=>'form-control selectpicker', 'id'=>'component_type')) }}
         {!!$errors->first('component_type', ' <span class="form-text error">:message</span>')!!}

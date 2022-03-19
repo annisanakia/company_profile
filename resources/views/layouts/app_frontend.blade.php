@@ -9,30 +9,39 @@
 
     <!--  CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/slick/slick.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/slick/slick-theme.css')}}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/main_frontend.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animated.css')}}">
     @yield('styles')
 
     <!--  JS -->
-    <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/plugins/slick/slick.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/angular.min.js')}}"></script>
+    <script src="{{ asset('assets/js/main_frontend.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/main.js') }}" type="text/javascript"></script>
 </head>
-<body>
+<body ng-app="myApp">
     @yield('content_app')
     @yield('scripts')
+    <script type="text/javascript">
+        var showApp = angular.module('myApp', []);
+    </script>
+    <script src="{{ asset('assets/js/tableAngular.js')}}" type="text/javascript"></script>
 </body>
 <footer class="section-footer">
     <section class="pt-4">
         <div class="wrapper-page container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-3 mb-4 d-flex align-items-center">
+                <div class="col-lg-2 col-md-3 mb-4 d-flex align-items-center animated slideUp">
                     <img src="{{ asset('assets/images/templates/ranchdeli.png') }}" style="width:100px"><br>
                 </div>
-                <div class="col-lg-4 col-md-9 mb-4">
+                <div class="col-lg-4 col-md-9 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">ABOUT US</span>
                     <div class="mt-4">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -40,7 +49,7 @@
                         took a galley of type and scrambled it to make a type specimen book.
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">CONTACT US</span>
                     <div class="mt-4">
                         <div class="m-2">
@@ -57,20 +66,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">SOCIAL MEDIA</span>
                     <div class="mt-4">
                         <ul class="nav">
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-3">
                                 <a href="#"><img src="{{ asset('assets/images/templates/instagram.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-4">
                                 <a href="#"><img src="{{ asset('assets/images/templates/facebook.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-5">
                                 <a href="#"><img src="{{ asset('assets/images/templates/twitter.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-6">
                                 <a href="#"><img src="{{ asset('assets/images/templates/whatsapp.png') }}"></a>
                             </li>
                         </ul>

@@ -14,8 +14,7 @@ class ng_menu extends Model {
         'name' => 'required',
         'slug' => 'required',
         'parent' => 'required',
-        'display' => 'required',
-        'ng_menu_type_id' => 'required'
+        'display' => 'required'
     );
     
     public static $customMessages = array(
@@ -34,20 +33,14 @@ class ng_menu extends Model {
 
     public function childs() {
         return $this->hasMany('Models\ng_menu', 'parent', 'id')
-                ->where('ng_menu_type_id',$this->ng_menu_type_id)
                 ->orderBy('ordering','asc')
                 ->orderBy('id','asc');
     }
 
     public function child() {
         return $this->hasOne('Models\ng_menu', 'parent', 'id')
-                ->where('ng_menu_type_id',$this->ng_menu_type_id)
                 ->orderBy('ordering','asc')
                 ->orderBy('id','asc');
-    }
-
-    public function ng_menu_type() {
-        return $this->belongsTo('Models\ng_menu_type', 'ng_menu_type_id');
     }
 
     public function getParentsIndex() {

@@ -148,7 +148,7 @@ function parse_xml_soap_mdr($string)
 function getComponentType()
 {
     $component_type = array(
-        1 => 'Profile', 'News', 'Carrier', 'Product', 'Contact', 'External Link'
+        1 => 'Profile', 'News', 'Product', 'Carrier', 'Contact', 'External Link'
     );
 
     return $component_type;
@@ -157,7 +157,7 @@ function getComponentType()
 function getArticleType()
 {
     $article_type = array(
-        1 => 'Profile', 'News', 'Carrier', 'Product'
+        1 => 'Profile', 'News', 'Product', 'Carrier'
     );
 
     return $article_type;

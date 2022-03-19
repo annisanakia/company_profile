@@ -27,6 +27,7 @@ class Authenticate extends Middleware
     }
 
     public function handle($request, Closure $next, ...$guards){
+        // dd($request->age);
         if (Auth::guard($guards)->check()) {
             $user_group = user_group::select(['groups_id'])->where('users_id', '=', Auth::user()->getAttributes()['id'])->get();
             $this->user_groups = array();
@@ -64,7 +65,7 @@ class Authenticate extends Middleware
                     ->get();
 
             if (count($job) <= 0) {
-                if ($request->segment(1) != '' && $request->segment(1) != 'home') {
+                if ($request->segment(1) != '' && $request->segment(1) != 'admin') {
                     // dd($job,Session()->get('group_as', ''),$request->segment(1),view()->exists('errors.unauthorized'));
                     if (view()->exists('errors.unauthorized')) {
                         return response()->view('errors.unauthorized');

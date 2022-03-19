@@ -32,6 +32,7 @@ class Dashboard extends Controller {
         view::share('url_image', '');
         view::share('globalTools', $globalTools);
         view::share('department', $department);
+
         try {
             parent::getHost();
         } catch (\Exception $e) { }
@@ -44,7 +45,6 @@ class Dashboard extends Controller {
 
         $ng_menu = \Models\ng_menu::where('slug','dashboard')
                 ->where('display', 1)
-                ->where('ng_menu_type_id', 1)
                 ->first();
         
         $mainpages = \Models\ng_gallery::where('ng_department_id',$this->department->id)
@@ -116,7 +116,6 @@ class Dashboard extends Controller {
     public function category($category, Request $request){
         $ng_menu = \Models\ng_menu::where('slug',$category)
                 ->where('display', 1)
-                ->where('ng_menu_type_id', 1)
                 ->first();
         if(isset($ng_menu->parents->slug)){
             Session()->put('menu_as', $ng_menu->parents->slug);
@@ -125,7 +124,7 @@ class Dashboard extends Controller {
         }
 
         if(!$ng_menu){
-            return redirect()->route('errors.unauthorized');
+            return response()->view('errors.unauthorized');
         }
 
         $data = null;
@@ -211,7 +210,7 @@ class Dashboard extends Controller {
             }
         }
 
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function getViewsComponentType($with,$ng_menu,$request){
@@ -297,7 +296,7 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::gallery', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function read($menu,$year,$month,$slug,Request $request){
@@ -437,7 +436,7 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::facilities', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function read_subslug($menu,$year,$month,$slug,$subslug,Request $request){
@@ -491,6 +490,6 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::gallery', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 }
