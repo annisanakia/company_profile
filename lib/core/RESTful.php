@@ -141,7 +141,7 @@ class RESTful extends Controller
         if ($this->priv['add_priv'])
             $this->actions[] = array('name' => 'Add Data', 'url' => strtolower($this->controller_name) . '/create', 'class' => 'orange-button', 'icon' => 'far fa-plus-square');
         if ($this->priv['delete_priv'])
-            $this->actions[] = array('name' => 'Delete', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row', 'icon' => 'far fa-trash-alt');
+            $this->actions[] = array('name' => 'Delete', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row delete-data', 'icon' => 'far fa-trash-alt');
 
         $url_xls = '#';
         if ($this->enable_xls) {

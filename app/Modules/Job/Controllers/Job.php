@@ -200,14 +200,12 @@ class Job extends RESTful
                 }
             }
 
-            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
         return Redirect::route(strtolower($this->controller_name) . '.edit', $id)
                         ->withInput()
                         ->withErrors($validation)
                         ->with('message', 'There were validation errors.');
-
-        parent::update($request, $id);
     }
 
 }

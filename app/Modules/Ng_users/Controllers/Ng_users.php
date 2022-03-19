@@ -129,7 +129,7 @@ class Ng_users extends RESTful {
                 }
             }
 
-            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
         return Redirect::route(strtolower($this->controller_name) . '.create')
             ->withInput()
@@ -288,7 +288,7 @@ class Ng_users extends RESTful {
                     }
                 }
             }
-            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
         return Redirect::route(strtolower($this->controller_name) . '.edit', $id)
             ->withInput()
