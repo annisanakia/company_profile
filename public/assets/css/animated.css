@@ -130,3 +130,18 @@
     transition-duration: 1s;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
 }
+@media (min-width: 768px) {
+    .dropdown-menu{
+        transform:translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition-property:all;
+        transition-duration:1s;
+        transition-timing-function:cubic-bezier(.22,.61,.36,1)
+    }
+    .dropdown-menu.show{
+        transform:translateY(0px);
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -124,7 +124,7 @@ class Dashboard extends Controller {
         }
 
         if(!$ng_menu){
-            return redirect()->route('errors.unauthorized');
+            return response()->view('errors.unauthorized');
         }
 
         $data = null;
@@ -210,7 +210,7 @@ class Dashboard extends Controller {
             }
         }
 
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function getViewsComponentType($with,$ng_menu,$request){
@@ -296,7 +296,7 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::gallery', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function read($menu,$year,$month,$slug,Request $request){
@@ -436,7 +436,7 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::facilities', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 
     public function read_subslug($menu,$year,$month,$slug,$subslug,Request $request){
@@ -490,6 +490,6 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::gallery', $with);
             }
         }
-        return redirect()->route('errors.unauthorized');
+        return response()->view('errors.unauthorized');
     }
 }

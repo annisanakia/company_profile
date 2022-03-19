@@ -38,10 +38,10 @@
     <section class="pt-4">
         <div class="wrapper-page container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-3 mb-4 d-flex align-items-center">
+                <div class="col-lg-2 col-md-3 mb-4 d-flex align-items-center animated slideUp">
                     <img src="{{ asset('assets/images/templates/ranchdeli.png') }}" style="width:100px"><br>
                 </div>
-                <div class="col-lg-4 col-md-9 mb-4">
+                <div class="col-lg-4 col-md-9 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">ABOUT US</span>
                     <div class="mt-4">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -49,7 +49,7 @@
                         took a galley of type and scrambled it to make a type specimen book.
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">CONTACT US</span>
                     <div class="mt-4">
                         <div class="m-2">
@@ -66,20 +66,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-3 col-md-6 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">SOCIAL MEDIA</span>
                     <div class="mt-4">
                         <ul class="nav">
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-3">
                                 <a href="#"><img src="{{ asset('assets/images/templates/instagram.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-4">
                                 <a href="#"><img src="{{ asset('assets/images/templates/facebook.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-5">
                                 <a href="#"><img src="{{ asset('assets/images/templates/twitter.png') }}"></a>
                             </li>
-                            <li class="nav-item text-center m-1">
+                            <li class="nav-item text-center m-1 animated zoomIn d-6">
                                 <a href="#"><img src="{{ asset('assets/images/templates/whatsapp.png') }}"></a>
                             </li>
                         </ul>

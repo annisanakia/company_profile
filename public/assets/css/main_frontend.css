@@ -166,7 +166,7 @@ body,html{
 }
 .section-customer{
     text-align: center;
-    background: #FDEEE0 url("../images/indonesia.png") no-repeat center 90px;
+    background: #FDEEE0 url("../images/templates/indonesia.png") no-repeat center 90px;
     background-size: auto auto;
     transition-duration: 3s!important;
 }
@@ -314,6 +314,11 @@ nav .nav-item{
     }
     .btn-submit{
         width:250px
+    }
+    .dropdown-menu{
+        display: block;
+        right:0;
+        left:unset
     }
 }
 @media (min-width: 992px) {

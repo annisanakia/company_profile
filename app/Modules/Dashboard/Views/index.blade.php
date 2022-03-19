@@ -77,38 +77,38 @@
     <div class="wrapper-page">
         <div class="desc text-center container-fluid w-100 position-relative">
             <div class="title-section">
-                <div class="mb-2">
+                <div class="mb-2 animated slideUp d-3">
                     <div class="line"></div>
                         <img src="{{ asset('assets/images/templates/tea-leaf.png') }}">
                     <div class="line"></div>
                 </div>
-                <b class="color-green">OUR</b>
-                <b class="color-orange">QUALITY</b>
+                <b class="color-green animated slideUp d-4">OUR</b>
+                <b class="color-orange animated slideUp d-4">QUALITY</b>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4">
+                    <div class="panel-round mb-4 animated zoomIn d-3">
                         <img class="mb-3" src="{{ asset('assets/images/templates/raw-chicken2.jpeg') }}"><br>
                         <div class="title color-green font-weight-bold mb-3">GOOD QUALITY</div>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4">
+                    <div class="panel-round mb-4 animated zoomIn d-4">
                         <img class="mb-3" src="{{ asset('assets/images/templates/customer-service.webp') }}"><br>
                         <div class="title color-green font-weight-bold mb-3">SERVICE QUALITY</div>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4">
+                    <div class="panel-round mb-4 animated zoomIn d-5">
                         <img class="mb-3" src="{{ asset('assets/images/templates/delivery.jpeg') }}"><br>
                         <div class="title color-green font-weight-bold mb-3">DELIVERY QUALITY</div>
                         Lorem Ipsum is simply dummy text of the printing.
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4">
+                    <div class="panel-round mb-4 animated zoomIn d-6">
                         <img class="mb-3" src="{{ asset('assets/images/templates/thumbs-up.jpeg') }}"><br>
                         <div class="title color-green font-weight-bold mb-3">RESPONSIVENESS</div>
                         It has survived not only five centuries, but also the leap into electronic typesetting,
@@ -122,10 +122,10 @@
 <section class="section-client position-relative">
     <div class="wrapper-page">
         <ul class="nav justify-content-center container-fluid">
-            <li class="nav-item text-center">
+            <li class="nav-item text-center animated zoomIn d-1">
                 <img src="{{ asset('assets/images/templates/kfc.png') }}">
             </li>
-            <li class="nav-item text-center">
+            <li class="nav-item text-center animated zoomIn d-2">
                 <img src="{{ asset('assets/images/templates/mcd.png') }}">
             </li>
         </ul>
@@ -135,17 +135,17 @@
     <div class="wrapper-page">
         <div class="container-fluid w-100">
             <div class="title-section text-center">
-                <div class="mb-2">
+                <div class="mb-2 animated slideUp d-3">
                     <div class="line"></div>
                         <img src="{{ asset('assets/images/templates/tea-leaf.png') }}">
                     <div class="line"></div>
                 </div>
-                <b class="color-green">OUR</b>
-                <b class="color-orange">PRODUCT</b>
+                <b class="color-green animated slideUp d-4">OUR</b>
+                <b class="color-orange animated slideUp d-4">PRODUCT</b>
             </div>
             <div class="row pb-3">
                 <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100">
+                    <div class="card w-100 position-relative animated zoomIn d-3">
                         <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-drumsticks.jpeg') }}">
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
@@ -155,7 +155,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative">
+                    <div class="card w-100 position-relative animated zoomIn d-4">
                         <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-wings.jpeg') }}">
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative">
+                    <div class="card w-100 position-relative animated zoomIn d-5">
                         <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken.jpeg') }}">
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
@@ -175,7 +175,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative">
+                    <div class="card w-100 position-relative animated zoomIn d-6">
                         <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-breast.jpeg') }}">
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center color-orange w-100 mb-4">
+            <div class="text-center color-orange w-100 mb-4 animated slideUp d-3">
                 <a href="#">SELENGKAPNYA<i class="ml-2 mt-1 fa-solid fa-angle-right"></i></a>
             </div>
         </div>
@@ -194,15 +194,15 @@
 <section class="section-customer position-relative bg-soft-orange">
     <div class="wrapper-page p-4">
         <div class="title-section text-center">
-            <div class="mb-2">
+            <div class="mb-2 animated slideUp d-3">
                 <div class="line"></div>
                     <img src="{{ asset('assets/images/templates/tea-leaf.png') }}">
                 <div class="line"></div>
             </div>
-            <b class="color-green">OUR</b>
-            <b class="color-orange">CUSTOMER</b>
+            <b class="color-green animated slideUp d-4">OUR</b>
+            <b class="color-orange animated slideUp d-4">CUSTOMER</b>
         </div>
-        <div class="desc">
+        <div class="desc animated slideUp d-5">
             <div class="bg-orange rounded-circle d-inline-block p-3" style="width:90px;height:90px">
                 <img src="{{ asset('assets/images/templates/user.png') }}" style="width:50px">
             </div>
@@ -222,17 +222,17 @@
 <section class="section-news bg-white position-relative container-fluid">
     <div class="wrapper-page w-100 pb-4">
         <div class="title-section text-center">
-            <div class="mb-2">
+            <div class="mb-2 animated slideUp d-3">
                 <div class="line"></div>
                     <img src="{{ asset('assets/images/templates/tea-leaf.png') }}">
                 <div class="line"></div>
             </div>
-            <b class="color-green">COMPANY</b>
-            <b class="color-orange">ARTICLES</b>
+            <b class="color-green animated slideUp d-4">COMPANY</b>
+            <b class="color-orange animated slideUp d-4">ARTICLES</b>
         </div>
         <div class="row">
             <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100">
+                <div class="card w-100 border-0 h-100 animated slideUp d-4">
                     <img class="card-img-top img-header" src="{{ asset('assets/images/templates/pasar-ayam.jpeg') }}">
                     <div class="card-body border bg-white">
                         <div class="position-relative h-100 mb-4">
@@ -251,7 +251,7 @@
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100">
+                <div class="card w-100 border-0 h-100 animated slideUp d-5">
                     <img class="card-img-top img-header" src="{{ asset('assets/images/templates/karyawan.jpg') }}">
                     <div class="card-body border bg-white">
                         <div class="position-relative h-100 mb-4">
@@ -270,7 +270,7 @@
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100">
+                <div class="card w-100 border-0 h-100 animated slideUp d-6">
                     <img class="card-img-top img-header" src="{{ asset('assets/images/templates/bakti-sosial.jpeg') }}">
                     <div class="card-body border bg-white">
                         <div class="position-relative h-100 mb-4">
