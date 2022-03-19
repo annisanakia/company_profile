@@ -9,7 +9,10 @@
 
     <!--  CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/slick/slick.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/slick/slick-theme.css')}}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/main_frontend.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animated.css')}}">
     @yield('styles')
 
     <!--  JS -->
@@ -18,11 +21,18 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/plugins/slick/slick.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/angular.min.js')}}"></script>
+    <script src="{{ asset('assets/js/main_frontend.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/main.js') }}" type="text/javascript"></script>
 </head>
-<body>
+<body ng-app="myApp">
     @yield('content_app')
     @yield('scripts')
+    <script type="text/javascript">
+        var showApp = angular.module('myApp', []);
+    </script>
+    <script src="{{ asset('assets/js/tableAngular.js')}}" type="text/javascript"></script>
 </body>
 <footer class="section-footer">
     <section class="pt-4">

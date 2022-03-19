@@ -4,6 +4,7 @@ body,html{
 .main-header {
     /* background-image: linear-gradient(180deg,#d17c2f,#EB892F); */
     background-image: url("../images/templates/bg-orange2.png");
+    background-color: #f15929;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
     /* background-origin: content-box; */
@@ -37,18 +38,18 @@ body,html{
     margin: 0 auto;
     position:relative
 }
-.piece1{
-    left: -20%;
-    bottom: -300px;
-}
-.piece2{
-    right: -20%;
-    bottom: -580px;
-    transform: rotate(116deg);
+.carousel-detail.active{
+    display:block;
+    position:relative;
+    z-index:2;
+    opacity:1
 }
 .carousel-detail{
     padding: 50px 40px;
-    min-height:400px
+    min-height:400px;
+    z-index:0;
+    opacity:0;
+    position:absolute
 }
 .carousel-detail .img-header{
     margin-bottom:20px;
@@ -188,7 +189,8 @@ a:hover, a{
     position: absolute;
     list-style-type: none;
     bottom: 20px;
-    width:100%
+    width:100%;
+    z-index:2
 }
 .carousel-home .carousel-control li button{
     width: 20px;
@@ -299,6 +301,10 @@ section.list{
 nav .nav-item{
     text-align:center
 }
+.section-merchant .merchant-logos ul li {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
 @media (min-width: 768px) {
     .container-fluid{
         padding: 10px 60px;
@@ -316,6 +322,9 @@ nav .nav-item{
     }
     .main-header .navbar {
         padding: 10px 60px 0 60px;
+    }
+    .carousel-detail.active{
+        display:flex
     }
     .carousel-detail .img-header{
         margin-bottom:0;
