@@ -6,6 +6,7 @@ return [
         'Job',
         'Ng_users',
         'Ng_menu',
-        'Dashboard'
+        'Dashboard',
+        'Groups'
     ]
 ];
