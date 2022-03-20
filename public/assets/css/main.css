@@ -580,29 +580,60 @@ a.link {
     margin-left: 10px;
     color: #676767;
 }
-.nav.nav-green .nav-item.active{
-    background:#1b8359;
+.tab-wizard .nav .nav-item.active{
+    background:#ef9a1e;
     color:#fff
 }
-.nav.nav-green .nav-link.active,
-.nav.nav-green .nav-link:focus{
+.tab-wizard .nav .nav-link.active,
+.tab-wizard .nav .nav-link:focus{
     background:unset;
     color:unset
 }
-.nav.nav-green .nav-item:hover{
+.tab-wizard .nav .nav-item:hover{
     opacity:0.8
 }
-.nav-green li.nav-item {
+.tab-wizard li.nav-item {
     width:100%;
     text-align: center;
     background: #dfdfdf;
     border-bottom:1px solid #cdcdcd;
 }
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        padding: 0px;
+        margin: 0px;
+        visibility: hidden;
+    }
+}
 @media (min-width: 768px) {
-    .nav.nav-green .nav-link.active{
+    .tab-wizard .nav .nav-link.active{
         border-radius: 10px;
     }
-    .nav-green li.nav-item {
+    .tab-wizard li.nav-item {
         width: 200px;
         margin: 0 5px;
         margin-bottom:15px;

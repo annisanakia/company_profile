@@ -14,12 +14,8 @@ class company extends Model {
     protected $dates = ['deleted_at'];
     
     public static $rules = array(
-        'title' => 'required',
-        'slug' => 'required',
-        'ng_department_id' => 'required',
-        'display' => 'required',
-        'date' => 'required',
-        'type' => 'required'
+        'code' => 'required',
+        'name' => 'required'
     );
     
     public static $customMessages = array(
@@ -28,20 +24,7 @@ class company extends Model {
     
     public function validate($data)
     {
-        $v = Validator::make($data, ng_article::$rules, ng_article::$customMessages);
+        $v = Validator::make($data, company::$rules, company::$customMessages);
         return $v;
-    }
-
-    public function ng_department() {
-        return $this->belongsTo('Models\ng_department');
-    }
-
-    public function users() {
-        return $this->belongsTo('App\User', 'users_id', 'id');
-    }
-
-    public function ng_visit_module() {
-        return $this->hasOne('Models\ng_visit_module', 'object_id')
-                    ->where('object',$this->getTable());
     }
 }

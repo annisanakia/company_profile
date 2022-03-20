@@ -6,10 +6,9 @@
     {{$title}}
 </div>
 
-
 <div class="tab-wizard tab-ajax-navigation">
     <!-- Nav tabs -->
-    <ul class="nav nav-pills nav-fill nav-green">
+    <ul class="nav nav-pills nav-fill">
         <li role="presentation" class="nav-item active">
             <a id="company_information" href="{{url($controller_name.'/company_information')}}" data-formUrl=""
                 class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
@@ -52,7 +51,7 @@
                     active = $this.attr('data-active');
 
             if (active !== 'disabled') {
-                $(targ).append('<div class="loader"><img src="/assets/images/preloader_2.gif" /></div>');
+                $(targ).append('<div class="loader"><img src="/assets/images/preloader.svg"/></div>');
 
                 $.get(loadurl, function (data) {
                     var scope = angular.element(targ).scope();
@@ -94,7 +93,7 @@
         var url = $(element).data('url'),
                 id = $(element).data('id');
 
-        $(target).append('<div class="loader"><img src="{{asset("assets/images/preloader_2.gif")}}" /></div>');
+        $(target).append('<div class="loader"><img src="/assets/images/preloader.svg"/></div>');
 
         $.ajax({
             url: url,
