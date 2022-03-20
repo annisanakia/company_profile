@@ -580,7 +580,35 @@ a.link {
     margin-left: 10px;
     color: #676767;
 }
+.nav.nav-green .nav-item.active{
+    background:#1b8359;
+    color:#fff
+}
+.nav.nav-green .nav-link.active,
+.nav.nav-green .nav-link:focus{
+    background:unset;
+    color:unset
+}
+.nav.nav-green .nav-item:hover{
+    opacity:0.8
+}
+.nav-green li.nav-item {
+    width:100%;
+    text-align: center;
+    background: #dfdfdf;
+    border-bottom:1px solid #cdcdcd;
+}
 @media (min-width: 768px) {
+    .nav.nav-green .nav-link.active{
+        border-radius: 10px;
+    }
+    .nav-green li.nav-item {
+        width: 200px;
+        margin: 0 5px;
+        margin-bottom:15px;
+        border-radius: 10px;
+        border-bottom: none
+    }
     .form-group.row .col-md-6{
         margin-bottom:0
     }

@@ -24,15 +24,11 @@ class Dashboard extends Controller {
         $this->cms = new \Lib\cms\cms();
         $this->max_row = 9;
         $this->max_row2 = 6;
-        $department = \Models\ng_department::find(1);
-        $this->department = $department;
 
         $globalTools = new \Lib\core\globalTools();
 
         view::share('url_image', '');
         view::share('globalTools', $globalTools);
-        view::share('department', $department);
-
         try {
             parent::getHost();
         } catch (\Exception $e) { }
@@ -41,19 +37,10 @@ class Dashboard extends Controller {
     public function index(Request $request)
     {
         Session()->put('menu_as', 'dashboard');
-        $ng_department = $this->department;
 
         $ng_menu = \Models\ng_menu::where('slug','dashboard')
                 ->where('display', 1)
                 ->first();
-        
-        $mainpages = \Models\ng_gallery::where('ng_department_id',$this->department->id)
-                ->whereHas('ng_gallery_category',function($builder){
-                    $builder->where('code','mainpage');
-                })
-                ->where('display',1)
-                ->orderBy('date','desc')
-                ->get();
 
         $news = \Models\ng_article::where('type',2)
                 ->where('display',1)
@@ -70,43 +57,11 @@ class Dashboard extends Controller {
                 ->orderBy('id', 'desc')
                 ->limit(2)
                 ->get();
-
-        // dump(date("Y-m-d H:i:s"));   
-
-        $achievements = \Models\ng_achievement::orderBy('date', 'desc')
-                ->orderBy('id', 'desc')
-                ->limit(3)
-                ->get();
-
-        $gallerys = \Models\ng_gallery_detail::whereHas('ng_gallery',function($builder) use($ng_department){
-                    $builder->where('ng_department_id',$ng_department->id)
-                            ->where('display',1)
-                            ->whereHas('ng_gallery_category',function($builder){
-                                $builder->where('code','gly');
-                            });
-                })
-                ->orderBy('id', 'desc')
-                ->limit(6)
-                ->get();
-
-        $leaders = \Models\ng_spotlight_leader::where('display',1)
-                ->whereHas('ng_department',function($builder) use($ng_department){
-                    $builder->where('id',$ng_department->id)
-                            ->orWhere('parent',$ng_department->id);
-                })
-                ->orderBy('date', 'desc')
-                ->orderBy('id', 'desc')
-                ->limit(8)
-                ->get();
         
         if($ng_menu){
-            $with['mainpages'] = $mainpages;
             $with['news'] = $news;
             $with['color_news'] = $color_news;
             $with['events'] = $events;
-            $with['achievements'] = $achievements;
-            $with['gallerys'] = $gallerys;
-            $with['leaders'] = $leaders;
             $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
             return view($this->controller_name . '::index', $with);
         }

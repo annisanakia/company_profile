@@ -71,7 +71,7 @@ class ng_menu extends Model {
                 $prefix .= '-';
             }
             $val->setName($prefix . $val->name);
-            $depts[$pi . '#id_' . $val->id] = $val->name : '');
+            $depts[$pi . '#id_' . $val->id] = $val->name;
         }
         ksort($depts);
         $result = array();

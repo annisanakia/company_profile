@@ -48,11 +48,6 @@ class Authenticate extends Middleware
                 }
             }
             
-            $ng_department_id = Auth::user()->ng_department_id;
-            $ng_department_ids = \Models\ng_department::getChildRecursive($ng_department_id);
-            
-            $request->session()->put('ng_department_ids', $ng_department_ids);
-            
             $code = $request->segment(1);
             if ($request->segment(1) == 'blank') {
                 $code = $request->segment(2);
