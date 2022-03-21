@@ -9,9 +9,9 @@
 <div class="tab-wizard tab-ajax-navigation">
     <!-- Nav tabs -->
     <ul class="nav nav-pills nav-fill">
-        <li role="presentation" class="nav-item active">
+        <li role="presentation" class="nav-item">
             <a id="company_information" href="{{url($controller_name.'/company_information')}}" data-formUrl=""
-                class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
+                class="nav-link active" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
                 Company Information
             </a>
         </li>
@@ -63,7 +63,7 @@
             }
         }
 
-        getTab('.tab-ajax-navigation .nav-pills .nav-item.active a');
+        getTab('.tab-ajax-navigation .nav-pills .nav-item a.active');
 
         $(function () {
             $('[data-hover="tooltip"]').tooltip()
@@ -112,6 +112,7 @@
 <script src="{{ asset('assets/js/scrollBack.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.lang.id.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/deleteRows.js')}}" type="text/javascript"></script>
 
 @endsection
 

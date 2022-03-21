@@ -32,7 +32,9 @@ class Company_profile extends RESTful {
 
     public function company_information(){
         $with['data'] = $this->company;
-        $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $action = [];
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
         $this->setAction($action);
 
         $with['actions'] = $this->actions;
@@ -94,5 +96,94 @@ class Company_profile extends RESTful {
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
+    }
+
+    public function company_team()
+    {
+        $data = $this->company;
+
+        $datas = \Models\company_team::select(['*'])
+            ->where('company_id', $data->id)
+            ->orderBy('sequence');
+
+        $this->setMaxRow(50);
+        if (request()->has('max_row')) {
+            $this->setMaxRow(request()->input('max_row'));
+        }
+
+        $datas = $datas->paginate($this->max_row);
+
+        $with['data'] = $data;
+        $with['datas'] = $datas;
+        $with['param'] = request()->all();
+        return view($this->controller_name . '::company_team', $with);
+    }
+
+    public function editTeam()
+    {
+        $action = [];
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/company_team', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $this->setAction($action);
+
+        $with['data'] = \Models\company_team::find(Request()->id);
+        $with['actions'] = $this->actions;
+        return view($this->controller_name . '::editTeam', $with);
+    }
+
+    public function saveTeam()
+    {
+        $input = Request()->all();
+        $model = new \Models\company_team();
+        $validation = $model->validate($input);
+
+        $data = \Models\company_team::find(Request()->id);
+        if ($validation->passes()) {
+            unset($input['photo']);
+            if (request()->hasFile('photo')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('photo');
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['photo'] = $path;
+            }
+            $input['company_id'] = $this->company->id;
+            if($data){
+                $data->update($input);
+            }else{
+                $data = $model->create($input);
+            }
+            \Session::flash('msg', '<b>Save Success</b>');
+            return Redirect::route(strtolower($this->controller_name) . '.company_team');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.editTeam', ['id'=>Request()->id])
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
+
+    
+
+    public function deleteTeam()
+    {
+        if ($this->priv['delete_priv']) {
+            $data = \Models\company_team::find(Request()->id);
+            if($data){
+                $data->delete();
+            }
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.company_team');
     }
 }

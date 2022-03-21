@@ -259,15 +259,19 @@ a:hover{
 }
 .btn-click.btn-green{
     background:#1b8359;
-    color:#fff
+    color:#fff !important
 }
 .btn-click.btn-red{
     background: #d52b3a;
-    color:#fff
+    color:#fff !important
 }
 .btn-click.btn-orange{
     background: #e46d10;
-    color:#fff
+    color:#fff !important
+}
+.btn-click.btn-navy{
+    background: #6077bf;
+    color:#fff !important
 }
 .btn-click:hover{
     opacity:0.8
@@ -586,8 +590,8 @@ a.link {
 }
 .tab-wizard .nav .nav-link.active,
 .tab-wizard .nav .nav-link:focus{
-    background:unset;
-    color:unset
+    background:#ef9a1e;
+    color:#fff;
 }
 .tab-wizard .nav .nav-item:hover{
     opacity:0.8
@@ -630,9 +634,6 @@ a.link {
     }
 }
 @media (min-width: 768px) {
-    .tab-wizard .nav .nav-link.active{
-        border-radius: 10px;
-    }
     .tab-wizard li.nav-item {
         width: 200px;
         margin: 0 5px;

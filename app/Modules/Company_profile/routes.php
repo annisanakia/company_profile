@@ -17,6 +17,10 @@ Route::group(['prefix' => 'company_profile', 'namespace' => 'App\Modules\Company
     Route::get('/company_information', ['as' => 'company_profile.company_information', 'uses' => 'Company_profile@company_information']);
     Route::post('/detailInformationSave', ['as' => 'company_profile.detailInformationSave', 'uses' => 'Company_profile@detailInformationSave']);
     Route::get('/company_team', ['as' => 'company_profile.company_team', 'uses' => 'Company_profile@company_team']);
+    Route::get('/addTeam', ['as' => 'company_profile.addTeam', 'uses' => 'Company_profile@addTeam']);
+    Route::get('/editTeam', ['as' => 'company_profile.editTeam', 'uses' => 'Company_profile@editTeam']);
+    Route::get('/deleteTeam', ['as' => 'company_profile.deleteTeam', 'uses' => 'Company_profile@deleteTeam']);
+    Route::post('/saveTeam', ['as' => 'company_profile.saveTeam', 'uses' => 'Company_profile@saveTeam']);
     Route::get('/header_config', ['as' => 'company_profile.header_config', 'uses' => 'Company_profile@header_config']);
     Route::get('/other_information', ['as' => 'company_profile.other_information', 'uses' => 'Company_profile@other_information']);
 });
