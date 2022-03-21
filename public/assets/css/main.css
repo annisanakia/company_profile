@@ -273,6 +273,10 @@ a:hover{
     background: #6077bf;
     color:#fff !important
 }
+.btn-click.btn-purple{
+    background: #a960bf;
+    color:#fff !important
+}
 .btn-click:hover{
     opacity:0.8
 }

@@ -174,8 +174,6 @@ class Company_profile extends RESTful {
             ->with('message', 'There were validation errors.');
     }
 
-    
-
     public function deleteTeam()
     {
         if ($this->priv['delete_priv']) {
@@ -185,5 +183,18 @@ class Company_profile extends RESTful {
             }
         }
         return Redirect::route(strtolower($this->controller_name) . '.company_team');
+    }
+
+    public function header_config()
+    {
+        $data = $this->company;
+
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/company_team', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+
+        $with['data'] = $data;
+        $with['actions'] = $action;
+        return view($this->controller_name . '::header_config', $with);
     }
 }
