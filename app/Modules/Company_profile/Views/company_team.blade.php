@@ -28,6 +28,7 @@
                         <th width="10px">No</th>
                         <th>Name</th>
                         <th>Role</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +43,7 @@
                             <td>{{ (($datas->currentPage() - 1) * $datas->perPage()) + ++$i}}</td>
                             <td>{{ isset($data->name) ? $data->name : ''}}</td>
                             <td>{{ isset($data->role) ? $data->role : ''}}</td>
-                            <td class="action-list">
+                            <td class="action-list text-center">
                                 @if ($priv['edit_priv'])
                                     <a href="{{ route($controller_name.'.editTeam',['id'=>$data->id]) }}" class="green edit-button" data-target="#container">
                                         <i class="fas fa-pencil-alt"></i>

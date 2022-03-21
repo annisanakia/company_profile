@@ -52,6 +52,35 @@
             </div>
         </div>
         </div>
+        <div class="card">
+        <div class="card-body">
+            <div class="title-form">
+                Sosial Media
+            </div>
+            <div class="block-form">
+                <div class="form-group <?php if ($errors->has('instagram')) echo 'has-error' ?>">
+                    {{ Form::label('Instagram', 'Instagram', array('class'=>'control-label')) }}
+                    {{ Form::text('instagram', $data->instagram, array('class'=>'form-control', 'placeholder'=>'Instagram')) }}
+                    {!!$errors->first('instagram', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('facebook')) echo 'has-error' ?>">
+                    {{ Form::label('Facebook', 'Facebook', array('class'=>'control-label')) }}
+                    {{ Form::text('facebook', $data->facebook, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
+                    {!!$errors->first('facebook', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('twitter')) echo 'has-error' ?>">
+                    {{ Form::label('Twitter', 'Twitter', array('class'=>'control-label')) }}
+                    {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
+                    {!!$errors->first('twitter', ' <span class="form-text error">:message</span>')!!}
+                </div>
+                <div class="form-group <?php if ($errors->has('whatsapp')) echo 'has-error' ?>">
+                    {{ Form::label('Whatsapp', 'Whatsapp', array('class'=>'control-label')) }}
+                    {{ Form::text('whatsapp', $data->whatsapp, array('class'=>'form-control', 'placeholder'=>'Whatsapp')) }}
+                    {!!$errors->first('whatsapp', ' <span class="form-text error">:message</span>')!!}
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="card">
@@ -109,33 +138,21 @@
             </div>
         </div>
         </div>
-    </div>
-    <div class="col-md-6">
         <div class="card">
         <div class="card-body">
             <div class="title-form">
                 Sosial Media
             </div>
             <div class="block-form">
-                <div class="form-group <?php if ($errors->has('instagram')) echo 'has-error' ?>">
-                    {{ Form::label('Instagram', 'Instagram', array('class'=>'control-label')) }}
-                    {{ Form::text('instagram', $data->instagram, array('class'=>'form-control', 'placeholder'=>'Instagram')) }}
-                    {!!$errors->first('instagram', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group <?php if ($errors->has('visi')) echo 'has-error' ?>">
+                    {{ Form::label('Visi', 'Visi', array('class'=>'control-label')) }}
+                    {{ Form::textarea('visi', $data->visi, array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Visi')) }}
+                    {!!$errors->first('visi', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('facebook')) echo 'has-error' ?>">
-                    {{ Form::label('Facebook', 'Facebook', array('class'=>'control-label')) }}
-                    {{ Form::text('facebook', $data->facebook, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
-                    {!!$errors->first('facebook', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('twitter')) echo 'has-error' ?>">
-                    {{ Form::label('Twitter', 'Twitter', array('class'=>'control-label')) }}
-                    {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
-                    {!!$errors->first('twitter', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('whatsapp')) echo 'has-error' ?>">
-                    {{ Form::label('Whatsapp', 'Whatsapp', array('class'=>'control-label')) }}
-                    {{ Form::text('whatsapp', $data->whatsapp, array('class'=>'form-control', 'placeholder'=>'Whatsapp')) }}
-                    {!!$errors->first('whatsapp', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group <?php if ($errors->has('misi')) echo 'has-error' ?>">
+                    {{ Form::label('Misi', 'Misi', array('class'=>'control-label')) }}
+                    {{ Form::textarea('misi', $data->misi, array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Misi')) }}
+                    {!!$errors->first('misi', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
         </div>
