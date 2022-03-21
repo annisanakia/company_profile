@@ -12,25 +12,31 @@
         <li role="presentation" class="nav-item">
             <a id="company_information" href="{{url($controller_name.'/company_information')}}" data-formUrl=""
                 class="nav-link active" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
-                Company Information
+                Company<br> Information
             </a>
         </li>
         <li role="presentation" class="nav-item">
             <a id="company_team" href="{{url($controller_name.'/company_team')}}" data-formUrl=""
                 class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
-                Company Team
+                Company<br> Team
             </a>
         </li>
         <li role="presentation" class="nav-item">
             <a id="header_config" href="{{url($controller_name.'/header_config')}}" data-formUrl=""
                 class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
-                Header Configuration
+                Header<br> Configuration
+            </a>
+        </li>
+        <li role="presentation" class="nav-item">
+            <a id="customers" href="{{url($controller_name.'/customer')}}" data-formUrl=""
+                class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
+                Customers<br> & Testimoni
             </a>
         </li>
         <li role="presentation" class="nav-item">
             <a id="other_information" href="{{url($controller_name.'/other_information')}}" data-formUrl=""
                 class="nav-link" data-target="#container" data-toggle="tabajax" aria-controls="identitas" role="tab">
-                Other Information
+                Other<br> Information
             </a>
         </li>
     </ul>

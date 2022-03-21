@@ -3,7 +3,7 @@
         padding-top: 38px;
     }
 </style>
-{{ Form::open(array('route' => $controller_name.'.saveTeam', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
+{{ Form::open(array('route' => $controller_name.'.saveTestimoni', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
 {{ Form::hidden('id', isset($data)? $data->id : '') }}
 
 @include('component.actions')
@@ -20,10 +20,11 @@
                     {{ Form::text('name', isset($data)? $data->name : '', array('class'=>'form-control', 'placeholder'=>'Name')) }}
                     {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('role')) echo 'has-error' ?>">
-                    {{ Form::label('Role', 'Role', array('class'=>'control-label')) }}
-                    {{ Form::text('role', isset($data)? $data->role : '', array('class'=>'form-control', 'placeholder'=>'Role')) }}
-                    {!!$errors->first('role', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group <?php if ($errors->has('sequence')) echo 'has-error' ?>">
+                    {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
+                    {{ Form::text('sequence', isset($data)? $data->sequence : '', array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
+                    {!!$errors->first('sequence', ' <span class="form-text error">:message</span>')!!}
+                    <span class="help-block">Urutan untuk ditampilkan di dashboard website</span>
                 </div>
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}

@@ -3,7 +3,7 @@
         padding-top: 38px;
     }
 </style>
-{{ Form::open(array('route' => $controller_name.'.saveTeam', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
+{{ Form::open(array('route' => $controller_name.'.saveCustomer', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
 {{ Form::hidden('id', isset($data)? $data->id : '') }}
 
 @include('component.actions')
@@ -19,11 +19,6 @@
                     {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
                     {{ Form::text('name', isset($data)? $data->name : '', array('class'=>'form-control', 'placeholder'=>'Name')) }}
                     {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('role')) echo 'has-error' ?>">
-                    {{ Form::label('Role', 'Role', array('class'=>'control-label')) }}
-                    {{ Form::text('role', isset($data)? $data->role : '', array('class'=>'form-control', 'placeholder'=>'Role')) }}
-                    {!!$errors->first('role', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
@@ -50,11 +45,11 @@
                     {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         @if(isset($data) && $data->photo != '')
-                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 135px; height: 150px;object-fit:cover">
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;object-fit:cover">
                                 <img src="{{ asset($data->photo) }}">
                             </div>
                         @else
-                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 135px; height: 150px;object-fit:cover">
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;object-fit:cover">
                                 <i class="fas fa-camera"></i>
                             </div>
                         @endif

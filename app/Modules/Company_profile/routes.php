@@ -22,5 +22,12 @@ Route::group(['prefix' => 'company_profile', 'namespace' => 'App\Modules\Company
     Route::get('/deleteTeam', ['as' => 'company_profile.deleteTeam', 'uses' => 'Company_profile@deleteTeam']);
     Route::post('/saveTeam', ['as' => 'company_profile.saveTeam', 'uses' => 'Company_profile@saveTeam']);
     Route::get('/header_config', ['as' => 'company_profile.header_config', 'uses' => 'Company_profile@header_config']);
+    Route::get('/customer', ['as' => 'company_profile.customer', 'uses' => 'Company_profile@customer']);
+    Route::get('/editCustomer', ['as' => 'company_profile.editCustomer', 'uses' => 'Company_profile@editCustomer']);
+    Route::post('/saveCustomer', ['as' => 'company_profile.saveCustomer', 'uses' => 'Company_profile@saveCustomer']);
+    Route::get('/deleteCustomer', ['as' => 'company_profile.deleteCustomer', 'uses' => 'Company_profile@deleteCustomer']);
+    Route::get('/editTestimoni', ['as' => 'company_profile.editTestimoni', 'uses' => 'Company_profile@editTestimoni']);
+    Route::post('/saveTestimoni', ['as' => 'company_profile.saveTestimoni', 'uses' => 'Company_profile@saveTestimoni']);
+    Route::get('/deleteTestimoni', ['as' => 'company_profile.deleteTestimoni', 'uses' => 'Company_profile@deleteTestimoni']);
     Route::get('/other_information', ['as' => 'company_profile.other_information', 'uses' => 'Company_profile@other_information']);
 });

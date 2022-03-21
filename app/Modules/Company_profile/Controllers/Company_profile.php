@@ -197,4 +197,145 @@ class Company_profile extends RESTful {
         $with['actions'] = $action;
         return view($this->controller_name . '::header_config', $with);
     }
+
+    public function customer()
+    {
+        $data = $this->company;
+
+        $customers = \Models\customer::select(['*'])
+            ->where('company_id', $data->id)
+            ->get();
+
+        $testimonis = \Models\testimoni::select(['*'])
+            ->where('company_id', $data->id)
+            ->orderBy('sequence','ASC')
+            ->get();
+
+        $with['data'] = $data;
+        $with['customers'] = $customers;
+        $with['testimonis'] = $testimonis;
+        $with['param'] = request()->all();
+        return view($this->controller_name . '::customer', $with);
+    }
+
+    public function editCustomer()
+    {
+        $action = [];
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/customer', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $this->setAction($action);
+
+        $with['data'] = \Models\customer::find(Request()->id);
+        $with['actions'] = $this->actions;
+        return view($this->controller_name . '::editCustomer', $with);
+    }
+
+    public function saveCustomer()
+    {
+        $input = Request()->all();
+        $model = new \Models\customer();
+        $validation = $model->validate($input);
+
+        $data = \Models\customer::find(Request()->id);
+        if ($validation->passes()) {
+            unset($input['photo']);
+            if (request()->hasFile('photo')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('photo');
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['photo'] = $path;
+            }
+            $input['company_id'] = $this->company->id;
+            if($data){
+                $data->update($input);
+            }else{
+                $data = $model->create($input);
+            }
+            \Session::flash('msg', '<b>Save Success</b>');
+            return Redirect::route(strtolower($this->controller_name) . '.customer');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.editCustomer', ['id'=>Request()->id])
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
+
+    public function deleteCustomer()
+    {
+        if ($this->priv['delete_priv']) {
+            $data = \Models\customer::find(Request()->id);
+            if($data){
+                $data->delete();
+            }
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.customer');
+    }
+
+    public function editTestimoni()
+    {
+        $action = [];
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/customer', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $this->setAction($action);
+
+        $with['data'] = \Models\testimoni::find(Request()->id);
+        $with['actions'] = $this->actions;
+        return view($this->controller_name . '::editTestimoni', $with);
+    }
+
+    public function saveTestimoni()
+    {
+        $input = Request()->all();
+        $model = new \Models\testimoni();
+        $validation = $model->validate($input);
+
+        $data = \Models\testimoni::find(Request()->id);
+        if ($validation->passes()) {
+            unset($input['photo']);
+            if (request()->hasFile('photo')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('photo');
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['photo'] = $path;
+            }
+            $input['company_id'] = $this->company->id;
+            if($data){
+                $data->update($input);
+            }else{
+                $data = $model->create($input);
+            }
+            \Session::flash('msg', '<b>Save Success</b>');
+            return Redirect::route(strtolower($this->controller_name) . '.customer');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.editTestimoni', ['id'=>Request()->id])
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
 }

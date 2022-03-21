@@ -28,13 +28,14 @@
                         <th width="10px">No</th>
                         <th>Name</th>
                         <th>Role</th>
+                        <th>Status Publish</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (count($datas) <= 0)
                         <tr>
-                            <td colspan="3" style="text-align: center">{{ say('Data Tidak Ditemukan') }}</td>
+                            <td colspan="5" style="text-align: center">Data Tidak Ditemukan</td>
                         </tr>
                     @else
                         @php ($i = 0) @endphp
@@ -43,6 +44,7 @@
                             <td>{{ (($datas->currentPage() - 1) * $datas->perPage()) + ++$i}}</td>
                             <td>{{ isset($data->name) ? $data->name : ''}}</td>
                             <td>{{ isset($data->role) ? $data->role : ''}}</td>
+                            <td>{{ $data->is_publish == 1? 'Publish' : 'Draft'}}</td>
                             <td class="action-list text-center">
                                 @if ($priv['edit_priv'])
                                     <a href="{{ route($controller_name.'.editTeam',['id'=>$data->id]) }}" class="green edit-button" data-target="#container">
@@ -57,7 +59,7 @@
                             </td>
                         </tr>
                         @endforeach
-                        @endif
+                    @endif
                 </tbody>
             </table>
         </div>
