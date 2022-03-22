@@ -338,4 +338,96 @@ class Company_profile extends RESTful {
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
     }
+
+    public function deleteTestimoni()
+    {
+        if ($this->priv['delete_priv']) {
+            $data = \Models\testimoni::find(Request()->id);
+            if($data){
+                $data->delete();
+            }
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.customer');
+    }
+
+    public function other_information()
+    {
+        $data = $this->company;
+
+        $company_qualitys = \Models\company_quality::select(['*'])
+            ->where('company_id', $data->id)
+            ->orderBy('sequence','ASC')
+            ->get();
+            
+        $with['data'] = $data;
+        $with['company_qualitys'] = $company_qualitys;
+        $with['param'] = request()->all();
+        return view($this->controller_name . '::other_information', $with);
+    }
+
+    public function editQuality()
+    {
+        $action = [];
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/other_information', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+        if ($this->priv['edit_priv'])
+            $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $this->setAction($action);
+
+        $with['data'] = \Models\company_quality::find(Request()->id);
+        $with['actions'] = $this->actions;
+        return view($this->controller_name . '::editQuality', $with);
+    }
+
+    public function saveQuality()
+    {
+        $input = Request()->all();
+        $model = new \Models\company_quality();
+        $validation = $model->validate($input);
+
+        $data = \Models\company_quality::find(Request()->id);
+        if ($validation->passes()) {
+            unset($input['photo']);
+            if (request()->hasFile('photo')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('photo');
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['photo'] = $path;
+            }
+            $input['company_id'] = $this->company->id;
+            if($data){
+                $data->update($input);
+            }else{
+                $data = $model->create($input);
+            }
+            \Session::flash('msg', '<b>Save Success</b>');
+            return Redirect::route(strtolower($this->controller_name) . '.other_information');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.editQuality', ['id'=>Request()->id])
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
+
+    public function deleteQuality()
+    {
+        if ($this->priv['delete_priv']) {
+            $data = \Models\company_quality::find(Request()->id);
+            if($data){
+                $data->delete();
+            }
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.other_information');
+    }
 }

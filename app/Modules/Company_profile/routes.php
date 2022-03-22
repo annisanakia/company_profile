@@ -30,4 +30,7 @@ Route::group(['prefix' => 'company_profile', 'namespace' => 'App\Modules\Company
     Route::post('/saveTestimoni', ['as' => 'company_profile.saveTestimoni', 'uses' => 'Company_profile@saveTestimoni']);
     Route::get('/deleteTestimoni', ['as' => 'company_profile.deleteTestimoni', 'uses' => 'Company_profile@deleteTestimoni']);
     Route::get('/other_information', ['as' => 'company_profile.other_information', 'uses' => 'Company_profile@other_information']);
+    Route::get('/editQuality', ['as' => 'company_profile.editQuality', 'uses' => 'Company_profile@editQuality']);
+    Route::post('/saveQuality', ['as' => 'company_profile.saveQuality', 'uses' => 'Company_profile@saveQuality']);
+    Route::get('/deleteQuality', ['as' => 'company_profile.deleteQuality', 'uses' => 'Company_profile@deleteQuality']);
 });

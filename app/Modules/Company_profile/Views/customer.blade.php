@@ -84,6 +84,7 @@
                     <tr class="ordering">
                         <th width="10px">No</th>
                         <th>Name</th>
+                        <th>Ordering</th>
                         <th>Status Publish</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -91,7 +92,7 @@
                 <tbody>
                     @if (count($testimonis) <= 0)
                         <tr>
-                            <td colspan="4" style="text-align: center">Data Tidak Ditemukan</td>
+                            <td colspan="5" style="text-align: center">Data Tidak Ditemukan</td>
                         </tr>
                     @else
                         @php ($i = 0) @endphp
@@ -99,6 +100,7 @@
                         <tr>
                             <td>{{ ++$i}}</td>
                             <td>{{ isset($data->name) ? $data->name : ''}}</td>
+                            <td>{{ isset($data->sequence) ? $data->sequence : ''}}</td>
                             <td>{{ $data->is_publish == 1? 'Publish' : 'Draft'}}</td>
                             <td class="action-list text-center">
                                 @if ($priv['edit_priv'])
@@ -119,6 +121,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 
 <script type="text/javascript">
