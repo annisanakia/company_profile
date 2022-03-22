@@ -12,7 +12,7 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Detail Company
+                Detail Customer
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
@@ -38,7 +38,7 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Logo Company
+                Photo Customer
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('photo')) echo 'has-error' ?>">
