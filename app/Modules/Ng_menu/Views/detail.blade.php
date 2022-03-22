@@ -27,6 +27,7 @@
     <div class="block-form">
         <div class="row">
             <div class="col-md-6">
+                <table class="table">
                     <tbody>
                         <tr>
                             <td width="150px">Name</td>
