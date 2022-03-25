@@ -24,6 +24,11 @@ class Product extends RESTful {
         parent::__construct($model, $controller_name);
     }
 
+    public function beforeIndex($data)
+    {
+        $data->where('company_id',$this->company->id);
+    }
+
     public function store(\Illuminate\Http\Request $request)
     {
         $input = Request()->all();

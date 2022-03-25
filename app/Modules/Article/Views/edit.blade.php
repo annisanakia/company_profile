@@ -28,6 +28,11 @@
                     {{ Form::text('title', null, array('class'=>'form-control', 'placeholder'=>'Title')) }}
                     {!!$errors->first('title', ' <span class="form-text error">:message</span>')!!}
                 </div>
+                <div class="form-group <?php if ($errors->has('date')) echo 'has-error' ?>">
+                    {{ Form::label('Article Date', 'Article Date', array('class'=>'control-label')) }}
+                    {{ Form::date('date', isset($data)? $data->date : date('Y-m-d'), array('class'=>'form-control')) }}
+                    {!!$errors->first('date', ' <span class="form-text error">:message</span>')!!}
+                </div>
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
                     {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Description')) }}

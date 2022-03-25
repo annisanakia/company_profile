@@ -15,7 +15,8 @@ class article extends Model {
     
     public static $rules = array(
         'article_category_id' => 'required',
-        'title' => 'required'
+        'title' => 'required',
+        'date' => 'required'
     );
     
     public static $customMessages = array(

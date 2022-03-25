@@ -13,14 +13,19 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td width="150px">Product Category</td>
+                            <td width="150px">Article Category</td>
                             <td>:</td>
-                            <td>{{ isset($data->product_category->name)? $data->product_category->name : '' }}</td>
+                            <td>{{ isset($data->article_category->name)? $data->article_category->name : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Name</td>
+                            <td>Title</td>
                             <td>:</td>
-                            <td>{{ isset($data->name)? $data->name : '' }}</td>
+                            <td>{{ isset($data->title)? $data->title : '' }}</td>
+                        </tr>
+                        <tr>
+                            <td>Article Date</td>
+                            <td>:</td>
+                            <td>{{ isset($data->date)? dateToIndo($data->date) : '' }}</td>
                         </tr>
                         <tr>
                             <td>Description</td>
