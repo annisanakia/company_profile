@@ -13,7 +13,7 @@
             <tr class="ordering">
                 <th width="10px" data-tablesaw-priority="persist">#</th>
                 <th width="10px" data-tablesaw-priority="persist" class="text-center">No</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Product Category', array('sort_field'=> 'product_category_id'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Article Category', array('sort_field'=> 'article_category_id'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Name', array('sort_field'=> 'name'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'sequence'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Status Publish', array('sort_field'=> 'is_publish'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
@@ -22,7 +22,7 @@
             <tr>
                 <th>{{ Form::checkbox('group_row', null, null, array('class'=>'group_check iCheck', 'data-set'=>'.table-check .checkboxes')) }}</th>
                 <th><button type="submit"><i class="fas fa-search"></i></span></button></th>
-                <th>{{ Form::select('filter[product_category_id]', [''=>'']+\Models\product_category::pluck('name','id')->all()) }}</th>
+                <th>{{ Form::select('filter[article_category_id]', [''=>'']+\Models\article_category::pluck('name','id')->all()) }}</th>
                 <th>{{ Form::text('filter[name]') }}</th>
                 <th>{{ Form::text('filter[sequence]') }}</th>
                 <th>{{ Form::select('filter[is_publish]', [''=>'',2=>'Draft',1=>'publish']) }}</th>
@@ -42,7 +42,7 @@
                 <tr>
                     <td>{{ Form::checkbox('select_row[]', $data->id, null, array('class'=>'checkboxes iCheck')) }}</td>
                     <td>{{ (($datas->currentPage() - 1 ) * $datas->perPage() ) + ++$i }}</td>
-                    <td>{{ isset($data->product_category->name)? $data->product_category->name : '' }}</td>
+                    <td>{{ isset($data->article_category->name)? $data->article_category->name : '' }}</td>
                     <td nowrap>
                         <table class="table-img ava">
                             <tr>
