@@ -25,7 +25,7 @@
                 <th>{{ Form::select('filter[product_category_id]', [''=>'']+\Models\product_category::pluck('name','id')->all()) }}</th>
                 <th>{{ Form::text('filter[name]') }}</th>
                 <th>{{ Form::text('filter[sequence]') }}</th>
-                <th>{{ Form::select('filter[is_publish]', [''=>'',0=>'Draft',1=>'publish']) }}</th>
+                <th>{{ Form::select('filter[is_publish]', [''=>'',2=>'Draft',1=>'publish']) }}</th>
                 <th></th>
             </tr>
         </thead>

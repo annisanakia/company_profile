@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('is_publish')) echo 'has-error' ?>">
                     {{ Form::label('Status Publish', 'Status Publish', array('class'=>'control-label')) }}
-                    {{ Form::select('is_publish', [1=>'Publish', 0=>'Draft'], isset($data)? $data->is_publish : 1, array('class'=>'form-control selectpicker')) }}
+                    {{ Form::select('is_publish', [1=>'Publish', 2=>'Draft'], isset($data)? $data->is_publish : 1, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('is_publish', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
