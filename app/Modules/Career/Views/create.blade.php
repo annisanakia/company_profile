@@ -117,7 +117,6 @@
     $(document).ready(function() {
         $('.summernote').summernote({
             dialogsInBody: true,
-            placeholder: 'Deskripsi',
             tabsize: 2,
             height: 130
         });

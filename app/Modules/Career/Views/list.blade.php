@@ -86,7 +86,20 @@
                         {{ isset($data->start_date)? dateToIndo($data->start_date) : 'NA' }} -
                         {{ isset($data->end_date)? dateToIndo($data->end_date) : 'NA' }}
                     </td>
-                    <td>{{ $data->is_publish == 1? 'Publish' : 'Draft' }}</td>
+                    <td>
+                        @php
+                            switch ($data->is_publish) {
+                                case 1:
+                                    $bg = 'bg-green';
+                                    break;
+                                default:
+                                    $bg = 'bg-red';
+                            }
+                        @endphp
+                        <span class="{{$bg}} bg-label">
+                            {{ $data->is_publish == 1 ? 'Publish' : 'Draft' }}
+                        </span>
+                    </td>
                     <td ng-controller="actionController" class="action-list text-center" nowrap>
                         @if ($priv['edit_priv'])
                             <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green">
