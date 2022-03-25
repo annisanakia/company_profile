@@ -26,10 +26,10 @@
                     {{ Form::select('article_category_id', [''=>'-- Pilih Article --']+\Models\article_category::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('article_category_id', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
-                    {{ Form::label('Name', 'Name', array('class'=>'control-label')) }}
-                    {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
-                    {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group <?php if ($errors->has('title')) echo 'has-error' ?>">
+                    {{ Form::label('Title', 'Title', array('class'=>'control-label')) }}
+                    {{ Form::text('title', null, array('class'=>'form-control', 'placeholder'=>'Title')) }}
+                    {!!$errors->first('title', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}

@@ -10,9 +10,13 @@ use File;
 
 class Product extends RESTful {
 
+    protected $company;
+
     public function __construct() {
         $model = new productModel;
         $controller_name = 'Product';
+
+        $this->company = \Models\company::where('code','HSP')->first();
 
         $this->enable_xls_button = false;
         $this->enable_pdf_button = false;        
@@ -23,6 +27,7 @@ class Product extends RESTful {
     public function store(\Illuminate\Http\Request $request)
     {
         $input = Request()->all();
+        $input['company_id'] = $this->company->id;
         $validation = $this->model->validate($input);
 
         if ($validation->passes()) {
