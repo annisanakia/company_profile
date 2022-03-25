@@ -15,6 +15,7 @@ return [
         'Article',
         'Article_category',
         'Contact',
-        'Career'
+        'Career',
+        'Career_type'
     ]
 ];
