@@ -44,7 +44,20 @@
                             <td>{{ (($datas->currentPage() - 1) * $datas->perPage()) + ++$i}}</td>
                             <td>{{ isset($data->name) ? $data->name : ''}}</td>
                             <td>{{ isset($data->role) ? $data->role : ''}}</td>
-                            <td>{{ $data->is_publish == 1? 'Publish' : 'Draft'}}</td>
+                            <td>
+                                @php
+                                    switch ($data->is_publish) {
+                                        case 1:
+                                            $bg = 'bg-green';
+                                            break;
+                                        default:
+                                            $bg = 'bg-red';
+                                    }
+                                @endphp
+                                <span class="{{$bg}} bg-label">
+                                    {{ $data->is_publish == 1 ? 'Publish' : 'Draft' }}
+                                </span>
+                            </td>
                             <td class="action-list text-center">
                                 @if ($priv['edit_priv'])
                                     <a href="{{ route($controller_name.'.editTeam',['id'=>$data->id]) }}" class="green edit-button" data-target="#container">
