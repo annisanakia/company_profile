@@ -75,7 +75,7 @@ class Ng_menu extends RESTful {
                         ->get();
         }
         
-        $components[''] = '-- Pilih Component --';
+        $components[''] = '-- Choose Component --';
         foreach($datas as $row){
             $components[$row->id] = $row->title . ' ( ' . (isset($row->ng_department->name)? $row->ng_department->name : '') . ' ) ';
         }

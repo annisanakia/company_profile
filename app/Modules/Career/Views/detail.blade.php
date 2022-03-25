@@ -13,19 +13,27 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td width="150px">Article Category</td>
+                            <td width="150px">Career Type</td>
                             <td>:</td>
-                            <td>{{ isset($data->article_category->name)? $data->article_category->name : '' }}</td>
+                            <td>{{ isset($data->career_type->name)? $data->career_type->name : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Title</td>
+                            <td>Name</td>
                             <td>:</td>
-                            <td>{{ isset($data->title)? $data->title : '' }}</td>
+                            <td>{{ isset($data->name)? $data->name : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Article Date</td>
+                            <td>Date Job Vacancy</td>
                             <td>:</td>
-                            <td>{{ isset($data->date)? dateToIndo($data->date) : '' }}</td>
+                            <td>
+                                {{ isset($data->start_date)? dateToIndo($data->start_date) : 'NA' }} -
+                                {{ isset($data->end_date)? dateToIndo($data->end_date) : 'NA' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status Publish</td>
+                            <td>:</td>
+                            <td>{{ $data->is_publish == 1? 'Publish' : 'Draft' }}</td>
                         </tr>
                         <tr>
                             <td>Description</td>
@@ -33,14 +41,9 @@
                             <td>{{ isset($data->desc)? $data->desc : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Ordering</td>
+                            <td>Qualification</td>
                             <td>:</td>
-                            <td>{{ isset($data->sequence)? $data->sequence : '' }}</td>
-                        </tr>
-                        <tr>
-                            <td>Status Publish</td>
-                            <td>:</td>
-                            <td>{{ $data->is_publish == 1? 'Publish' : 'Draft' }}</td>
+                            <td>{{ isset($data->qualification)? $data->qualification : '' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,7 +52,7 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td width="150px">Photo Article</td>
+                            <td width="150px">Photo Product</td>
                             <td>:</td>
                             <td>
                                 @if(isset($data->photo) && $data->photo != '')

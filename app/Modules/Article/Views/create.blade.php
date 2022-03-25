@@ -19,7 +19,7 @@
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('article_category_id')) echo 'has-error' ?>">
                     {{ Form::label('Article Category', 'Article Category', array('class'=>'control-label')) }}
-                    {{ Form::select('article_category_id', [''=>'-- Pilih Article --']+\Models\article_category::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
+                    {{ Form::select('article_category_id', [''=>'-- Choose Category --']+\Models\article_category::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('article_category_id', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('title')) echo 'has-error' ?>">
@@ -56,11 +56,11 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Photo Profile
+                Photo Article
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('photo')) echo 'has-error' ?>">
-                    {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}<br>
+                    {{ Form::label('Photo Article', 'Photo Article', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         @if(isset($data) && $data->photo != '')
                             <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;object-fit:cover">
