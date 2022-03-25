@@ -89,17 +89,15 @@
                 Career Detail
             </div>
             <div class="block-form">
-                <div class="form-group row">
-                <div class="col-md-6 <?php if ($errors->has('desc')) echo 'has-error' ?>">
+                <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
-                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Description')) }}
+                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Description')) }}
                     {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="col-md-6 <?php if ($errors->has('qualification')) echo 'has-error' ?>">
+                <div class="form-group <?php if ($errors->has('qualification')) echo 'has-error' ?>">
                     {{ Form::label('Qualification', 'Qualification', array('class'=>'control-label')) }}
-                    {{ Form::textarea('qualification', isset($data)? $data->qualification : '', array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Qualification')) }}
+                    {{ Form::textarea('qualification', isset($data)? $data->qualification : '', array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Qualification')) }}
                     {!!$errors->first('qualification', ' <span class="form-text error">:message</span>')!!}
-                </div>
                 </div>
             </div>
         </div>
@@ -115,4 +113,14 @@
 
 <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/jasny-bootstrap.min.css')}}"/>
 <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-fileinput/js/jasny-bootstrap.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            dialogsInBody: true,
+            placeholder: 'Deskripsi',
+            tabsize: 2,
+            height: 130
+        });
+    });
+</script>
 @endsection

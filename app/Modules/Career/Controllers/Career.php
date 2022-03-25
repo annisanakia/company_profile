@@ -102,4 +102,24 @@ class Career extends RESTful {
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
     }
+
+    public function uploadPhoto(Request $request) {
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,pdf|max:2048',
+        ]);
+
+        $image = $request->file('photo');
+        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('assets/file/career');
+        // dd($destinationPath);
+        if (!file_exists($destinationPath)) {
+            File::makeDirectory($destinationPath, $mode = 0777, true, true);
+        }
+            
+        $image->move($destinationPath, $input['imagename']);
+            
+        $path = $request->getSchemeAndHttpHost() . '/assets/file/career/' . $input['imagename'];
+            
+        return $path;
+    }
 }

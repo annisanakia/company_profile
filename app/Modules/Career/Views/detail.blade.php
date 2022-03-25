@@ -38,12 +38,12 @@
                         <tr>
                             <td>Description</td>
                             <td>:</td>
-                            <td>{{ isset($data->desc)? $data->desc : '' }}</td>
+                            <td>{!! isset($data->desc)? $data->desc : '' !!}</td>
                         </tr>
                         <tr>
                             <td>Qualification</td>
                             <td>:</td>
-                            <td>{{ isset($data->qualification)? $data->qualification : '' }}</td>
+                            <td>{!! isset($data->qualification)? $data->qualification : '' !!}</td>
                         </tr>
                     </tbody>
                 </table>
