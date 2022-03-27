@@ -4,8 +4,8 @@ return [
     'modules' => [
         'Home',
         'Job',
-        'Ng_users',
-        'Ng_menu',
+        'Users',
+        'Menu',
         'Dashboard',
         'Groups',
         'Account',

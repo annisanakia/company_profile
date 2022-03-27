@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'ng_department_id', 'client_id', 'phone', 'is_register_client', 'ng_user_type_id'
+        'name', 'username', 'email', 'password', 'ng_department_id', 'phone'
     ];
 
     /**

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Modules\Ng_menu\Controllers;
+namespace App\Modules\Menu\Controllers;
 
-use Models\ng_menu as ng_menuModel;
+use Models\menu as menuModel;
 use Lib\core\RESTful;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
-class Ng_menu extends RESTful {
+class Menu extends RESTful {
 
     public function __construct() {
-        $model = new ng_menuModel;
-        $controller_name = 'Ng_menu';
+        $model = new menuModel;
+        $controller_name = 'Menu';
 
         $this->enable_xls_button = false;
         $this->enable_pdf_button = false;        

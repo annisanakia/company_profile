@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
                     {{ Form::label('Parent', 'Parent', array('class'=>'control-label')) }}
-                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\ng_menu::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
+                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\menu::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
                     {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">

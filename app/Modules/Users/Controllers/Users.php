@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Ng_users\Controllers;
+namespace App\Modules\Users\Controllers;
 
 use App\Models\User as userModel;
 use Lib\core\RESTful;
@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 use Validator;
 use File;
 
-class Ng_users extends RESTful {
+class Users extends RESTful {
 
     public function __construct() {
         $model = new userModel;
-        $controller_name = 'Ng_users';
+        $controller_name = 'Users';
 
         $this->enable_xls_button = false;
         $this->enable_pdf_button = false;
