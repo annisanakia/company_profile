@@ -23,11 +23,6 @@
                             <td>{{ isset($data->name)? $data->name : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Description</td>
-                            <td>:</td>
-                            <td>{{ isset($data->desc)? $data->desc : '' }}</td>
-                        </tr>
-                        <tr>
                             <td>Ordering</td>
                             <td>:</td>
                             <td>{{ isset($data->sequence)? $data->sequence : '' }}</td>
@@ -36,6 +31,11 @@
                             <td>Status Publish</td>
                             <td>:</td>
                             <td>{{ $data->is_publish == 1? 'Publish' : 'Draft' }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>:</td>
+                            <td>{{ isset($data->desc)? $data->desc : '' }}</td>
                         </tr>
                     </tbody>
                 </table>

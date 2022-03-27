@@ -27,11 +27,6 @@
                     {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Name')) }}
                     {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
-                    {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
-                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Description')) }}
-                    {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
-                </div>
                 <div class="form-group <?php if ($errors->has('sequence')) echo 'has-error' ?>">
                     {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
                     {{ Form::text('sequence', isset($data)? $data->sequence : '', array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
@@ -82,6 +77,22 @@
         </div>
     </div>
     <div class="col-md-12">
+        <div class="card">
+        <div class="card-body">
+            <div class="title-form">
+                Product Detail
+            </div>
+            <div class="block-form">
+                <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
+                    {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
+                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Description')) }}
+                    {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-12">
         @include('component.actions')
     </div>
 </div>
@@ -91,4 +102,14 @@
 
 <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/jasny-bootstrap.min.css')}}"/>
 <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-fileinput/js/jasny-bootstrap.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            dialogsInBody: true,
+            placeholder: 'Deskripsi',
+            tabsize: 2,
+            height: 130
+        });
+    });
+</script>
 @endsection

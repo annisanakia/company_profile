@@ -20,11 +20,6 @@
                     {{ Form::text('name', isset($data)? $data->name : '', array('class'=>'form-control', 'placeholder'=>'Name')) }}
                     {!!$errors->first('name', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
-                    {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
-                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Description')) }}
-                    {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
-                </div>
                 <div class="form-group <?php if ($errors->has('is_publish')) echo 'has-error' ?>">
                     {{ Form::label('Status Publish', 'Status Publish', array('class'=>'control-label')) }}
                     {{ Form::select('is_publish', [1=>'Publish', 2=>'Draft'], isset($data)? $data->is_publish : 1, array('class'=>'form-control selectpicker')) }}
@@ -68,6 +63,22 @@
         </div>
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="card">
+        <div class="card-body">
+            <div class="title-form">
+                Customer Detail
+            </div>
+            <div class="block-form">
+                <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
+                    {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
+                    {{ Form::textarea('desc', isset($data)? $data->desc : '', array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Description')) }}
+                    {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 {{ Form::close() }}
 
@@ -83,6 +94,12 @@
     $(document).ready(function () {
     $(".selectpicker").selectpicker();
     $(".form-validation").validate();
+    $('.summernote').summernote({
+        dialogsInBody: true,
+        placeholder: 'Deskripsi',
+        tabsize: 2,
+        height: 130
+    });
     $('.tab-ajax-navigation .submit').click(function (e) {
         // Abort any currently executing request
         if(request) {
