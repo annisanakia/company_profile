@@ -247,7 +247,7 @@ class Company_profile extends RESTful {
 
         $data = \Models\company_header::find(Request()->id);
         $object = isset($data->object)? $data->object : '';
-        $content_type = '';
+        $content_type = isset($data)? 'custom' : '';
         if($object == 'article'){
             $content_type = 1;
         }elseif($object == 'product'){
@@ -313,14 +313,14 @@ class Company_profile extends RESTful {
         
         $data = \Models\company_header::find(Request()->id);
         if ($validation->passes()) {
-            unset($input['filename']);
-            if (request()->hasFile('filename')) {
+            unset($input['photo']);
+            if (request()->hasFile('photo')) {
                 $this->validate(request(), [
                     'file' => 'max:10240',
                     'extension' => 'in:jpeg,png,jpg'
                 ]);
 
-                $image = request()->file('filename');
+                $image = request()->file('photo');
                 $imagename = time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/header');
 
@@ -330,7 +330,7 @@ class Company_profile extends RESTful {
                 
                 $image->move($destinationPath, $imagename);
                 $path = 'assets/file/header/' . $imagename;
-                $input['filename'] = $path;
+                $input['photo'] = $path;
             }
             $input['company_id'] = $this->company->id;
             if($data){

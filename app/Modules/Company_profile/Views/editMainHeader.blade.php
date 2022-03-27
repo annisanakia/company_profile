@@ -40,12 +40,12 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group <?php if ($errors->has('filename')) echo 'has-error' ?>">
+                <div class="form-group <?php if ($errors->has('photo')) echo 'has-error' ?>">
                     {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
-                        @if(isset($data) && $data->filename != '')
+                        @if(isset($data) && $data->photo != '')
                             <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 225px; height: 140px;object-fit:cover">
-                                <img src="{{ asset($data->filename) }}">
+                                <img src="{{ asset($data->photo) }}">
                             </div>
                         @else
                             <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 225px; height: 140px;object-fit:cover">
@@ -56,12 +56,12 @@
                             <span class="btn btn-outline-secondary btn-file">
                                 <span class="fileinput-new">Select Photo</span>
                                 <span class="fileinput-exists">Change Photo</span>
-                                <input type="file" name="filename" value="{{ isset($data->filename)? $data->filename : '' }}">
+                                <input type="file" name="photo" value="{{ isset($data->photo)? $data->photo : '' }}">
                             </span>
                         </div>
                     </div>
                     <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
-                    {!!$errors->first('filename', ' <span class="form-text error">:message</span>')!!}
+                    {!!$errors->first('photo', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
         </div>

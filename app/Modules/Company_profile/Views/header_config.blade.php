@@ -50,9 +50,9 @@
                                         <table class="table-img ava">
                                             <tr>
                                                 <td width="85px">
-                                                    @if(isset($data_content->filename) && ($data_content->filename != ''))
+                                                    @if(isset($data_content->photo) && ($data_content->photo != ''))
                                                         <div class="preview-img">
-                                                            <img src="{{ asset($data_content->filename) }}" class="img-cover">
+                                                            <img src="{{ asset($data_content->photo) }}" class="img-cover">
                                                         </div>
                                                     @else
                                                         <div class="preview-img">
