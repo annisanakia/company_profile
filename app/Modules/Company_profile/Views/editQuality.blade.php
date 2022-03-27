@@ -12,7 +12,7 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Detail Company Quality
+                {{ $data? 'Edit Data' : 'Add Data' }}
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
@@ -73,7 +73,7 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Quality Detail
+                Company Quality Detail
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">

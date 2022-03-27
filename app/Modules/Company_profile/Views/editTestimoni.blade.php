@@ -12,7 +12,7 @@
         <div class="card">
         <div class="card-body">
             <div class="title-form">
-                Detail Testimoni
+                {{ $data? 'Edit Data' : 'Add Data' }}
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('name')) echo 'has-error' ?>">
