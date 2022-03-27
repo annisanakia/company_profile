@@ -15,7 +15,7 @@
                 <th width="10px" data-tablesaw-priority="persist" class="text-center">No</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Article Category', array('sort_field'=> 'article_category_id'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Title', array('sort_field'=> 'title'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'sequence'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Date', array('sort_field'=> 'date'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Status Publish', array('sort_field'=> 'is_publish'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th data-tablesaw-priority="1" class="text-center">Action</th>
             </tr>
@@ -24,7 +24,7 @@
                 <th><button type="submit"><i class="fas fa-search"></i></span></button></th>
                 <th>{{ Form::select('filter[article_category_id]', [''=>'']+\Models\article_category::pluck('name','id')->all()) }}</th>
                 <th>{{ Form::text('filter[title]') }}</th>
-                <th>{{ Form::text('filter[sequence]') }}</th>
+                <th>{{ Form::date('filter[date]') }}</th>
                 <th>{{ Form::select('filter[is_publish]', [''=>'',2=>'Draft',1=>'publish']) }}</th>
                 <th></th>
             </tr>
@@ -63,7 +63,9 @@
                             </tr>
                         </table>
                     </td>
-                    <td>{{ isset($data->sequence)? $data->sequence : '' }}</td>
+                    <td>
+                        {{ isset($data->date)? dateToIndo($data->date) : '' }}
+                    </td>
                     <td>
                         @php
                             switch ($data->is_publish) {

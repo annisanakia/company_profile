@@ -28,11 +28,6 @@
                             <td>{{ isset($data->date)? dateToIndo($data->date) : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Ordering</td>
-                            <td>:</td>
-                            <td>{{ isset($data->sequence)? $data->sequence : '' }}</td>
-                        </tr>
-                        <tr>
                             <td>Status Publish</td>
                             <td>:</td>
                             <td>{{ $data->is_publish == 1? 'Publish' : 'Draft' }}</td>

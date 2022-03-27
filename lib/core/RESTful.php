@@ -204,6 +204,9 @@ class RESTful extends Controller
                                 if ($key == 'end' || $key == 'end_date') {
                                     $data->where($key, '<=', $value);
                                 }
+                                if ($key == 'date') {
+                                    $data->whereDate($key, $value);
+                                }
                             } else {
                                 $data->where($key, '=', $value);
                             }

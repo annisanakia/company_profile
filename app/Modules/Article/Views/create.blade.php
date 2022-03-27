@@ -32,12 +32,6 @@
                     {{ Form::date('date', isset($data)? $data->date : date('Y-m-d'), array('class'=>'form-control')) }}
                     {!!$errors->first('date', ' <span class="form-text error">:message</span>')!!}
                 </div>
-                <div class="form-group <?php if ($errors->has('sequence')) echo 'has-error' ?>">
-                    {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
-                    {{ Form::text('sequence', isset($data)? $data->sequence : '', array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
-                    {!!$errors->first('sequence', ' <span class="form-text error">:message</span>')!!}
-                    <span class="help-block">Urutan untuk ditampilkan di dashboard website</span>
-                </div>
                 <div class="form-group <?php if ($errors->has('is_publish')) echo 'has-error' ?>">
                     {{ Form::label('Status Publish', 'Status Publish', array('class'=>'control-label')) }}
                     {{ Form::select('is_publish', [1=>'Publish', 2=>'Draft'], isset($data)? $data->is_publish : 1, array('class'=>'form-control selectpicker')) }}
