@@ -30,6 +30,48 @@ class Company_profile extends RESTful {
         return View($this->controller_name . '::index', $with);
     }
 
+    public function filterHeaderContent(Request $request) {
+        $globalTools = new \Lib\core\globalTools();
+
+        $content_type = $request->input('content_type');
+        $id = $request->input('id');
+
+        $target = 'object_id';
+        if ($request->has('target')) {
+            $target = $request->input('target');
+        }
+
+        $blank = false;
+        if ($request->has('blank')) {
+            $blank = $request->input('blank');
+        }
+
+        $datas = [];
+        if($content_type == 1){
+            //article
+            $datas = \Models\article::orderBy('name', 'asc')
+                        ->orderBy('date', 'desc')
+                        ->get();
+        }elseif($content_type == 2){
+            //product
+            $datas = \Models\product::orderBy('name', 'asc')
+                        ->orderBy('sequence', 'asc')
+                        ->get();
+        }elseif($content_type == 3){
+            //career
+            $datas = \Models\career::orderBy('name', 'asc')
+                        ->orderBy('start_date', 'desc')
+                        ->get();
+        }
+        
+        $components[''] = '-- Choose Component --';
+        foreach($datas as $row){
+            $components[$row->id] = $row->name;
+        }
+
+        return $globalTools->renderListArray($components, $target, $id, $blank);
+    }
+
     public function company_information(){
         $with['data'] = $this->company;
         $action = [];
@@ -187,15 +229,133 @@ class Company_profile extends RESTful {
 
     public function header_config()
     {
-        $data = $this->company;
+        $main_headers = \Models\company_header::where('code','main_header')
+                ->orderBy('sequence')
+                ->get();
+                
+        $with['main_headers'] = $main_headers;
+        return view($this->controller_name . '::header_config', $with);
+    }
 
-        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/company_team', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
+    public function editMainHeader()
+    {
+        $action = [];
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/header_config', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
         if ($this->priv['edit_priv'])
             $action[] = array('name' => 'Save', 'type' => 'button', 'class' => 'btn btn-click btn-green responsive submit');
+        $this->setAction($action);
+
+        $data = \Models\company_header::find(Request()->id);
+        $object = isset($data->object)? $data->object : '';
+        $content_type = '';
+        if($object == 'article'){
+            $content_type = 1;
+        }elseif($object == 'product'){
+            $content_type = 2;
+        }elseif($object == 'career'){
+            $content_type = 3;
+        }
 
         $with['data'] = $data;
-        $with['actions'] = $action;
-        return view($this->controller_name . '::header_config', $with);
+        $with['content_type'] = $content_type;
+        $with['actions'] = $this->actions;
+        return view($this->controller_name . '::editMainHeader', $with);
+    }
+
+    public function validationCustomHeader($input){
+        $rules = array(
+            'is_publish' => 'required',
+            'name' => 'required'
+        );
+
+        $validation = Validator::make($input, $rules);
+
+        return $validation;
+    }
+
+    public function validationHeader($input){
+        $rules = array(
+            'is_publish' => 'required',
+            'content_type' => 'required',
+            'object_id' => 'required'
+        );
+    
+        $customMessages = [
+            'object_id.required' => 'This Content Name field required.',
+            'email' => 'Invalid Email Address.'
+        ];
+
+        $validation = Validator::make($input, $rules, $customMessages);
+
+        return $validation;
+    }
+
+    public function saveMainHeader()
+    {
+        $model = new \Models\company_header();
+
+        $input = [
+            'code' => 'main_header',
+            'sequence'=> request()->sequence,
+            'is_publish'=> request()->is_publish
+        ];
+        $content_type = request()->content_type;
+        if($content_type == 'custom'){
+            $input['name'] = request()->name;
+            $input['desc'] = request()->desc;
+            $validation = $this->validationCustomHeader($input);
+        }else{
+            $input['content_type'] = request()->content_type;
+            $input['object'] = array_key_exists($content_type,getContentType())? strtolower(getContentType()[$content_type]) : '';
+            $input['object_id'] = request()->object_id;
+            $validation = $this->validationHeader($input);
+        }
+        
+        $data = \Models\company_header::find(Request()->id);
+        if ($validation->passes()) {
+            unset($input['filename']);
+            if (request()->hasFile('filename')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('filename');
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/header');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/header/' . $imagename;
+                $input['filename'] = $path;
+            }
+            $input['company_id'] = $this->company->id;
+            if($data){
+                $data->update($input);
+            }else{
+                $data = $model->create($input);
+            }
+            \Session::flash('msg', '<b>Save Success</b>');
+            return Redirect::route(strtolower($this->controller_name) . '.header_config');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.editMainHeader', ['id'=>Request()->id])
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
+
+    public function deleteHeader()
+    {
+        if ($this->priv['delete_priv']) {
+            $data = \Models\company_header::find(Request()->id);
+            if($data){
+                $data->delete();
+            }
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.header_config');
     }
 
     public function customer()

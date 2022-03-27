@@ -1,6 +1,11 @@
-
+<style>
+    .table-img.ava .preview-img {
+        height: 70px;
+        width: 113px;
+    }
+</style>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
         <div class="card-body">
             <div class="title-form">
@@ -10,13 +15,90 @@
                 @if ($priv['edit_priv'])
                 <div class="text-right">
                     <a class="btn btn-click btn-navy responsive edit-button"
-                        href="{{url($controller_name.'/addMainHeader')}}"
+                        href="{{url($controller_name.'/editMainHeader')}}"
                         data-target="#container">
                         <i class="fa-regular fa-square-plus" style="font-size: 15px"></i>
                         Add Main Header
                     </a>
                 </div>
                 @endif
+                <div class="table-list">
+                    <table class="table table-check" data-tablesaw-mode="columntoggle">
+                        <thead>
+                            <tr class="ordering">
+                                <th width="10px">No</th>
+                                <th>Name</th>
+                                <th>Ordering</th>
+                                <th>Status Publish</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (count($main_headers) <= 0)
+                                <tr>
+                                    <td colspan="5" style="text-align: center">Data Tidak Ditemukan</td>
+                                </tr>
+                            @else
+                                @php ($i = 0) @endphp
+                                @foreach ($main_headers as $data)
+                                <?php
+                                    $data_content = isset($data->data_content)? $data->data_content : $data;
+                                ?>
+                                <tr>
+                                    <td>{{ ++$i}}</td>
+                                    <td nowrap>
+                                        <table class="table-img ava">
+                                            <tr>
+                                                <td width="85px">
+                                                    @if(isset($data_content->filename) && ($data_content->filename != ''))
+                                                        <div class="preview-img">
+                                                            <img src="{{ asset($data_content->filename) }}" class="img-cover">
+                                                        </div>
+                                                    @else
+                                                        <div class="preview-img">
+                                                            <i class="fas fa-camera"></i>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ isset($data_content->name)? $data_content->name : '' }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>{{ isset($data->sequence) ? $data->sequence : ''}}</td>
+                                    <td>
+                                        @php
+                                            switch ($data->is_publish) {
+                                                case 1:
+                                                    $bg = 'bg-green';
+                                                    break;
+                                                default:
+                                                    $bg = 'bg-red';
+                                            }
+                                        @endphp
+                                        <span class="{{$bg}} bg-label">
+                                            {{ $data->is_publish == 1 ? 'Publish' : 'Draft' }}
+                                        </span>
+                                    </td>
+                                    <td class="action-list text-center">
+                                        @if ($priv['edit_priv'])
+                                            <a href="{{ route($controller_name.'.editMainHeader',['id'=>$data->id]) }}" class="green edit-button" data-target="#container">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endif
+                                        @if ($priv['delete_priv'])
+                                            <a href="{{ route($controller_name.'.deleteHeader',['id'=>$data->id]) }}" class="red delete-data" ng-click="confirm($event)">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         </div>
@@ -41,6 +123,8 @@
             </div>
         </div>
         </div>
+    </div>
+    <div class="col-md-6">
         <div class="card">
         <div class="card-body">
             <div class="title-form">

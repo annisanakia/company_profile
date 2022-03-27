@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <?php
-            $title = 'PINTRO';
+            $title = 'Company Profile';
         ?>
 
         <link rel="icon" href="{{ asset('assets/images/templates/favicon.png') }}">

@@ -22,6 +22,10 @@ Route::group(['prefix' => 'company_profile', 'namespace' => 'App\Modules\Company
     Route::get('/deleteTeam', ['as' => 'company_profile.deleteTeam', 'uses' => 'Company_profile@deleteTeam']);
     Route::post('/saveTeam', ['as' => 'company_profile.saveTeam', 'uses' => 'Company_profile@saveTeam']);
     Route::get('/header_config', ['as' => 'company_profile.header_config', 'uses' => 'Company_profile@header_config']);
+    Route::get('/filterHeaderContent', ['as' => 'company_profile.filterHeaderContent', 'uses' => 'Company_profile@filterHeaderContent']);
+    Route::get('/editMainHeader', ['as' => 'company_profile.editMainHeader', 'uses' => 'Company_profile@editMainHeader']);
+    Route::post('/saveMainHeader', ['as' => 'company_profile.saveMainHeader', 'uses' => 'Company_profile@saveMainHeader']);
+    Route::get('/deleteHeader', ['as' => 'company_profile.deleteHeader', 'uses' => 'Company_profile@deleteHeader']);
     Route::get('/customer', ['as' => 'company_profile.customer', 'uses' => 'Company_profile@customer']);
     Route::get('/editCustomer', ['as' => 'company_profile.editCustomer', 'uses' => 'Company_profile@editCustomer']);
     Route::post('/saveCustomer', ['as' => 'company_profile.saveCustomer', 'uses' => 'Company_profile@saveCustomer']);

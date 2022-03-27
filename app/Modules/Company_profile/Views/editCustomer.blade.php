@@ -37,7 +37,7 @@
             </div>
             <div class="block-form">
                 <div class="form-group <?php if ($errors->has('photo')) echo 'has-error' ?>">
-                    {{ Form::label('Photo Profile', 'Photo Profile', array('class'=>'control-label')) }}<br>
+                    {{ Form::label('Photo Customer', 'Photo Customer', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         @if(isset($data) && $data->photo != '')
                             <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;object-fit:cover">

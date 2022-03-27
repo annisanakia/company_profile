@@ -18,9 +18,9 @@
                             <td>{{ isset($data->article_category->name)? $data->article_category->name : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Title</td>
+                            <td>Name</td>
                             <td>:</td>
-                            <td>{{ isset($data->title)? $data->title : '' }}</td>
+                            <td>{{ isset($data->name)? $data->name : '' }}</td>
                         </tr>
                         <tr>
                             <td>Article Date</td>

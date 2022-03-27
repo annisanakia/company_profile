@@ -154,6 +154,15 @@ function getComponentType()
     return $component_type;
 }
 
+function getContentType()
+{
+    $component_type = array(
+        1 => 'Article', 'Product', 'Carrier'
+    );
+
+    return $component_type;
+}
+
 function getArticleType()
 {
     $article_type = array(
