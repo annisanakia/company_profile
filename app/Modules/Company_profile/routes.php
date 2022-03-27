@@ -23,8 +23,8 @@ Route::group(['prefix' => 'company_profile', 'namespace' => 'App\Modules\Company
     Route::post('/saveTeam', ['as' => 'company_profile.saveTeam', 'uses' => 'Company_profile@saveTeam']);
     Route::get('/header_config', ['as' => 'company_profile.header_config', 'uses' => 'Company_profile@header_config']);
     Route::get('/filterHeaderContent', ['as' => 'company_profile.filterHeaderContent', 'uses' => 'Company_profile@filterHeaderContent']);
-    Route::get('/editMainHeader', ['as' => 'company_profile.editMainHeader', 'uses' => 'Company_profile@editMainHeader']);
-    Route::post('/saveMainHeader', ['as' => 'company_profile.saveMainHeader', 'uses' => 'Company_profile@saveMainHeader']);
+    Route::get('/editHeader', ['as' => 'company_profile.editHeader', 'uses' => 'Company_profile@editHeader']);
+    Route::post('/saveHeader', ['as' => 'company_profile.saveHeader', 'uses' => 'Company_profile@saveHeader']);
     Route::get('/deleteHeader', ['as' => 'company_profile.deleteHeader', 'uses' => 'Company_profile@deleteHeader']);
     Route::get('/customer', ['as' => 'company_profile.customer', 'uses' => 'Company_profile@customer']);
     Route::get('/editCustomer', ['as' => 'company_profile.editCustomer', 'uses' => 'Company_profile@editCustomer']);

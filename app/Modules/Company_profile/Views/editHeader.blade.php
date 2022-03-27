@@ -1,5 +1,6 @@
-{{ Form::open(array('route' => $controller_name.'.saveMainHeader', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
+{{ Form::open(array('route' => $controller_name.'.saveHeader', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'enctype'=>'multipart/form-data')) }}
 {{ Form::hidden('id', isset($data)? $data->id : '') }}
+{{ Form::hidden('code', $code) }}
 
 @include('component.actions')
 <div class="card">
@@ -65,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row {{ $code != 'main_header'? 'd-none' : ''}}">
             <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('sequence')) echo 'has-error' ?>">
                     {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}

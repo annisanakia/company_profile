@@ -232,12 +232,20 @@ class Company_profile extends RESTful {
         $main_headers = \Models\company_header::where('code','main_header')
                 ->orderBy('sequence')
                 ->get();
+        $profile_header = \Models\company_header::where('code','profile_header')
+                ->orderBy('sequence')
+                ->first();
+        $product_header = \Models\company_header::where('code','product_header')
+                ->orderBy('sequence')
+                ->first();
                 
         $with['main_headers'] = $main_headers;
+        $with['profile_header'] = $profile_header;
+        $with['product_header'] = $product_header;
         return view($this->controller_name . '::header_config', $with);
     }
 
-    public function editMainHeader()
+    public function editHeader()
     {
         $action = [];
         $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name).'/header_config', 'class' => 'btn btn-click btn-grey responsive btn-cancel');
@@ -256,10 +264,11 @@ class Company_profile extends RESTful {
             $content_type = 3;
         }
 
+        $with['code'] = request()->code;
         $with['data'] = $data;
         $with['content_type'] = $content_type;
         $with['actions'] = $this->actions;
-        return view($this->controller_name . '::editMainHeader', $with);
+        return view($this->controller_name . '::editHeader', $with);
     }
 
     public function validationCustomHeader($input){
@@ -281,8 +290,7 @@ class Company_profile extends RESTful {
         );
     
         $customMessages = [
-            'object_id.required' => 'This Content Name field required.',
-            'email' => 'Invalid Email Address.'
+            'object_id.required' => 'This Content Name field required.'
         ];
 
         $validation = Validator::make($input, $rules, $customMessages);
@@ -290,12 +298,12 @@ class Company_profile extends RESTful {
         return $validation;
     }
 
-    public function saveMainHeader()
+    public function saveHeader()
     {
         $model = new \Models\company_header();
 
         $input = [
-            'code' => 'main_header',
+            'code' => request()->code,
             'sequence'=> request()->sequence,
             'is_publish'=> request()->is_publish
         ];
@@ -341,7 +349,7 @@ class Company_profile extends RESTful {
             \Session::flash('msg', '<b>Save Success</b>');
             return Redirect::route(strtolower($this->controller_name) . '.header_config');
         }
-        return Redirect::route(strtolower($this->controller_name) . '.editMainHeader', ['id'=>Request()->id])
+        return Redirect::route(strtolower($this->controller_name) . '.editHeader', ['id'=>Request()->id])
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');

@@ -15,7 +15,7 @@
                 @if ($priv['edit_priv'])
                 <div class="text-right">
                     <a class="btn btn-click btn-navy responsive edit-button"
-                        href="{{url($controller_name.'/editMainHeader')}}"
+                        href="{{url($controller_name.'/editHeader?code=main_header')}}"
                         data-target="#container">
                         <i class="fa-regular fa-square-plus" style="font-size: 15px"></i>
                         Add Main Header
@@ -83,7 +83,7 @@
                                     </td>
                                     <td class="action-list text-center">
                                         @if ($priv['edit_priv'])
-                                            <a href="{{ route($controller_name.'.editMainHeader',['id'=>$data->id]) }}" class="green edit-button" data-target="#container">
+                                            <a href="{{ route($controller_name.'.editHeader',['id'=>$data->id,'code'=>'main_header']) }}" class="green edit-button" data-target="#container">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         @endif
@@ -113,13 +113,51 @@
                 @if ($priv['edit_priv'])
                 <div class="text-right">
                     <a class="btn btn-click btn-purple responsive edit-button"
-                        href="{{url($controller_name.'/editProfileHeader')}}"
+                        href="{{url($controller_name.'/editHeader?code=profile_header&id='.(isset($profile_header)? $profile_header->id  :''))}}"
                         data-target="#container">
                         <i class="fa-solid fa-pencil" style="font-size: 15px"></i>
                         Edit Profile Header
                     </a>
                 </div>
                 @endif
+                <div class="table-list">
+                    <table class="table table-check" data-tablesaw-mode="columntoggle">
+                        <tbody>
+                            @if (isset($profile_header) <= 0)
+                                <tr>
+                                    <td colspan="5" style="text-align: center">Header belum disetting</td>
+                                </tr>
+                            @else
+                                <?php
+                                    $data = $profile_header;
+                                    $data_content = isset($data->data_content)? $data->data_content : $data;
+                                ?>
+                                <tr>
+                                    <td nowrap>
+                                        <table class="table-img ava">
+                                            <tr>
+                                                <td width="85px">
+                                                    @if(isset($data_content->photo) && ($data_content->photo != ''))
+                                                        <div class="preview-img">
+                                                            <img src="{{ asset($data_content->photo) }}" class="img-cover">
+                                                        </div>
+                                                    @else
+                                                        <div class="preview-img">
+                                                            <i class="fas fa-camera"></i>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ isset($data_content->name)? $data_content->name : '' }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         </div>
@@ -134,13 +172,51 @@
                 @if ($priv['edit_priv'])
                 <div class="text-right">
                     <a class="btn btn-click btn-purple responsive edit-button"
-                        href="{{url($controller_name.'/editProductHeader')}}"
+                        href="{{url($controller_name.'/editHeader?code=product_header&id='.(isset($product_header)? $product_header->id  :''))}}"
                         data-target="#container">
                         <i class="fa-solid fa-pencil" style="font-size: 15px"></i>
                         Edit Product Header
                     </a>
                 </div>
                 @endif
+                <div class="table-list">
+                    <table class="table table-check" data-tablesaw-mode="columntoggle">
+                        <tbody>
+                            @if (isset($product_header) <= 0)
+                                <tr>
+                                    <td colspan="5" style="text-align: center">Header belum disetting</td>
+                                </tr>
+                            @else
+                                <?php
+                                    $data = $product_header;
+                                    $data_content = isset($data->data_content)? $data->data_content : $data;
+                                ?>
+                                <tr>
+                                    <td nowrap>
+                                        <table class="table-img ava">
+                                            <tr>
+                                                <td width="85px">
+                                                    @if(isset($data_content->photo) && ($data_content->photo != ''))
+                                                        <div class="preview-img">
+                                                            <img src="{{ asset($data_content->photo) }}" class="img-cover">
+                                                        </div>
+                                                    @else
+                                                        <div class="preview-img">
+                                                            <i class="fas fa-camera"></i>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ isset($data_content->name)? $data_content->name : '' }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         </div>
