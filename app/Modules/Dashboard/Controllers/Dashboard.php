@@ -38,79 +38,61 @@ class Dashboard extends Controller {
     {
         Session()->put('menu_as', 'dashboard');
 
-        $ng_menu = \Models\ng_menu::where('slug','dashboard')
+        $menu = \Models\menu::where('slug','dashboard')
                 ->where('display', 1)
                 ->first();
-
-        $news = \Models\ng_article::where('type',2)
-                ->where('display',1)
-                ->orderBy('date', 'desc')
-                ->orderBy('id', 'desc')
-                ->limit(6)
-                ->get();
-        $color_news = [1=>'orange',2=>'green',3=>'blue',4=>'yellow',5=>'green',6=>'orange'];
-
-        $events = \Models\ng_article::where('type',3)
-                ->where('display',1)
-                ->where('publish_end', '>=' , date("Y-m-d H:i:s", strtotime('+7 hours')))
-                ->orderBy('date', 'desc')
-                ->orderBy('id', 'desc')
-                ->limit(2)
-                ->get();
         
-        if($ng_menu){
-            $with['news'] = $news;
-            $with['color_news'] = $color_news;
-            $with['events'] = $events;
-            $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+        if($menu){
+            $with = [];
+            $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
             return view($this->controller_name . '::index', $with);
         }
         return response()->view('errors.unauthorized');
     }
 
     public function category($category, Request $request){
-        $ng_menu = \Models\ng_menu::where('slug',$category)
+        $menu = \Models\menu::where('slug',$category)
                 ->where('display', 1)
                 ->first();
-        if(isset($ng_menu->parents->slug)){
-            Session()->put('menu_as', $ng_menu->parents->slug);
+        if(isset($menu->parents->slug)){
+            Session()->put('menu_as', $menu->parents->slug);
         }else{
             Session()->put('menu_as', $category);
         }
 
-        if(!$ng_menu){
+        if(!$menu){
             return response()->view('errors.unauthorized');
         }
 
         $data = null;
-        $with['ng_menu'] = $ng_menu;
+        $with['menu'] = $menu;
 
-        if($ng_menu->component_link != ''){
-            return $this->getViewsComponentId($with,$ng_menu);
+        if($menu->component_link != ''){
+            return $this->getViewsComponentId($with,$menu);
         }else{
-            return $this->getViewsComponentType($with,$ng_menu,$request);
+            return $this->getViewsComponentType($with,$menu,$request);
         }
     }
 
-    public function getViewsComponentId($with,$ng_menu){
-        $component_type = $ng_menu->component_type;
+    public function getViewsComponentId($with,$menu){
+        $component_type = $menu->component_type;
         if($component_type == 1){
             //1=>profile
-            $data = \Models\ng_article::where('type',1)
+            $data = \Models\article::where('type',1)
                         ->where('display',1)
-                        ->find($ng_menu->component_link);
+                        ->find($menu->component_link);
 
             if($data){
-                Session()->put('menu_profile', $ng_menu->slug);
+                Session()->put('menu_profile', $menu->slug);
                 $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
                 $with['data'] = $data;
                 return view($this->view_path . '::profile', $with);
             }
         }elseif($component_type == 2){
             //2=>news
-            $data = \Models\ng_article::where('type',2)
+            $data = \Models\article::where('type',2)
                         ->where('display',1)
-                        ->find($ng_menu->component_link);
+                        ->find($menu->component_link);
 
             if($data){
                 $with['data'] = $data;
@@ -119,9 +101,9 @@ class Dashboard extends Controller {
             }
         }elseif($component_type == 3){
             //3=>events
-            $data = \Models\ng_article::where('type',3)
+            $data = \Models\article::where('type',3)
                         ->where('display',1)
-                        ->find($ng_menu->component_link);
+                        ->find($menu->component_link);
 
             if($data){
                 $with['data'] = $data;
@@ -130,7 +112,7 @@ class Dashboard extends Controller {
             }
         }elseif($component_type == 4){
             //achievement
-            $data = \Models\ng_achievement::find($ng_menu->component_link);
+            $data = \Models\ng_achievement::find($menu->component_link);
 
             if($data){
                 $with['data'] = $data;
@@ -143,7 +125,7 @@ class Dashboard extends Controller {
                             $builder->where('code','fcy');
                         })
                         ->where('display',1)
-                        ->find($ng_menu->component_link);
+                        ->find($menu->component_link);
 
             if($data){
                 $with['data'] = $data;
@@ -156,7 +138,7 @@ class Dashboard extends Controller {
                             $builder->where('code','gly');
                         })
                         ->where('display',1)
-                        ->find($ng_menu->component_link);
+                        ->find($menu->component_link);
 
             if($data && $data->ng_gallery_detail_one){
                 $with['data'] = $data;
@@ -168,30 +150,30 @@ class Dashboard extends Controller {
         return response()->view('errors.unauthorized');
     }
 
-    public function getViewsComponentType($with,$ng_menu,$request){
-        $component_type = $ng_menu->component_type;
+    public function getViewsComponentType($with,$menu,$request){
+        $component_type = $menu->component_type;
         if($component_type == 1){
             //1=>profile
-            if($ng_menu->child){
-                return redirect('category/' . $ng_menu->child->slug . '.html');
+            if($menu->child){
+                return redirect('category/' . $menu->child->slug . '.html');
             }
         }elseif($component_type == 2){
             //2=>news
-            $datas = \Models\ng_article::where('type',2)
+            $datas = \Models\article::where('type',2)
                         ->where('display',1)
                         ->orderBy('date', 'desc')
                         ->orderBy('id', 'desc');
             $datas = $datas->paginate($this->max_row);
             $datas->chunk(100);
             if($datas){
-                $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
                 $with['param'] = Input::all();
                 return view($this->view_path . '::news', $with);
             }
         }elseif($component_type == 3){
             //3=>events
-            $datas = \Models\ng_article::where('type',3)
+            $datas = \Models\article::where('type',3)
                         ->where('display',1)
                         // kalo udh lebih dari waktu skrg event hilang
                         ->where('publish_end', '>=' , date("Y-m-d H:i:s", strtotime('+7 hours')))
@@ -201,7 +183,7 @@ class Dashboard extends Controller {
             $datas = $datas->paginate($this->max_row2);
             $datas->chunk(100);
             if($datas){
-                $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
                 $with['param'] = Input::all();
                 return view($this->view_path . '::events', $with);
@@ -213,7 +195,7 @@ class Dashboard extends Controller {
             $datas = $datas->paginate($this->max_row2);
             $datas->chunk(100);
             if($datas){
-                $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
                 $with['param'] = Input::all();
                 return view($this->view_path . '::achievements', $with);
@@ -229,7 +211,7 @@ class Dashboard extends Controller {
             $datas = $datas->paginate($this->max_row2);
             $datas->chunk(100);
             if($datas){
-                $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
                 $with['param'] = Input::all();
                 return view($this->view_path . '::facilities', $with);
@@ -245,7 +227,7 @@ class Dashboard extends Controller {
             $datas = $datas->paginate($this->max_row2);
             $datas->chunk(100);
             if($datas){
-                $this->cms->countViewsModule($ng_menu->getTable(),$ng_menu->id); //hitung visitor website
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
                 $with['param'] = Input::all();
                 return view($this->view_path . '::gallery', $with);
@@ -257,7 +239,7 @@ class Dashboard extends Controller {
     public function read($menu,$year,$month,$slug,Request $request){
         if($menu == 'news'){
             //news
-            $data = \Models\ng_article::where('type',2)
+            $data = \Models\article::where('type',2)
                         ->where('display',1)
                         ->where('slug',$slug)
                         ->whereYear('date',$year)
@@ -278,7 +260,7 @@ class Dashboard extends Controller {
             }
         }elseif($menu == 'events'){
             //events
-            $data = \Models\ng_article::where('type',3)
+            $data = \Models\article::where('type',3)
                         ->where('display',1)
                         ->where('slug',$slug)
                         ->whereYear('date',$year)
