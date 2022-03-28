@@ -111,10 +111,10 @@ a:hover{
     border-bottom: none
 }
 .table-list .table tbody tr:first-of-type td{
-    border-top:1px solid #787878
+    /* border-top:1px solid #787878 */
 }
 .table-list .table tbody tr:last-of-type td{
-    border-bottom:1px solid #787878
+    /* border-bottom:1px solid #787878 */
 }
 .table-list .table>tbody>tr.active>td{
     background-color: #f5f5f5;
@@ -354,7 +354,8 @@ a.link {
 .action-list a{
     padding: 7px;
     font-size: 13px;
-    border-radius: 50%;
+    border-radius: 10px;
+    width: 30px;
     color: #fff;
     vertical-align: middle;
     display: inline-flex;
@@ -364,11 +365,14 @@ a.link {
 .action-list a:focus{
     text-decoration: none
 }
+.action-list a i{
+    margin:0 auto
+}
 .action-list .green{
-    background:#1b8359
+    background:#ec9f21
 }
 .action-list .yellow{
-    background:#f5a623
+    background:#5481d3
 }
 .action-list .red{
     background:#d52b3a
@@ -440,10 +444,12 @@ a.link {
     text-align: center
 }
 .bg-label.bg-green{
-    background:#b0e279
+    background: #4c9e4c;
+    color: #fff;
 }
 .bg-label.bg-red{
-    background:#fb9f9f
+    background: #919191;
+    color: #fff;
 }
 .bg-label.bg-blue {
     background: #a9d7ff;

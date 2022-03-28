@@ -4,67 +4,43 @@
 <section class="section-carousel w-100 position-relative h-100">
     <div class="wrapper-page h-100">
         <div class="carousel-home h-100">
-            <div class="carousel-detail h-100" id="item_0">
+            @foreach($main_headers as $key => $data)
+            <?php
+                $data = isset($data->data_content)? $data->data_content : $data;
+            ?>
+            <div class="carousel-detail h-100" id="item_{{ $key }}">
                 <div class="carousel-slide">
                     <img class="position-absolute piece piece1 d-none d-lg-inline-block" src="{{ asset('assets/images/templates/plate.png') }}" />
                     <img class="position-absolute piece piece2 d-none d-lg-inline-block" src="{{ asset('assets/images/templates/tray.png') }}" />
                 </div>
-                <div class="row align-items-lg-center">
+                <div class="row align-items-lg-center w-100">
                     <div class="col-lg-6 text-center">
-                        <img class="img-header animated slideUp" src="{{ asset('assets/images/templates/raw-chicken.jpeg') }}"/><br>
+                        @if($data->photo != '')
+                            <img class="img-header animated slideUp" src="{{ isset($data)? $data->photo : '' }}"/>
+                        @endif
+                        <br>
                     </div>
                     <div class="col-lg-6">
                         <div class="carousel-desc text-white animated slideUp">
-                            <h2 class="d-3 mb-3 title d-inline-block pb-2">LOREM IPSUM</h2>
+                            <h2 class="d-3 mb-3 title d-inline-block pb-2">{{ isset($data)? $data->name : '' }}</h2>
 
                             <div class="desc-text d-4">
                                 <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown printer took a galley of type and scrambled it to make a type
-                                    specimen book. It has survived not only five centuries, but also the leap into
-                                    electronic typesetting, remaining essentially unchanged.
-                                </p>
-                                <a href="#" class="btn btn-orange">Contact US</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-detail h-100" id="item_1">
-                <div class="carousel-slide">
-                    <img class="position-absolute piece piece1 d-none d-lg-inline-block" src="{{ asset('assets/images/templates/plate.png') }}" />
-                    <img class="position-absolute piece piece2 d-none d-lg-inline-block" src="{{ asset('assets/images/templates/tray.png') }}" />
-                </div>
-                <div class="row align-items-lg-center">
-                    <div class="col-lg-6 text-center">
-                        <img class="img-header animated slideUp" src="{{ asset('assets/images/templates/company-people.jpg') }}"/><br>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="carousel-desc text-white animated slideUp">
-                            <h2 class="d-3 mb-3 title d-inline-block pb-2">GALLERY OF TYPE</h2>
-
-                            <div class="desc-text d-4">
-                                <p>
-                                    It has survived not only five centuries, but also the leap into
-                                    electronic typesetting, remaining essentially unchanged.
+                                    {!! isset($data)? $data->desc : '' !!}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
             <br>
             <ul class="nav justify-content-center carousel-control carousel-dots">
-                <li class="nav-item active text-center pr-2">
-                    <button type="button" class="dots_slider" data-id="0"></button>
+                @foreach($main_headers as $key => $data)
+                <li class="nav-item {{ $key == 0? 'active' : '' }} text-center pr-2">
+                    <button type="button" class="dots_slider" data-id="{{ $key }}"></button>
                 </li>
-                <li class="nav-item text-center pr-2">
-                    <button type="button" class="dots_slider" data-id="1"></button>
-                </li>
-                <li class="nav-item text-center dots_slider pr-2">
-                    <button type="button" class="dots_slider" data-id="2"></button>
-                </li>
+                @endforeach
             </ul>
         </div>
     </div>

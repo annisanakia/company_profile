@@ -50,33 +50,6 @@
             }
         });
     });
-    $(window).on('scroll',function(){
-      var counts = $('.pintro-counts');
-      if(counts.length){
-        if (counts.visible(true)) {
-          $('.count').each(function() {
-            var $this = $(this),
-                countTo = $this.attr('data-count');
-            
-            $({ countNum: $this.text()}).animate({
-              countNum: countTo
-            },
-            {
-              duration: 1500,
-              easing:'swing',
-              step: function() {
-                $this.text(Math.floor(this.countNum));
-              },
-              complete: function() {
-                $this.text(this.countNum);
-                //alert('finished');
-              }
-          
-            });  
-          });
-        }
-      }
-    });
   
     // Your custom JavaScript goes here
     $(document).ready(function(){
@@ -244,39 +217,6 @@
                   scrollTop: scrollTarget.offset().top
               }, 1500);
       });
-  
-      if ($('.pintro-popup').length){
-        var player = new Plyr('#pintro-video', {
-          autoplay: false
-        });
-        player.source = {
-          type: 'video',
-          title: 'Pakai Pintro sekarang',
-          sources: [
-              {
-                  src: './assets/videos/pintro-video3.mp4',
-                  type: 'video/mp4',
-                  size: 720
-              }
-          ],
-          poster: './assets/videos/pintro-cover.png'
-        };
-  
-        $('.pintro-video .btn-play').click(function(){
-          $('.pintro-popup').addClass('open');
-          player.play();
-        });
-  
-        $('.pintro-popup').mouseup(function(e) 
-        {
-            var targetDiv = $(".pintro-video-wrapper");
-            if (!targetDiv.is(e.target) && targetDiv.has(e.target).length === 0) 
-            {
-              $('.pintro-popup').removeClass('open');
-              player.stop();
-            }
-        });
-      }
       
       $('.pop-btn').click(function(e){
         e.preventDefault();

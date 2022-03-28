@@ -15,7 +15,7 @@ class article extends Model {
     
     public static $rules = array(
         'article_category_id' => 'required',
-        'title' => 'required',
+        'name' => 'required',
         'date' => 'required'
     );
     

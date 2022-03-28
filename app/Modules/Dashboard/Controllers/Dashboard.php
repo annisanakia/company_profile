@@ -16,6 +16,7 @@ class Dashboard extends Controller {
     protected $max_row;
     protected $max_row2;
     protected $department;
+    protected $company;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class Dashboard extends Controller {
         $this->max_row2 = 6;
 
         $globalTools = new \Lib\core\globalTools();
+        $this->company = \Models\company::where('code','HSP')->first();
 
         view::share('url_image', '');
         view::share('globalTools', $globalTools);
@@ -43,7 +45,11 @@ class Dashboard extends Controller {
                 ->first();
         
         if($menu){
-            $with = [];
+            $main_headers = \Models\company_header::where('code','main_header')
+                    ->where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->get();
+            $with['main_headers'] = $main_headers;
             $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
             return view($this->controller_name . '::index', $with);
         }
@@ -152,15 +158,19 @@ class Dashboard extends Controller {
 
     public function getViewsComponentType($with,$menu,$request){
         $component_type = $menu->component_type;
+
         if($component_type == 1){
             //1=>profile
-            if($menu->child){
-                return redirect('category/' . $menu->child->slug . '.html');
+            $data = $this->company;
+            if($data){
+                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
+                $with['data'] = $data;
+                $with['param'] = request()->all();
+                return view($this->view_path . '::profile', $with);
             }
         }elseif($component_type == 2){
             //2=>news
-            $datas = \Models\article::where('type',2)
-                        ->where('display',1)
+            $datas = \Models\article::where('is_publish',1)
                         ->orderBy('date', 'desc')
                         ->orderBy('id', 'desc');
             $datas = $datas->paginate($this->max_row);
@@ -168,69 +178,43 @@ class Dashboard extends Controller {
             if($datas){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::news', $with);
+                $with['param'] = request()->all();
+                return view($this->view_path . '::article', $with);
             }
         }elseif($component_type == 3){
-            //3=>events
-            $datas = \Models\article::where('type',3)
-                        ->where('display',1)
-                        // kalo udh lebih dari waktu skrg event hilang
-                        ->where('publish_end', '>=' , date("Y-m-d H:i:s", strtotime('+7 hours')))
-                        ->orderBy('date', 'desc')
-                        ->orderBy('id', 'desc');    
-            // dump(date("Y-m-d H:i:s", strtotime('+7 hours')));
-            $datas = $datas->paginate($this->max_row2);
+            //3=>product
+            $datas = \Models\product::where('is_publish',1)
+                        ->orderBy('sequence', 'asc')
+                        ->orderBy('id', 'desc');
+            $datas = $datas->paginate($this->max_row);
             $datas->chunk(100);
             if($datas){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::events', $with);
+                $with['param'] = request()->all();
+                return view($this->view_path . '::product', $with);
             }
         }elseif($component_type == 4){
-            //4=>achievement
-            $datas = \Models\ng_achievement::orderBy('date', 'desc')
+            //4=>career
+            $datas = \Models\career::where('is_publish',1)
+                        ->orderBy('start_date', 'desc')
                         ->orderBy('id', 'desc');
-            $datas = $datas->paginate($this->max_row2);
+            $datas = $datas->paginate($this->max_row);
             $datas->chunk(100);
             if($datas){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['datas'] = $datas;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::achievements', $with);
+                $with['param'] = request()->all();
+                return view($this->view_path . '::career', $with);
             }
         }elseif($component_type == 5){
-            //5=>facility
-            $datas = \Models\ng_gallery::whereHas('ng_gallery_category',function($builder){
-                            $builder->where('code','fcy');
-                        })
-                        ->where('display',1)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('id', 'desc');
-            $datas = $datas->paginate($this->max_row2);
-            $datas->chunk(100);
-            if($datas){
+            //5=>contact
+            $data = $this->company;
+            if($data){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['datas'] = $datas;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::facilities', $with);
-            }
-        }elseif($component_type == 6){
-            //6=>gallery
-            $datas = \Models\ng_gallery::whereHas('ng_gallery_category',function($builder){
-                            $builder->where('code','gly');
-                        })
-                        ->where('display',1)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('id', 'desc');
-            $datas = $datas->paginate($this->max_row2);
-            $datas->chunk(100);
-            if($datas){
-                $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['datas'] = $datas;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::gallery', $with);
+                $with['data'] = $data;
+                $with['param'] = request()->all();
+                return view($this->view_path . '::contact', $with);
             }
         }
         return response()->view('errors.unauthorized');
