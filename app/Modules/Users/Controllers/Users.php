@@ -66,7 +66,7 @@ class Users extends RESTful {
                 ]);
 
                 $image = $request->file('filename');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/users');
 
                 if (!file_exists($destinationPath)) {
@@ -224,7 +224,7 @@ class Users extends RESTful {
                 ]);
 
                 $image = $request->file('filename');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/users');
 
                 if (!file_exists($destinationPath)) {

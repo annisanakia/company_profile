@@ -116,7 +116,7 @@
                     {{ Form::label('Logo White Company', 'Logo White Company', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         @if($data->logo_white != '')
-                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover">
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover;background:#ddd">
                                 <img src="{{ asset($data->logo_white) }}">
                             </div>
                         @else

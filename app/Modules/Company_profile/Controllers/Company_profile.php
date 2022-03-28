@@ -99,7 +99,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('logo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = 'logo.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {
@@ -119,7 +119,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('logo_white');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = 'logo_white.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {
@@ -190,7 +190,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {
@@ -329,7 +329,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/header');
 
                 if (!file_exists($destinationPath)) {
@@ -415,7 +415,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {
@@ -481,7 +481,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {
@@ -562,7 +562,7 @@ class Company_profile extends RESTful {
                 ]);
 
                 $image = request()->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/company');
 
                 if (!file_exists($destinationPath)) {

@@ -44,7 +44,7 @@ class Career extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/career');
 
                 if (!file_exists($destinationPath)) {
@@ -81,7 +81,7 @@ class Career extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/career');
 
                 if (!file_exists($destinationPath)) {
@@ -109,7 +109,7 @@ class Career extends RESTful {
         ]);
 
         $image = $request->file('photo');
-        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $input['imagename'] = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
         $destinationPath = public_path('assets/file/career');
         // dd($destinationPath);
         if (!file_exists($destinationPath)) {

@@ -44,7 +44,7 @@ class Article extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/article');
 
                 if (!file_exists($destinationPath)) {
@@ -81,7 +81,7 @@ class Article extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/article');
 
                 if (!file_exists($destinationPath)) {
