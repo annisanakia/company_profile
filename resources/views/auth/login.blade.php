@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <?php
-            $title = 'PINTRO';
+            $title = 'Company Profile';
         ?>
 
         <link rel="icon" href="{{ asset('assets/images/templates/favicon.png') }}">
@@ -15,10 +15,11 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{ asset('assets/plugins/font-awesome/css/all.min.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/icheck/skins/minimal/_all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/main.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/css/login.css')}}">
+        
+        <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
     </head> 
     <body class="bg-orange h-100">
         <div class="container h-100">
@@ -27,7 +28,7 @@
                     <div class="login-panel mx-auto">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img class="login-logo" src="{{ asset('assets/images/logo.png')}}" alt="branding logo">
+                                <img class="login-logo" src="{{ asset('assets/images/templates/ranchdeli.png') }}" alt="branding logo">
                                 <div class="login-title">
                                     Sign In
                                 </div>

@@ -26,7 +26,6 @@ class menuComposer {
                                 //$builder->where('groups_id', $this->user->getAttributes()['user_group_id']);
                             })
                             ->where('display', 1)
-                            ->where('menu_type_id', 1)
                             ->orderBy('ordering', 'asc')
                             ->get()->toArray();
             if ($job) {
@@ -127,22 +126,12 @@ class menuComposer {
             $parent = job::select(['*'])->where('code', '=', strtolower($code))->first();
 
             if ($parent) {
-                if ($parent->menu_type_id != 1) {
-                    $type = $parent->parents->menu_type_id;
-                    $parent = $parent->parents;
-                    while ($type != 1) {
-                        $parent = $parent->parents;
-                        $type = $parent->menu_type_id;
-                    }
-                }
-
                 $job = job::with('childrenRecursive')
                                 ->whereHas('acl', function($builder) {
                                     $builder->where('groups_id', Session()->get('group_as', ''));
                                 })
                                 ->where('parent', $parent->id)
                                 ->where('display', 1)
-                                ->where('menu_type_id', 2)
                                 ->orderBy('ordering', 'asc')
                                 ->get()->toArray();
 

@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <?php
-            $title = 'PINTRO';
+            $title = 'Company Profile';
             $menuComposer = new \Lib\core\menuComposer();
         ?>
 
@@ -16,7 +16,6 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{ asset('assets/plugins/font-awesome/css/all.min.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/icheck/skins/flat/_all.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/layout/layout.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.css')}}">
@@ -35,18 +34,19 @@
         <script src="{{ asset('assets/js/popper.min.js')}}"></script>
         <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.js')}}" type="text/javascript"></script>
         <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
+        <script src="https://kit.fontawesome.com/31c8d4e018.js" crossorigin="anonymous"></script>
     </head>
     <body class="menu-vertical menu-expanded">
         <nav class="navbar navbar-top">
             <ul class="navbar-nav d-inline float-right">
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-user-circle" style="color:#177584"></i>
+                    <a class="nav-link" href="{{ url('account') }}">
+                        <i class="fa-solid fa-house-chimney-user" style="color:#1b8359"></i>
                     </a> 
                 </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fas fa-power-off" style="color:#a80c2f"></i>
+                        <i class="fa-solid fa-right-from-bracket" style="color:#a80c2f"></i>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -58,9 +58,9 @@
             <nav class="sidebar navbar-side">
                 <div class="side-header">
                     <a class="navbar-toggle" href="#">
-                        <i class="fas fa-align-right" aria-hidden="true"></i>
+                        <i class="fas fa-solid fa-outdent"></i>
                     </a>
-                    <img class="side-logo" src="{{ asset('assets/images/logo-white.png') }}">
+                    <img class="side-logo" src="{{ asset('assets/images/templates/ranchdeli-white.png') }}">
                 </div>
                 <div class="sidebar-sticky">
                     @if(!is_array($menuComposer->compose()))

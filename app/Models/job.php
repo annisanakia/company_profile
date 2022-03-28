@@ -18,8 +18,7 @@ class job extends Model {
         'code' => 'required',
         'name' => 'required',
         'parent' => 'required',
-        'display' => 'required',
-        'menu_type_id' => 'required'
+        'display' => 'required'
     );
     
     public static $customMessages = array(

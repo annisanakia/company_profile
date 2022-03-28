@@ -13,7 +13,7 @@
         font-weight: normal;
     }
 </style>
-{{ Form::open(array('route' => $controller_name.'.store', 'id'=>'form-tab-ajax', 'class'=>'form-validation', 'linkIndex'=>url($controller_name))) }}
+{{ Form::open(array('route' => $controller_name.'.store', 'class'=>'form-validation')) }}
 
 <div class="title-table">
     {{$title}}
@@ -39,25 +39,20 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('parent')) echo 'has-error' ?>">
                     {{ Form::label('Parent', 'Parent', array('class'=>'control-label')) }}
-                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\job::nestedSelect()), null, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
+                    {{ Form::select('parent', ([''=>'-- Select Parent --', 0=>'No Parent']+Models\job::nestedSelect()), 0, array('class'=>'form-control selectpicker', 'data-live-search'=>'true')) }}
                     {!!$errors->first('parent', ' <span class="form-text error">:message</span>')!!}
                 </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('ordering')) echo 'has-error' ?>">
                     {{ Form::label('Ordering', 'Ordering', array('class'=>'control-label')) }}
                     {{ Form::number('ordering', null, array('class'=>'form-control', 'placeholder'=>'Ordering')) }}
                     {!!$errors->first('ordering', ' <span class="form-text error">:message</span>')!!}
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group <?php if ($errors->has('display')) echo 'has-error' ?>">
                     {{ Form::label('Publish', 'Publish', array('class'=>'control-label')) }}
                     {{ Form::select('display', [''=>'-- Select Publish --', 1=>'Publish', 2=>'Draft'], 1, array('class'=>'form-control selectpicker')) }}
                     {!!$errors->first('display', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('menu_type_id')) echo 'has-error' ?>">
-                    {{ Form::label('Menu Type', 'Menu Type', array('class'=>'control-label')) }}
-                    {{ Form::select('menu_type_id', [''=>'-- Select Menu Type --']+Models\menu_type::pluck('name','id')->all(), null, array('class'=>'form-control selectpicker')) }}
-                    {!!$errors->first('menu_type_id', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('icon')) echo 'has-error' ?>">
                     {{ Form::label('Icon', 'Icon', array('class'=>'control-label')) }}

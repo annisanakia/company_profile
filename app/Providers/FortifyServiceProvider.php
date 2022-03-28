@@ -43,46 +43,9 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::resetPasswordView(function ($request) {
-            // $domain = request()->getHost();
-            // $apps = \Models\app::where('domain_local', $domain)->OrWhere('domain_production', $domain)->first();
-
-            // if ($apps->client->id = 400) {
-            //     return view('auth.reset-password-new', ['request' => $request]);
-            // } else {
-            //     return view('auth.reset-password', ['request' => $request]);
-            // }
         });
 
         Fortify::loginView(function () {
-            // $domain = request()->getHost();
-
-            // $apps = \Models\app::where('domain_local', $domain)->OrWhere('domain_production', $domain)->first();
-
-            // if ($apps) {
-            //     $client = $apps->client;
-            // } else {
-            //     $client = \Models\client::where('url_bo', $domain)
-            //         ->first();
-            // }
-
-            // if ($domain == "demo.pintro.id") {
-            //     return view('demo.login_demo');
-            // } else {
-            //     if ($client) {
-            //         $with['login_logo'] = $client->web_template_login_logo;
-            //         $with['favicon'] = $client->logo_favicon;
-            //         $with['background'] = $client->background_color;
-            //         $with['logo_size'] = $client->logo_size;
-            //         $with['client'] = $client;
-            //         return view('auth.' . $client->web_template_login, $with);
-            //     } else {
-            //         $with['login_logo'] = asset('images/logoalazharyogya.png');
-            //         $with['favicon'] = NULL;
-            //         $with['client'] = NULL;
-            //         return view('auth.login_pintro', $with);
-            //     }
-            // }
-
             return view('auth.login');
         });
 

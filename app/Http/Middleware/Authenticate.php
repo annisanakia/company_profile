@@ -18,11 +18,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
-        }
         if (auth()->user()) {
             return '/admin';
+        }
+        if (! $request->expectsJson()) {
+            return route('login');
         }
     }
 
@@ -47,11 +47,6 @@ class Authenticate extends Middleware
                     $request->session()->put('group_as', $group_as->groups_id);
                 }
             }
-            
-            $ng_department_id = Auth::user()->ng_department_id;
-            $ng_department_ids = \Models\ng_department::getChildRecursive($ng_department_id);
-            
-            $request->session()->put('ng_department_ids', $ng_department_ids);
             
             $code = $request->segment(1);
             if ($request->segment(1) == 'blank') {

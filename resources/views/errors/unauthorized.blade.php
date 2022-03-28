@@ -63,7 +63,7 @@
                 <tr>
                     <td>
                         <div>You have tried to access a page that you have no permission to view.</div>
-                        <a href="{{ url('/') }}">Go Back Home</a>
+                        <a href="{{ url('/admin') }}">Go Back Home</a>
                     </td>
                 </tr>
             </table>

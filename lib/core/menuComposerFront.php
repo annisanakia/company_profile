@@ -3,14 +3,14 @@
 namespace Lib\core;
 
 use Illuminate\Contracts\View\View;
-use Models\ng_menu;
+use Models\menu;
 use Models\ng_article;
 use Illuminate\Support\Facades\Auth;
 use Request;
 
 class menuComposerFront {
     public function compose() {
-        $menu = ng_menu::where('display', 1)
+        $menu = menu::where('display', 1)
                     // ->where('parent',0)
                     ->orderBy('ordering', 'asc')
                     ->get()
@@ -74,7 +74,7 @@ class menuComposerFront {
                 $link_class = 'nav-link';
                 if($menuItem['slug'] == 'dashboard'){
                     $url = '';
-                }elseif(ng_menu::where('parent', '=', $id)->first()) {
+                }elseif(menu::where('parent', '=', $id)->first()) {
                     $url = 'category/'.$menuItem['slug'].'.html';
                 }elseif($menuItem['parent'] != 0){
                     $nav_class = '';

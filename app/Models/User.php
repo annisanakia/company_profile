@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'ng_department_id', 'client_id', 'phone', 'is_register_client', 'ng_user_type_id'
+        'name', 'username', 'email', 'password', 'ng_department_id', 'phone'
     ];
 
     /**
@@ -104,90 +104,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('Models\user_group', 'users_id', 'id');
     }
 
-    public function is_has_groups($groups_ids)
-    {
-        $groups = $this->user_group()->get();
-        if ($groups->count() > 0) {
-            foreach ($groups as $group) {
-                if (in_array($group->groups_id, $groups_ids)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public function users_photo()
     {
         return $this->hasOne('Models\users_photo', 'users_id', 'id');
     }
 
-    public function ng_test_applicant()
+    public function user_access()
     {
-        return $this->hasOne('Models\ng_test_applicant', 'users_id', 'id');
-    }
-
-    public function ng_student()
-    {
-        return $this->hasOne('Models\ng_student', 'users_id', 'id');
-    }
-
-    public function ng_department()
-    {
-        return $this->belongsTo('Models\ng_department');
-    }
-
-    public function ng_user_access()
-    {
-        return $this->hasMany('Models\ng_user_access', 'users_id', 'id');
-    }
-
-    public function ng_user_relation()
-    {
-        return $this->hasMany('Models\ng_user_relation', 'users_id', 'id');
-    }
-
-    public function ng_user_access_last()
-    {
-        return $this->hasOne('Models\ng_user_access', 'users_id', 'id')
-            ->latest();
-    }
-
-    public function getMail()
-    {
-        return $this->email ? (filter_var($this->email, FILTER_VALIDATE_EMAIL) ? $this->email : 'support@iglobal.co.id') : 'support@iglobal.co.id';
-    }
-
-    public function getCleanName()
-    {
-        $name =  $this->name ? preg_replace('/[^A-Za-z\  ]/', '', substr($this->name, 0, 49)) : "No Name";
-        return  str_replace("'", '', $name);
-    }
-
-    public function getAddress()
-    {
-        if (empty($this->address)) {
-            return "Address Not Found";
-        }
-        return substr($this->address, 0, 99);
-    }
-
-    public function getCellphone()
-    {
-        return $this->phone;
-    }
-
-    public function is_admin()
-    {
-        $user_groups = $this->user_group()->get();
-        if ($user_groups->count() > 0) {
-            foreach ($user_groups as $user_group) {
-                if ($user_group->groups->code == "adm") {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return $this->hasMany('Models\user_access', 'users_id', 'id');
     }
 
     public function sendPasswordResetNotification($token)

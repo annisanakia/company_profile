@@ -11,7 +11,7 @@ class globalTools
             $html = '<select class="form-control" name="' . $name . '">';
         }
         if ($blank) {
-            $html .= '<option value="">' . trans('say.-- Pilih --') . '</option>';
+            $html .= '<option value="">' . trans('say.-- Choose --') . '</option>';
         }
         foreach ($data as $row) {
             if (is_array($selected)) {
@@ -38,7 +38,7 @@ class globalTools
     {
         $html = '<select class="form-control" name="' . $name . '">';
         if ($blank) {
-            $html .= '<option value="">' . trans('say.-- Pilih --') . '</option>';
+            $html .= '<option value="">' . trans('say.-- Choose --') . '</option>';
         }
         foreach ($data as $row) {
             if ($selected == $row->id) {
@@ -56,7 +56,7 @@ class globalTools
     {
         $html = '<select class="form-control" name="' . $name . '">';
         if ($blank) {
-            $html .= '<option value="">' . trans('say.-- Pilih --') . '</option>';
+            $html .= '<option value="">' . trans('say.-- Choose --') . '</option>';
         }
         foreach ($data as $key => $row) {
             if (is_array($selected)) {
@@ -82,7 +82,7 @@ class globalTools
     {
         $html = '<select class="form-control" name="' . $name . '">';
         if ($blank) {
-            $html .= '<option value="">' . trans('say.-- Pilih --') . '</option>';
+            $html .= '<option value="">' . trans('say.-- Choose --') . '</option>';
         }
         foreach ($options as $attribute => $value) {
             $html .= ' ' . $attribute . '="' . $value . '"';

@@ -68,7 +68,16 @@ class RESTful extends Controller
             Session()->put('menu_as', strtolower($controller_name));
 
             if (!Session()->has('group_as')) {
-                Redirect::to('/')->send();
+                $group_as = \Models\user_group::select(['groups_id'])
+                        ->where('users_id', '=', Auth::user()->getAttributes()['id'])
+                        ->where('default', '=', 1)
+                        ->first();
+
+                if($group_as){
+                    request()->session()->put('group_as', $group_as->groups_id);
+                }else{
+                    Redirect::to('/admin')->send();
+                }
             }
 
             if ($job) {
@@ -132,7 +141,7 @@ class RESTful extends Controller
         if ($this->priv['add_priv'])
             $this->actions[] = array('name' => 'Add Data', 'url' => strtolower($this->controller_name) . '/create', 'class' => 'orange-button', 'icon' => 'far fa-plus-square');
         if ($this->priv['delete_priv'])
-            $this->actions[] = array('name' => 'Delete', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row', 'icon' => 'far fa-trash-alt');
+            $this->actions[] = array('name' => 'Delete', 'type' => 'button', 'url' => strtolower($this->controller_name) . '/delete_row', 'class' => 'red-button delete-row delete-data', 'icon' => 'far fa-trash-alt');
 
         $url_xls = '#';
         if ($this->enable_xls) {
@@ -194,6 +203,9 @@ class RESTful extends Controller
                                 }
                                 if ($key == 'end' || $key == 'end_date') {
                                     $data->where($key, '<=', $value);
+                                }
+                                if ($key == 'date') {
+                                    $data->whereDate($key, $value);
                                 }
                             } else {
                                 $data->where($key, '=', $value);
@@ -286,6 +298,8 @@ class RESTful extends Controller
         if ($this->priv['delete_priv'])
             $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
         $this->setAction($action);
+        
+        $content['actions'] = $this->actions;
 
         return View($this->view_path . '::' . $this->detail_view_path, $content);
     }
@@ -337,8 +351,8 @@ class RESTful extends Controller
                 ->get();
         }
 
-        $action[] = array('name' => 'Simpan', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
-        $action[] = array('name' => 'Batal', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
+        $action[] = array('name' => 'Save', 'type' => 'submit', 'url' => '#', 'class' => 'orange-button', 'img' => 'assets/images/templates/save-page.png');
+        $action[] = array('name' => 'Cancel', 'url' => strtolower($this->controller_name), 'class' => 'green-button', 'img' => 'assets/images/templates/cancel-page.png');
 
         $this->setAction($action);
         $with['actions'] = $this->actions;

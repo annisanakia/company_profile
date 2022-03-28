@@ -43,11 +43,6 @@
                             <td width="10px">:</td>
                             <td>{{ isset($data->parents->name)? $data->parents->name : '' }}</td>
                         </tr>
-                        <tr>
-                            <td>Urutan</td>
-                            <td width="10px">:</td>
-                            <td>{{ isset($data->ordering)? $data->ordering : '' }}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -55,14 +50,14 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td>Publish</td>
+                            <td>Urutan</td>
                             <td width="10px">:</td>
-                            <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
+                            <td>{{ isset($data->ordering)? $data->ordering : '' }}</td>
                         </tr>
                         <tr>
-                            <td>Tipe Menu</td>
+                            <td width="150px">Publish</td>
                             <td width="10px">:</td>
-                            <td>{{ isset($data->menu_type->name)? $data->menu_type->name : '' }}</td>
+                            <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
                         </tr>
                         <tr>
                             <td>Icon</td>

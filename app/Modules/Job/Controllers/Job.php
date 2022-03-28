@@ -94,7 +94,7 @@ class Job extends RESTful
             $action[] = array('name' => 'Delete', 'url' => strtolower($this->controller_name) . '/delete/' . $id, 'class' => 'btn btn-click btn-red responsive', 'attr' => 'ng-click=confirm($event)');
         $this->setAction($action);
 
-        $content = array('title_form' => 'Edit data', 'data' => $data, 'user_group' => $temp);
+        $content = array('title_form' => 'Detail data', 'data' => $data, 'user_group' => $temp);
         $content['actions'] = $this->actions;
         
         return View($this->controller_name . '::detail', $content);
@@ -162,7 +162,6 @@ class Job extends RESTful
             $data->parent = $request->input('parent');
             $data->ordering = $request->input('ordering');
             $data->display = $request->input('display');
-            $data->menu_type_id = $request->input('menu_type_id');
             $data->icon = $request->input('icon');            
             $data->save();
 
@@ -200,14 +199,12 @@ class Job extends RESTful
                 }
             }
 
-            return Redirect::route(strtolower($this->controller_name) . '.index', $id);
+            return Redirect::route(strtolower($this->controller_name) . '.index');
         }
         return Redirect::route(strtolower($this->controller_name) . '.edit', $id)
                         ->withInput()
                         ->withErrors($validation)
                         ->with('message', 'There were validation errors.');
-
-        parent::update($request, $id);
     }
 
 }
