@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('twitter')) echo 'has-error' ?>">
                     {{ Form::label('Twitter', 'Twitter', array('class'=>'control-label')) }}
-                    {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
+                    {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Twitter')) }}
                     {!!$errors->first('twitter', ' <span class="form-text error">:message</span>')!!}
                 </div>
                 <div class="form-group <?php if ($errors->has('whatsapp')) echo 'has-error' ?>">

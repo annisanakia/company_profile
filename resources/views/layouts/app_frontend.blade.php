@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <?php
-        $name = isset($company)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
-        $desc = isset($company->description)? $company->description : '';
+        $logo = isset($company->logo)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
+        $name = isset($company)? $company->name : 'Hadijaya Solusi Pangan';
+        $desc = isset($company->desc)? $company->desc : '';
         $favicon = asset(ucwords(strtolower($company->favicon)));
     ?>
 
@@ -54,14 +55,12 @@
         <div class="wrapper-page container-fluid">
             <div class="row">
                 <div class="col-lg-2 col-md-3 mb-4 d-flex align-items-center animated slideUp">
-                    <img src="{{ asset('assets/images/templates/ranchdeli.png') }}" style="width:100px"><br>
+                    <img src="{{ $logo }}" style="width:100px"><br>
                 </div>
                 <div class="col-lg-4 col-md-9 mb-4 animated slideUp">
                     <span class="title pb-1 font-weight-bold">ABOUT US</span>
                     <div class="mt-4">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                        took a galley of type and scrambled it to make a type specimen book.
+                        {{ $desc }}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4 animated slideUp">
@@ -69,16 +68,15 @@
                     <div class="mt-4">
                         <div class="m-2">
                             <i class="fa-solid fa-phone mr-1"></i>
-                            +62 813-8080-1825
                             {{ $company->phone_no }}
                         </div>
                         <div class="m-2">
                             <i class="fa-solid fa-envelope mr-1"></i>
-                            hadijaya@gmail.com
+                            {{ $company->email }}
                         </div>
                         <div class="m-2">
                             <i class="fa-solid fa-location-dot mr-1"></i>
-                            Jl. Raya Bojonggede - Kemang (Bomang), Jampang, Kec. Kemang, Kabupaten Bogor, Jawa Barat 16310
+                            {{ $company->address }}
                         </div>
                     </div>
                 </div>
@@ -86,18 +84,26 @@
                     <span class="title pb-1 font-weight-bold">SOCIAL MEDIA</span>
                     <div class="mt-4">
                         <ul class="nav">
-                            <li class="nav-item text-center m-1 animated zoomIn d-3">
-                                <a href="#"><img src="{{ asset('assets/images/templates/instagram.png') }}"></a>
-                            </li>
-                            <li class="nav-item text-center m-1 animated zoomIn d-4">
-                                <a href="#"><img src="{{ asset('assets/images/templates/facebook.png') }}"></a>
-                            </li>
-                            <li class="nav-item text-center m-1 animated zoomIn d-5">
-                                <a href="#"><img src="{{ asset('assets/images/templates/twitter.png') }}"></a>
-                            </li>
-                            <li class="nav-item text-center m-1 animated zoomIn d-6">
-                                <a href="#"><img src="{{ asset('assets/images/templates/whatsapp.png') }}"></a>
-                            </li>
+                            @if($company->instagram != '')
+                                <li class="nav-item text-center m-1 animated zoomIn d-3">
+                                    <a href="{{ $company->instagram }}" target="_blank"><img src="{{ asset('assets/images/templates/instagram.png') }}"></a>
+                                </li>
+                            @endif
+                            @if($company->facebook != '')
+                                <li class="nav-item text-center m-1 animated zoomIn d-4">
+                                    <a href="{{ $company->facebook }}" target="_blank"><img src="{{ asset('assets/images/templates/facebook.png') }}"></a>
+                                </li>
+                            @endif
+                            @if($company->twitter != '')
+                                <li class="nav-item text-center m-1 animated zoomIn d-5">
+                                    <a href="{{ $company->twitter }}" target="_blank"><img src="{{ asset('assets/images/templates/twitter.png') }}"></a>
+                                </li>
+                            @endif
+                            @if($company->whatsapp != '')
+                                <li class="nav-item text-center m-1 animated zoomIn d-6">
+                                    <a href="{{ $company->whatsapp }}" target="_blank"><img src="{{ asset('assets/images/templates/whatsapp.png') }}"></a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -105,7 +111,7 @@
         </div>
     </section>
     <section class="text-center bg-dark text-white p-2">
-        © 2022 Hadijaya Solusi Pangan.
+        © 2022 {{ $name }}.
     </section>
 </footer>
 </html>

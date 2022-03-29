@@ -12,8 +12,8 @@
             $company = Session()->get('company');
             $logo = isset($company->logo)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
             $logo_white = isset($company->logo_white)? asset($company->logo_white) : asset('assets/images/templates/ranchdeli-white.png');
-            $name = isset($company->name)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
-            $desc = isset($company->description)? ucwords(strtolower($company->description)) : '';
+            $name = isset($company->name)? $company->name : 'Hadijaya Solusi Pangan';
+            $desc = isset($company->desc)? $company->desc : '';
             $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
