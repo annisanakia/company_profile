@@ -10,11 +10,11 @@
             $menuComposer = new \Lib\core\menuComposer();
 
             $company = Session()->get('company');
-            $logo = isset($company->logo)? $company->logo : '';
-            $logo_white = isset($company->logo_white)? $company->logo_white : asset('assets/images/templates/ranchdeli-white.png');
+            $logo = isset($company->logo)? asset($company->logo) : '';
+            $logo_white = isset($company->logo_white)? asset($company->logo_white) : asset('assets/images/templates/ranchdeli-white.png');
             $name = isset($company->name)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
             $desc = isset($company->name)? ucwords(strtolower($company->name)) : '';
-            $favicon = isset($company->favicon)? ucwords(strtolower($company->favicon)) : '';
+            $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
         <meta name="description" content="{{ $desc }}">

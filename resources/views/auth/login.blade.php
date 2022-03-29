@@ -9,9 +9,9 @@
         <?php
             $company = \Models\company::where('code','HSP')->first();
             $name = isset($company)? $company->name : 'Hadijaya Solusi Pangan';
-            $logo = isset($company)? $company->logo : asset('assets/images/templates/ranchdeli.png');
+            $logo = isset($company)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
             $desc = isset($company->name)? ucwords(strtolower($company->name)) : '';
-            $favicon = isset($company->favicon)? ucwords(strtolower($company->favicon)) : '';
+            $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
         <meta name="description" content="{{ $desc }}">
