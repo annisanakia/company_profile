@@ -7,12 +7,13 @@
     @php
         $menuComposer = new \Lib\core\menuComposerFront();
         $menuComposer->compose();
+        $logo_white = $company->logo_white != ''? asset($company->logo_white) : asset('assets/images/templates/ranchdeli-white.png');
     @endphp
 	<div class="main-header height-auto w-100 position-relative overflow-hidden">
         <div class="wrapper-page animated slideDown d-5">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand text-white" href="#">
-                    <img src="{{ asset('assets/images/templates/ranchdeli-white.png') }}" class="pt-2" style="width:100px">
+                <a class="navbar-brand text-white" href="{{ url('/') }}">
+                    <img src="{{ $logo_white }}" class="pt-2" style="width:100px">
                 </a>
                 <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars"></i>

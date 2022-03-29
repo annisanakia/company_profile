@@ -10,10 +10,10 @@
             $menuComposer = new \Lib\core\menuComposer();
 
             $company = Session()->get('company');
-            $logo = isset($company->logo)? asset($company->logo) : '';
+            $logo = isset($company->logo)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
             $logo_white = isset($company->logo_white)? asset($company->logo_white) : asset('assets/images/templates/ranchdeli-white.png');
             $name = isset($company->name)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
-            $desc = isset($company->name)? ucwords(strtolower($company->name)) : '';
+            $desc = isset($company->description)? ucwords(strtolower($company->description)) : '';
             $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
@@ -25,7 +25,6 @@
         <meta property="og:title" content="{{ $name }}">
         <meta property="og:image" content="{{ $favicon }}">
         <meta property="og:description" content="{{ $desc }}">
-    
     
         <title>{{$name}}</title>
         <link rel="icon" href="{{ $favicon }}">

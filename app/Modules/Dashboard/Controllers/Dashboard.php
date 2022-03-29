@@ -30,6 +30,7 @@ class Dashboard extends Controller {
         $this->company = \Models\company::where('code','HSP')->first();
 
         view::share('url_image', '');
+        view::share('company', $this->company);
         view::share('globalTools', $globalTools);
         try {
             parent::getHost();

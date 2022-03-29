@@ -3,9 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Company Profile</title>
+
+    <?php
+        $name = isset($company)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
+        $desc = isset($company->description)? $company->description : '';
+        $favicon = asset(ucwords(strtolower($company->favicon)));
+    ?>
+
+    <meta name="description" content="{{ $desc }}">
+    <meta name="author" content="{{ $name }}">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{ isset($company)? $company->code : 'HSP' }}">
+    <meta property="og:title" content="{{ $name }}">
+    <meta property="og:image" content="{{ $favicon }}">
+    <meta property="og:description" content="{{ $desc }}">
+
+    <title>{{$name}}</title>
+    <link rel="icon" href="{{ $favicon }}">
 
     <!--  CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
@@ -55,6 +70,7 @@
                         <div class="m-2">
                             <i class="fa-solid fa-phone mr-1"></i>
                             +62 813-8080-1825
+                            {{ $company->phone_no }}
                         </div>
                         <div class="m-2">
                             <i class="fa-solid fa-envelope mr-1"></i>

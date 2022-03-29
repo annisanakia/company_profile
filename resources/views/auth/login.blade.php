@@ -8,9 +8,9 @@
 
         <?php
             $company = \Models\company::where('code','HSP')->first();
-            $name = isset($company)? $company->name : 'Hadijaya Solusi Pangan';
+            $name = isset($company)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
             $logo = isset($company)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
-            $desc = isset($company->name)? ucwords(strtolower($company->name)) : '';
+            $desc = isset($company->description)? $company->description : '';
             $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
