@@ -69,6 +69,9 @@ class Authenticate extends Middleware
                     }
                 }
             }
+
+            $this->company = \Models\company::where('code','HSP')->first();
+            $request->session()->put('company', $this->company);
         } else {
             if ($request->ajax()) {
                 return '<script>window.location.href = "'.url('login').'";</script>';

@@ -135,6 +135,29 @@
                     <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
                     {!!$errors->first('logo_white', ' <span class="form-text error">:message</span>')!!}
                 </div>
+                <div class="form-group <?php if ($errors->has('favicon')) echo 'has-error' ?>">
+                    {{ Form::label('Favicon Company', 'Favicon Company', array('class'=>'control-label')) }}<br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        @if($data->favicon != '')
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 50px; height: 50px;object-fit:cover;background:#ddd">
+                                <img src="{{ asset($data->favicon) }}">
+                            </div>
+                        @else
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 50px; height: 50px;object-fit:cover">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        @endif
+                        <div>
+                            <span class="btn btn-outline-secondary btn-file">
+                                <span class="fileinput-new">Select Photo</span>
+                                <span class="fileinput-exists">Change Photo</span>
+                                <input type="file" name="favicon" value="{{ isset($data->favicon)? $data->favicon : '' }}">
+                            </span>
+                        </div>
+                    </div>
+                    <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
+                    {!!$errors->first('favicon', ' <span class="form-text error">:message</span>')!!}
+                </div>
             </div>
         </div>
         </div>

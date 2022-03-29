@@ -130,6 +130,26 @@ class Company_profile extends RESTful {
                 $path = 'assets/file/company/' . $imagename;
                 $input['logo_white'] = $path;
             }
+
+            unset($input['favicon']);
+            if (request()->hasFile('favicon')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('favicon');
+                $imagename = 'favicon.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['favicon'] = $path;
+            }
             $data->update($input);
             \Session::flash('msg', '<b>Save Success</b>');
             return Redirect::route(strtolower($this->controller_name) . '.company_information');

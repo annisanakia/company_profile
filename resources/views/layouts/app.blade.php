@@ -7,12 +7,28 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <?php
-            $title = 'Company Profile';
             $menuComposer = new \Lib\core\menuComposer();
+
+            $company = Session()->get('company');
+            $logo = isset($company->logo)? $company->logo : '';
+            $logo_white = isset($company->logo_white)? $company->logo_white : asset('assets/images/templates/ranchdeli-white.png');
+            $name = isset($company->name)? ucwords(strtolower($company->name)) : 'Hadijaya Solusi Pangan';
+            $desc = isset($company->name)? ucwords(strtolower($company->name)) : '';
+            $favicon = isset($company->favicon)? ucwords(strtolower($company->favicon)) : '';
         ?>
 
-        <link rel="icon" href="{{ asset('assets/images/templates/favicon.png') }}">
-        <title>{{$title}}</title>
+        <meta name="description" content="{{ $desc }}">
+        <meta name="author" content="{{ $name }}">
+    
+        <meta property="og:type" content="article">
+        <meta property="og:site_name" content="{{ isset($company)? $company->code : 'HSP' }}">
+        <meta property="og:title" content="{{ $name }}">
+        <meta property="og:image" content="{{ $favicon }}">
+        <meta property="og:description" content="{{ $desc }}">
+    
+    
+        <title>{{$name}}</title>
+        <link rel="icon" href="{{ $favicon }}">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
@@ -60,7 +76,7 @@
                     <a class="navbar-toggle" href="#">
                         <i class="fas fa-solid fa-outdent"></i>
                     </a>
-                    <img class="side-logo" src="{{ asset('assets/images/templates/ranchdeli-white.png') }}">
+                    <img class="side-logo" src="{{ $logo_white }}">
                 </div>
                 <div class="sidebar-sticky">
                     @if(!is_array($menuComposer->compose()))
