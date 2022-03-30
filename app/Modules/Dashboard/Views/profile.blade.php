@@ -1,21 +1,21 @@
-@extends('layouts.layout_frontend')
+@extends('layouts.layout_index')
 
 @section('content_header')
 <section class="section-title position-relative text-white h-100">
     <div class="wrapper-page container-fluid h-100">
         <div class="row align-items-lg-center mt-5 mb-5">
             <div class="col-md-6">
-                <h2 class="animated slideUp d-3 mb-3 title pb-2"><span class="color-yellow">PROFILE</span><br>HADIJAYA SOLUSI PANGAN</h2>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
+                <h2 class="animated slideUp d-3 mb-3 title pb-2">
+                    <span class="color-yellow">PROFILE</span><br>
+                    {!! isset($profile_header)? $profile_header->name : '' !!}
+                </h2>
+
+                <div class="animated slideUp d-4">
+                    {!! isset($profile_header)? $profile_header->desc : '' !!}
+                </div>
             </div>
             <div class="col-md-6">
-                <img class="img-header" src="{{ asset('assets/images/templates/company-people.jpg') }}"/>
+                <img class="img-header animated slideUp" src="{{ asset('assets/images/templates/company-people.jpg') }}"/>
             </div>
         </div>
     </div>
@@ -49,9 +49,9 @@
         <div class="bg-softgray panel-visi">
             <div class="row align-items-lg-center p-5">
                 <div class="col-lg-6 text-center">
-                    <img src="{{ asset('assets/images/templates/chicken-raw.webp') }}" class="image rounded">
+                    <img src="{{ asset('assets/images/templates/chicken-raw.webp') }}" class="image rounded animated slideRight d-4">
                 </div>
-                <div class="col-lg-6 text-justify">
+                <div class="col-lg-6 text-justify animated slideLeft d-4">
                     <h3>VISI</h3>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     <br>
@@ -69,15 +69,15 @@
 <section class="section-team bg-light position-relative container-fluid">
     <div class="wrapper-page">
         <div class="title-section text-center">
-            <div class="mb-2">
+            <div class="mb-2 animated slideUp d-3">
                 <div class="line"></div>
                     <img src="{{ asset('assets/images/templates/tea-leaf.png') }}">
                 <div class="line"></div>
             </div>
-            <b class="color-green">OUR</b>
-            <b class="color-orange">TEAM</b>
+            <b class="color-green animated slideUp d-4">OUR</b>
+            <b class="color-orange animated slideUp d-4">TEAM</b>
         </div>
-        <div class="position-relative mb-5">
+        <div class="position-relative mb-5 animated slideUp d-5">
             <div class="carousel-slide">
                 <div class="panel-slide text-white d-flex align-items-center">
                     <div class="bg-orange h-100 w-100 p-5">

@@ -184,9 +184,14 @@ class Dashboard extends Controller {
         if($component_type == 1){
             //1=>profile
             $data = $this->company;
+            $profile_header = \Models\company_header::where('code','profile_header')
+                    ->where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->first();
             if($data){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['data'] = $data;
+                $with['profile_header'] = $profile_header;
                 $with['param'] = request()->all();
                 return view($this->view_path . '::profile', $with);
             }
