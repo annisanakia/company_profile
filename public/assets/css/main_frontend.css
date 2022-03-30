@@ -1,6 +1,9 @@
 body,html{
     color:#434343
 }
+body{
+    min-width:300px;
+}
 p{
     margin-bottom: 0;
 }
@@ -86,14 +89,14 @@ p{
 }
 .title-section .line{
     height:2px;
-    width:120px;
+    width:50px;
     background-color: #f15929;
     display: inline-block;
     margin:5px 20px
 }
 .title-section img{
     display: inline-block;
-    width:50px;
+    width:40px;
     height:auto;
 }
 .color-orange{
@@ -322,6 +325,12 @@ nav .nav-item{
         display: block;
         right:0;
         left:unset
+    }
+    .title-section .line{
+        width:120px;
+    }
+    .title-section img{
+        width:50px;
     }
 }
 @media (min-width: 992px) {

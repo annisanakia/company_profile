@@ -150,6 +150,26 @@ class Company_profile extends RESTful {
                 $path = 'assets/file/company/' . $imagename;
                 $input['favicon'] = $path;
             }
+
+            unset($input['photo_visi_misi']);
+            if (request()->hasFile('photo_visi_misi')) {
+                $this->validate(request(), [
+                    'file' => 'max:10240',
+                    'extension' => 'in:jpeg,png,jpg'
+                ]);
+
+                $image = request()->file('photo_visi_misi');
+                $imagename = 'photo_visi_misi.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/file/company');
+
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+                
+                $image->move($destinationPath, $imagename);
+                $path = 'assets/file/company/' . $imagename;
+                $input['photo_visi_misi'] = $path;
+            }
             $data->update($input);
             \Session::flash('msg', '<b>Save Success</b>');
             return Redirect::route(strtolower($this->controller_name) . '.company_information');
@@ -331,6 +351,8 @@ class Company_profile extends RESTful {
         if($content_type == 'custom'){
             $input['name'] = request()->name;
             $input['desc'] = request()->desc;
+            $input['object'] = null;
+            $input['object_id'] = null;
             $validation = $this->validationCustomHeader($input);
         }else{
             $input['content_type'] = request()->content_type;

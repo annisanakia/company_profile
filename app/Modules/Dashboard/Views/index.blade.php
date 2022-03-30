@@ -17,6 +17,10 @@
                     <div class="col-lg-6 text-center">
                         @if($data->photo != '')
                             <img class="img-header animated slideUp" src="{{ isset($data)? $data->photo : '' }}"/>
+                        @else
+                            <div class="img-header animated slideUp d-flex align-items-center" style="background:#eee">
+                                <i class="fa-regular fa-image mx-auto" style="font-size: 120px;color: #cecece;"></i>
+                            </div>
                         @endif
                         <br>
                     </div>
@@ -68,7 +72,14 @@
                 @foreach($company_qualitys as $data)
                 <div class="col-lg-3 col-md-6 mx-auto">
                     <div class="panel-round mb-4 animated zoomIn d-{{ $d++ }}">
-                        <img class="mb-3" src="{{ asset($data->photo) }}"><br>
+                        @if($data->photo != '')
+                            <img class="mb-3" src="{{ asset($data->photo) }}">
+                        @else
+                            <div class="rounded-circle d-flex align-items-center mx-auto" style="background:#eee;width:160px;height:160px;">
+                                <i class="fa-regular fa-image mx-auto" style="font-size: 50px;color: #cecece;"></i>
+                            </div>
+                        @endif
+                        <br>
                         <div class="title color-green font-weight-bold mb-3">{{ $data->name }}</div>
                         {!! $data->desc !!}
                     </div>
@@ -85,9 +96,11 @@
                 $d = 1;
             ?>
             @foreach($customers as $customer)
-                <li class="nav-item text-center animated zoomIn d-{{ $d++ }}">
-                    <img src="{{ asset($customer->photo) }}">
-                </li>
+                @if($customer->photo != '')
+                    <li class="nav-item text-center animated zoomIn d-{{ $d++ }}">
+                        <img src="{{ asset($customer->photo) }}">
+                    </li>
+                @endif
             @endforeach
         </ul>
     </div>
@@ -111,7 +124,13 @@
                 @foreach($products as $product)
                 <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3 mx-auto">
                     <div class="card w-100 position-relative animated zoomIn d-{{ $d++ }}">
-                        <img class="card-img-top img-header" src="{{ asset($product->photo) }}">
+                        @if($product->photo != '')
+                            <img class="card-img-top img-header" src="{{ asset($product->photo) }}">
+                        @else
+                            <div class="card-img-top img-header d-flex align-items-center">
+                                <i class="fa-regular fa-image mx-auto" style="font-size: 70px;color: #cecece;"></i>
+                            </div>
+                        @endif
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
                                 <h6 class="card-title font-weight-bold mb-2">{{ $product->name }}</h6>
@@ -180,7 +199,13 @@
             @foreach($articles as $data)
                 <div class="col-md-4 mb-4 mx-auto">
                     <div class="card w-100 border-0 h-100 animated slideUp d-{{ $d++ }}">
-                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/pasar-ayam.jpeg') }}">
+                        @if($data->photo != '')
+                            <img class="card-img-top img-header" src="{{ asset($data->photo) }}">
+                        @else
+                            <div class="card-img-top img-header d-flex align-items-center" style="background:#eee">
+                                <i class="fa-regular fa-image mx-auto" style="font-size: 70px;color: #cecece;"></i>
+                            </div>
+                        @endif
                         <div class="card-body border bg-white">
                             <div class="position-relative h-100 mb-4">
                                 <div class="card-title mb-3">

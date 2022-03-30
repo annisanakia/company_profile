@@ -188,10 +188,15 @@ class Dashboard extends Controller {
                     ->where('is_publish',1)
                     ->orderBy('sequence')
                     ->first();
+            $company_teams = \Models\company_team::where('company_id',$data->id)
+                    ->where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->get();
             if($data){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['data'] = $data;
                 $with['profile_header'] = $profile_header;
+                $with['company_teams'] = $company_teams;
                 $with['param'] = request()->all();
                 return view($this->view_path . '::profile', $with);
             }
