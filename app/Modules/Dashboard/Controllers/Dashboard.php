@@ -50,7 +50,28 @@ class Dashboard extends Controller {
                     ->where('is_publish',1)
                     ->orderBy('sequence')
                     ->get();
+            $company_qualitys = \Models\company_quality::where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->get();
+            $products = \Models\product::where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->get();
+            $customers = \Models\customer::where('is_publish',1)
+                    ->orderBy('id','desc')
+                    ->get();
+            $testimonis = \Models\testimoni::where('is_publish',1)
+                    ->orderBy('sequence')
+                    ->get();
+            $articles = \Models\article::where('is_publish',1)
+                    ->orderBy('date','desc')
+                    ->get();
+
             $with['main_headers'] = $main_headers;
+            $with['company_qualitys'] = $company_qualitys;
+            $with['products'] = $products;
+            $with['customers'] = $customers;
+            $with['testimonis'] = $testimonis;
+            $with['articles'] = $articles;
             $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
             return view($this->controller_name . '::index', $with);
         }

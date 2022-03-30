@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-<section class="section-reason bg-light position-relative">
+{{-- <section class="section-reason bg-light position-relative">
     <div class="wrapper-page container-fluid">
         <div class="row align-items-lg-center pt-5 pb-5">
             <div class="col-md-6 p-4">
@@ -43,11 +43,14 @@
             </div>
         </div>
     </div>
-</section>
-<section class="section-visi bg-light position-relative">
+</section> --}}
+<section class="section-visi bg-light position-relative pt-5">
     <div class="wrapper-page container-fluid">
         <div class="bg-softgray panel-visi">
             <div class="row align-items-lg-center p-5">
+                <div class="col-lg-6 text-center">
+                    <img src="{{ asset('assets/images/templates/chicken-raw.webp') }}" class="image rounded">
+                </div>
                 <div class="col-lg-6 text-justify">
                     <h3>VISI</h3>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -58,9 +61,6 @@
                         <li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</li>
                         <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
                     </ul>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <img src="{{ asset('assets/images/templates/chicken-raw.webp') }}" class="image rounded">
                 </div>
             </div>
         </div>
@@ -79,7 +79,6 @@
         </div>
         <div class="position-relative mb-5">
             <div class="carousel-slide">
-                <img src="{{ asset('assets/images/templates/manager.jpeg') }}" class="border img-slide">
                 <div class="panel-slide text-white d-flex align-items-center">
                     <div class="bg-orange h-100 w-100 p-5">
                         <h2 class="pb-2">LOREM IPSUM HARYANTO</h2>
@@ -88,6 +87,7 @@
                         when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                     </div>
                 </div>
+                <img src="{{ asset('assets/images/templates/manager.jpeg') }}" class="border img-slide">
             </div>
             <div class="position-absolute carousel-control text-white">
                 <div class="d-flex">

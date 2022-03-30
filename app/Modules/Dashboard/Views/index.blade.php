@@ -62,35 +62,18 @@
                 <b class="color-orange animated slideUp d-4">QUALITY</b>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4 animated zoomIn d-3">
-                        <img class="mb-3" src="{{ asset('assets/images/templates/raw-chicken2.jpeg') }}"><br>
-                        <div class="title color-green font-weight-bold mb-3">GOOD QUALITY</div>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <?php
+                    $d = 3;
+                ?>
+                @foreach($company_qualitys as $data)
+                <div class="col-lg-3 col-md-6 mx-auto">
+                    <div class="panel-round mb-4 animated zoomIn d-{{ $d++ }}">
+                        <img class="mb-3" src="{{ asset($data->photo) }}"><br>
+                        <div class="title color-green font-weight-bold mb-3">{{ $data->name }}</div>
+                        {!! $data->desc !!}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4 animated zoomIn d-4">
-                        <img class="mb-3" src="{{ asset('assets/images/templates/customer-service.webp') }}"><br>
-                        <div class="title color-green font-weight-bold mb-3">SERVICE QUALITY</div>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4 animated zoomIn d-5">
-                        <img class="mb-3" src="{{ asset('assets/images/templates/delivery.jpeg') }}"><br>
-                        <div class="title color-green font-weight-bold mb-3">DELIVERY QUALITY</div>
-                        Lorem Ipsum is simply dummy text of the printing.
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel-round mb-4 animated zoomIn d-6">
-                        <img class="mb-3" src="{{ asset('assets/images/templates/thumbs-up.jpeg') }}"><br>
-                        <div class="title color-green font-weight-bold mb-3">RESPONSIVENESS</div>
-                        It has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially.
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -98,12 +81,14 @@
 <section class="section-client position-relative">
     <div class="wrapper-page">
         <ul class="nav justify-content-center container-fluid">
-            <li class="nav-item text-center animated zoomIn d-1">
-                <img src="{{ asset('assets/images/templates/kfc.png') }}">
-            </li>
-            <li class="nav-item text-center animated zoomIn d-2">
-                <img src="{{ asset('assets/images/templates/mcd.png') }}">
-            </li>
+            <?php
+                $d = 1;
+            ?>
+            @foreach($customers as $customer)
+                <li class="nav-item text-center animated zoomIn d-{{ $d++ }}">
+                    <img src="{{ asset($customer->photo) }}">
+                </li>
+            @endforeach
         </ul>
     </div>
 </section>
@@ -120,49 +105,24 @@
                 <b class="color-orange animated slideUp d-4">PRODUCT</b>
             </div>
             <div class="row pb-3">
-                <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative animated zoomIn d-3">
-                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-drumsticks.jpeg') }}">
+                <?php
+                    $d = 3;
+                ?>
+                @foreach($products as $product)
+                <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3 mx-auto">
+                    <div class="card w-100 position-relative animated zoomIn d-{{ $d++ }}">
+                        <img class="card-img-top img-header" src="{{ asset($product->photo) }}">
                         <div class="card-body">
                             <div class="position-relative h-100 text-center">
-                                <h6 class="card-title font-weight-bold mb-2">AYAM PAHA BAWAH</h6>
+                                <h6 class="card-title font-weight-bold mb-2">{{ $product->name }}</h6>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative animated zoomIn d-4">
-                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-wings.jpeg') }}">
-                        <div class="card-body">
-                            <div class="position-relative h-100 text-center">
-                                <h6 class="card-title font-weight-bold mb-2">AYAM SAYAP</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative animated zoomIn d-5">
-                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken.jpeg') }}">
-                        <div class="card-body">
-                            <div class="position-relative h-100 text-center">
-                                <h6 class="card-title font-weight-bold mb-2">AYAM UTUH</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex justify-content-center mb-3">
-                    <div class="card w-100 position-relative animated zoomIn d-6">
-                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/chicken-breast.jpeg') }}">
-                        <div class="card-body">
-                            <div class="position-relative h-100 text-center">
-                                <h6 class="card-title font-weight-bold mb-2">AYAM DADA</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="text-center color-orange w-100 mb-4 animated slideUp d-3">
-                <a href="#">SELENGKAPNYA<i class="ml-2 mt-1 fa-solid fa-angle-right"></i></a>
+                <a href="{{ url('category/product.html') }}">SELENGKAPNYA<i class="ml-2 mt-1 fa-solid fa-angle-right"></i></a>
             </div>
         </div>
     </div>
@@ -178,11 +138,17 @@
             <b class="color-green animated slideUp d-4">OUR</b>
             <b class="color-orange animated slideUp d-4">CUSTOMER</b>
         </div>
+        <div class="single-item">
+        @foreach($testimonis as $data)
         <div class="desc animated slideUp d-5">
-            <div class="bg-orange rounded-circle d-inline-block p-3" style="width:90px;height:90px">
-                <img src="{{ asset('assets/images/templates/user.png') }}" style="width:50px">
-            </div>
-            <h5 class="font-weight-bold mb-2 mt-4">LOREM IPSUM</h5>
+            @if($data->photo != '')
+                <img class="rounded-circle d-inline-block" src="{{ asset($data->photo) }}" style="width:90px;height:90px;object-fit:cover">
+            @else
+                <div class="bg-orange rounded-circle d-inline-block p-3 text-center" style="width:90px;height:90px">
+                    <img src="{{ asset('assets/images/templates/user.png') }}" style="width:50px" class="mx-auto">
+                </div>
+            @endif
+            <h5 class="font-weight-bold mb-2 mt-4">{{ $data->name }}</h5>
             <div class="rating mb-4">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
@@ -190,8 +156,9 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
             </div>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br>
-            Lorem Ipsum has been the industry's standard dummy
+            {!! isset($data)? $data->desc : '' !!}
+        </div>
+        @endforeach
         </div>
     </div>
 </section>
@@ -207,63 +174,30 @@
             <b class="color-orange animated slideUp d-4">ARTICLES</b>
         </div>
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100 animated slideUp d-4">
-                    <img class="card-img-top img-header" src="{{ asset('assets/images/templates/pasar-ayam.jpeg') }}">
-                    <div class="card-body border bg-white">
-                        <div class="position-relative h-100 mb-4">
-                            <div class="card-title mb-3">
-                                <h5 class="font-weight-bold">AYAM BERKUALITAS</h5>
-                                <div class="subtitle"><i class="fa-solid fa-calendar mr-1"></i>25 Januari 2022</div>
-                            </div>
-                            <p class="card-text pb-4 mb-0">
-                                Some quick example text to build on the card title and make up the bulk of the card's content ...
-                            </p>
-                            <div class="card-btn position-absolute w-100 text-center">
-                                <a href="#" class="btn bg-orange text-white d-block">Selengkapnya</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100 animated slideUp d-5">
-                    <img class="card-img-top img-header" src="{{ asset('assets/images/templates/karyawan.jpg') }}">
-                    <div class="card-body border bg-white">
-                        <div class="position-relative h-100 mb-4">
-                            <div class="card-title mb-3">
-                                <h5 class="font-weight-bold">AYAM PAHA BAWAH</h5>
-                                <div class="subtitle"><i class="fa-solid fa-calendar mr-1"></i>25 Januari 2022</div>
-                            </div>
-                            <p class="card-text pb-4 mb-0">
-                                Some quick example text to build on the card title and make up the bulk of the card's content ...
-                            </p>
-                            <div class="card-btn position-absolute w-100 text-center">
-                                <a href="#" class="btn bg-orange text-white d-block">Selengkapnya</a>
+            <?php
+                $d = 4;
+            ?>
+            @foreach($articles as $data)
+                <div class="col-md-4 mb-4 mx-auto">
+                    <div class="card w-100 border-0 h-100 animated slideUp d-{{ $d++ }}">
+                        <img class="card-img-top img-header" src="{{ asset('assets/images/templates/pasar-ayam.jpeg') }}">
+                        <div class="card-body border bg-white">
+                            <div class="position-relative h-100 mb-4">
+                                <div class="card-title mb-3">
+                                    <h5 class="font-weight-bold">{{ $data->name }}</h5>
+                                    <div class="subtitle"><i class="fa-solid fa-calendar mr-1"></i>{{ dateToIndo($data->date ) }}</div>
+                                </div>
+                                <p class="card-text pb-4 mb-0">
+                                    {{ detailText($data->desc, 20) }}
+                                </p>
+                                <div class="card-btn position-absolute w-100 text-center">
+                                    <a href="#" class="btn bg-orange text-white d-block">Selengkapnya</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card w-100 border-0 h-100 animated slideUp d-6">
-                    <img class="card-img-top img-header" src="{{ asset('assets/images/templates/bakti-sosial.jpeg') }}">
-                    <div class="card-body border bg-white">
-                        <div class="position-relative h-100 mb-4">
-                            <div class="card-title mb-3">
-                                <h5 class="font-weight-bold">BAKTI SOSIAL HADIJAYA SOLUSI PANGAN</h5>
-                                <div class="subtitle"><i class="fa-solid fa-calendar mr-1"></i> 25 Januari 2022</div>
-                            </div>
-                            <p class="card-text pb-4 mb-0">
-                                Some quick example text to build on the card title and make up the bulk of the card's content ...
-                            </p>
-                            <div class="card-btn position-absolute w-100 text-center">
-                                <a href="#" class="btn bg-orange text-white d-block">Selengkapnya</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -278,6 +212,26 @@
 
             $(this).parent().addClass('active');
             $('#item_'+id).addClass('active');
+        });
+        function loopClasses() {
+            var numItems = parseInt(($('.dots_slider').length)-1);
+            var id = parseInt($('.carousel-dots li.active .dots_slider').attr('data-id'));
+            var id_next = id+1;
+            if(numItems == id){
+                id_next = 0;
+            }
+            
+            $('.carousel-dots li').removeClass('active');
+            $('.carousel-home .carousel-detail').removeClass('active');
+
+            $('.dots_slider[data-id="'+id_next+'"]').parent().addClass('active');
+            $('#item_'+id_next).addClass('active');
+        }
+        setInterval(loopClasses, 10000);
+        $('.single-item').slick({
+            autoplay: true,
+            arrows: false,
+            autoplaySpeed: 5000
         });
     });
 </script>

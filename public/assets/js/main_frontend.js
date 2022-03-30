@@ -417,21 +417,6 @@
       $('.btn-close').click(function(){
         $(this).closest('.mdl-dialog-wrap').removeClass('open');
       });
-  
-  
-      $( function() {
-        var schoolMalang = [
-          "SDI Sabilillah",
-          "MIN Malang 1",
-          "SD Plus Al-Kautsar",
-          "SDI Al-Azhar",
-          "SDN Pandanwangi 1",
-          "SDN Blimbing 1"
-        ];
-        $( "#choose-school" ).autocomplete({
-          source: schoolMalang
-        });
-      });
     });
     
   })();
