@@ -311,6 +311,10 @@ nav .nav-item{
     -ms-flex-positive: 1;
     flex-grow: 1;
 }
+.sliderPrev:hover, .sliderNext:hover{
+    cursor: pointer;
+    opacity:0.8
+}
 @media (min-width: 768px) {
     .container-fluid{
         padding: 10px 60px;
