@@ -10,7 +10,7 @@
         $logo_white = $company->logo_white != ''? asset($company->logo_white) : asset('assets/images/templates/ranchdeli-white.png');
     @endphp
 	<div class="main-header height-auto w-100 position-relative overflow-hidden">
-        <div class="wrapper-page animated slideDown d-5">
+        <div class="wrapper-page animated slideDown now">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand text-white" href="{{ url('/') }}">
                     <img src="{{ $logo_white }}" class="pt-2" style="width:100px">

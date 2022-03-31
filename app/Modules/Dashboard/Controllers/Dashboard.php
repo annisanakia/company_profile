@@ -180,10 +180,10 @@ class Dashboard extends Controller {
 
     public function getViewsComponentType($with,$menu,$request){
         $component_type = $menu->component_type;
+        $data = $this->company;
 
         if($component_type == 1){
             //1=>profile
-            $data = $this->company;
             $profile_header = \Models\company_header::where('code','profile_header')
                     ->where('is_publish',1)
                     ->orderBy('sequence')
@@ -201,15 +201,16 @@ class Dashboard extends Controller {
                 return view($this->view_path . '::profile', $with);
             }
         }elseif($component_type == 2){
-            //2=>news
-            $datas = \Models\article::where('is_publish',1)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('id', 'desc');
-            $datas = $datas->paginate($this->max_row);
-            $datas->chunk(100);
-            if($datas){
+            //2=>Article
+            $articles = \Models\article::where('company_id',$data->id)
+                    ->where('is_publish',1)
+                    ->orderBy('date','desc')
+                    ->orderBy('id', 'desc');
+            $articles = $articles->paginate($this->max_row);
+            $articles->chunk(100);
+            if($articles){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['datas'] = $datas;
+                $with['articles'] = $articles;
                 $with['param'] = request()->all();
                 return view($this->view_path . '::article', $with);
             }
@@ -253,10 +254,9 @@ class Dashboard extends Controller {
     }
 
     public function read($menu,$year,$month,$slug,Request $request){
-        if($menu == 'news'){
-            //news
-            $data = \Models\article::where('type',2)
-                        ->where('display',1)
+        if($menu == 'article'){
+            //article
+            $data = \Models\article::where('is_publish',1)
                         ->where('slug',$slug)
                         ->whereYear('date',$year)
                         ->whereMonth('date',$month)
@@ -266,13 +266,13 @@ class Dashboard extends Controller {
 
             if($data){
                 $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
-                $recents = $this->cms->recentPost($data->getTable(),$data->type,$data->ng_department_id); //get Recents Post
+                $recents = $this->cms->recentPost($data->getTable(),$data->company_id); //get Recents Post
 
                 $with['data'] = $data;
                 $with['recents'] = $recents;
                 $with['next'] = $data->next()? $data->next() : $data->newData();
                 $with['previous'] = $data->previous()? $data->previous() : $data->oldData();
-                return view($this->view_path . '::news_detail', $with);
+                return view($this->view_path . '::article_detail', $with);
             }
         }elseif($menu == 'events'){
             //events

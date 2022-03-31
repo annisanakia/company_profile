@@ -209,6 +209,9 @@ a:hover, a{
 .section-news .card-btn{
     bottom:0
 }
+.section-news .card-btn a:hover{
+    opacity:0.8
+}
 .card .subtitle{
     font-size:12px
 }
@@ -303,6 +306,9 @@ section.list{
 }
 .section-detail .list-article img{
     max-width:100%;
+}
+.section-detail .list-article a:hover{
+    opacity:0.8
 }
 nav .nav-item{
     text-align:center

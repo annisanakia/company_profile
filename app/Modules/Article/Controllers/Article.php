@@ -33,6 +33,7 @@ class Article extends RESTful {
     {
         $input = Request()->all();
         $input['company_id'] = $this->company->id;
+        $input['slug'] = str_replace(' ', '-', strtolower(Request()->name));
         $validation = $this->model->validate($input);
 
         if ($validation->passes()) {
@@ -69,6 +70,7 @@ class Article extends RESTful {
     public function update(\Illuminate\Http\Request $request, $id)
     {
         $input = Request()->all();
+        $input['slug'] = str_replace(' ', '-', strtolower(Request()->name));
         $validation = $this->model->validate($input);
         
         $data = $this->model->find($id);

@@ -10,12 +10,12 @@ use League\Flysystem\Filesystem;
 class sftpLib extends Controller{
     public function connect(){  
         $adapter = new SftpAdapter([
-            'host' => 'images.lekar.co.id',
+            'host' => 'images.hsp.co.id',
             'port' => 447,
             'username' => 'root',
             'password' => '1gl0b4lp3rs4d4',
             'privateKey' => '',
-            'root' => '/var/www/html/newlekar_asset',
+            'root' => '/var/www/html/hsp_asset',
             'timeout' => 10,
             'directoryPerm' => 0755
         ]);

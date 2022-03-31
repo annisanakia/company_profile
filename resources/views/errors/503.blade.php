@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <?php
+            $company = \Models\company::where('code','HSP')->first();
+            $name = isset($company)? $company->name : 'Hadijaya Solusi Pangan';
+            $logo = isset($company)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
+            $desc = isset($company->desc)? $company->desc : '';
+            $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
+        ?>
+
+        <meta name="description" content="{{ $desc }}">
+        <meta name="author" content="{{ $name }}">
+
+        <meta property="og:type" content="article">
+        <meta property="og:site_name" content="{{ isset($company)? $company->code : 'HSP' }}">
+        <meta property="og:title" content="{{ $name }}">
+        <meta property="og:image" content="{{ $favicon }}">
+        <meta property="og:description" content="{{ $desc }}">
+
+        <title>{{$name}}</title>
+        <link rel="icon" href="{{ $favicon }}">
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 

@@ -3,7 +3,7 @@
 namespace Lib\cms;
 
 use Illuminate\Contracts\View\View;
-use Models\ng_article;
+use Models\article;
 use Illuminate\Support\Facades\Auth;
 use Request;
 
@@ -23,13 +23,12 @@ class cms {
         }
     }
 
-    public function recentPost($object,$type,$ng_department_id){
+    public function recentPost($object,$company_id){
         $recents = [];
-        if($object == 'ng_article'){
-            $recents = ng_article::select(['title','date','slug','publish_start','publish_end'])
-                    ->where('type',$type)
-                    ->where('ng_department_id',$ng_department_id)
-                    ->where('display',1)
+        if($object == 'article'){
+            $recents = article::select(['name','date','slug'])
+                    ->where('company_id',$company_id)
+                    ->where('is_publish',1)
                     ->orderBy('date','desc')
                     ->orderBy('id','desc')
                     ->limit(5)
