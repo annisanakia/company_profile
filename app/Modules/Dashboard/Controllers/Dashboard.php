@@ -204,26 +204,26 @@ class Dashboard extends Controller {
             }
         }elseif($component_type == 2){
             //2=>Article
-            $articles = \Models\article::where('company_id',$data->id)
+            $datas = \Models\article::where('company_id',$data->id)
                     ->where('is_publish',1)
                     ->orderBy('date','desc')
                     ->orderBy('id', 'desc');
-            $articles = $articles->paginate($this->max_row);
-            $articles->chunk(100);
-            if($articles){
+            $datas = $datas->paginate($this->max_row);
+            $datas->chunk(100);
+            if($datas){
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['articles'] = $articles;
+                $with['datas'] = $datas;
                 $with['param'] = request()->all();
                 return view($this->view_path . '::article', $with);
             }
         }elseif($component_type == 3){
             //3=>product
-            $products = \Models\product::where('is_publish',1)
+            $datas = \Models\product::where('is_publish',1)
                         ->orderBy('sequence', 'asc')
                         ->orderBy('id', 'desc');
-            $products = $products->paginate(8);
-            $products->chunk(100);
-            if($products){
+            $datas = $datas->paginate(8);
+            $datas->chunk(100);
+            if($datas){
                 $product_header = \Models\company_header::where('code','product_header')
                         ->where('is_publish',1)
                         ->orderBy('sequence')
@@ -232,7 +232,7 @@ class Dashboard extends Controller {
                         ->orderBy('sequence')
                         ->get();
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['products'] = $products;
+                $with['datas'] = $datas;
                 $with['product_header'] = $product_header;
                 $with['company_qualitys'] = $company_qualitys;
                 $with['param'] = request()->all();

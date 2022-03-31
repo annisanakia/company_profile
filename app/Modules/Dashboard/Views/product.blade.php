@@ -46,7 +46,7 @@
             <?php
                 $d = 3;
             ?>
-            @foreach($products as $data)
+            @foreach($datas as $data)
             <div class="col-lg-6 d-flex align-items-stretch mx-auto">
                 <div class="bg-light panel mb-5 border animated slideUp d-{{ $d++ }}">
                     <div class="row h-100">
@@ -62,8 +62,8 @@
             </div>
             @endforeach
         </div>
-        {{ $products->appends($param)->links('component.pagination')}}
-        <span class="result-count mx-auto animated slideUp d-3">Showing {{$products->firstItem()}} to {{$products->lastItem()}} of {{$products->total()}} entries</span>
+        {{ $datas->appends($param)->links('component.pagination')}}
+        <span class="result-count mx-auto animated slideUp d-3">Showing {{$datas->firstItem()}} to {{$datas->lastItem()}} of {{$datas->total()}} entries</span>
     </div>
 </section>
 <section class="section-quality position-relative bg-white">

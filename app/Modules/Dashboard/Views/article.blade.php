@@ -19,10 +19,10 @@
                 <div class="line"></div>
             </div>
             <b class="color-green animated now slideUp d-4">COMPANY</b>
-            <b class="color-orange animated now slideUp d-4">ARTICLES</b>
+            <b class="color-orange animated now slideUp d-4">datas</b>
         </div>
         <div class="row">
-            @foreach($articles as $data)
+            @foreach($datas as $data)
             <div class="col-md-4 mb-4">
                 <div class="card w-100 border-0 h-100 animated now slideUp d-8">
                     @if($data->photo != '')
@@ -50,8 +50,8 @@
             </div>
             @endforeach
         </div>
-        {{ $articles->appends($param)->links('component.pagination')}}
-        <span class="result-count mx-auto animated slideUp d-3">Showing {{$articles->firstItem()}} to {{$articles->lastItem()}} of {{$articles->total()}} entries</span>
+        {{ $datas->appends($param)->links('component.pagination')}}
+        <span class="result-count mx-auto animated slideUp d-3">Showing {{$datas->firstItem()}} to {{$datas->lastItem()}} of {{$datas->total()}} entries</span>
     </div>
 </section>
 <script type="text/javascript">

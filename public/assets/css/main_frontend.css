@@ -321,6 +321,9 @@ nav .nav-item{
     cursor: pointer;
     opacity:0.8
 }
+.section-career .card .card-body:hover{
+    background:#eee !important
+}
 @media (min-width: 768px) {
     .container-fluid{
         padding: 10px 60px;
