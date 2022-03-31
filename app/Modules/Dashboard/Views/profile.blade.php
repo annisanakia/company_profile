@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                @if($profile_header->photo != '')
+                @if(isset($profile_header->photo) && $profile_header->photo != '')
                     <img class="img-header animated slideUp" src="{{ isset($profile_header)? $profile_header->photo : '' }}"/>
                 @else
                     <div class="img-header animated slideUp d-flex align-items-center" style="background:#eee">

@@ -25,7 +25,13 @@
             @foreach($articles as $data)
             <div class="col-md-4 mb-4">
                 <div class="card w-100 border-0 h-100 animated now slideUp d-8">
-                    <img class="card-img-top img-header" src="{{ asset('assets/images/templates/pasar-ayam.jpeg') }}">
+                    @if($data->photo != '')
+                        <img class="card-img-top img-header" src="{{ asset($data->photo) }}">
+                    @else
+                        <div class="card-img-top img-header d-flex align-items-center" style="background:#eee">
+                            <i class="fa-regular fa-image mx-auto" style="font-size: 70px;color: #cecece;"></i>
+                        </div>
+                    @endif
                     <div class="card-body border bg-white">
                         <div class="position-relative h-100 mb-4">
                             <div class="card-title mb-3">

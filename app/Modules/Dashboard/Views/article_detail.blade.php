@@ -9,8 +9,14 @@
     <div class="wrapper-page">
         <div class="row pt-4 mt-1">
             <div class="col-lg-8 mb-4">
-                <img class="img-header mt-3 mb-3 d-block" src="{{ asset($data->photo) }}">
-                <div class="animated slideUp d-3">
+                @if($data->photo != '')
+                    <img class="img-header mt-3 mb-3 d-block" src="{{ asset($data->photo) }}">
+                @else
+                    <div class="img-header mt-3 mb-3 d-block d-flex align-items-center" style="background:#eee;height:300px">
+                        <i class="fa-regular fa-image mx-auto" style="font-size: 70px;color: #cecece;"></i>
+                    </div>
+                @endif
+                <div class="animated now slideUp d-3">
                     <div class="detail-title mb-3">
                         <h4 class="font-weight-bold mb-1">{{ $data->name }}</h4>
                         <span class="f-14">

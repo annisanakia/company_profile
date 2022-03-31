@@ -55,6 +55,7 @@ class Dashboard extends Controller {
                     ->get();
             $products = \Models\product::where('is_publish',1)
                     ->orderBy('sequence')
+                    ->limit(4)
                     ->get();
             $customers = \Models\customer::where('is_publish',1)
                     ->orderBy('id','desc')
@@ -64,6 +65,7 @@ class Dashboard extends Controller {
                     ->get();
             $articles = \Models\article::where('is_publish',1)
                     ->orderBy('date','desc')
+                    ->limit(3)
                     ->get();
 
             $with['main_headers'] = $main_headers;
@@ -184,15 +186,15 @@ class Dashboard extends Controller {
 
         if($component_type == 1){
             //1=>profile
-            $profile_header = \Models\company_header::where('code','profile_header')
-                    ->where('is_publish',1)
-                    ->orderBy('sequence')
-                    ->first();
             $company_teams = \Models\company_team::where('company_id',$data->id)
                     ->where('is_publish',1)
                     ->orderBy('sequence')
                     ->get();
             if($data){
+                $profile_header = \Models\company_header::where('code','profile_header')
+                        ->where('is_publish',1)
+                        ->orderBy('sequence')
+                        ->first();
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
                 $with['data'] = $data;
                 $with['profile_header'] = $profile_header;
@@ -216,14 +218,23 @@ class Dashboard extends Controller {
             }
         }elseif($component_type == 3){
             //3=>product
-            $datas = \Models\product::where('is_publish',1)
+            $products = \Models\product::where('is_publish',1)
                         ->orderBy('sequence', 'asc')
                         ->orderBy('id', 'desc');
-            $datas = $datas->paginate($this->max_row);
-            $datas->chunk(100);
-            if($datas){
+            $products = $products->paginate(8);
+            $products->chunk(100);
+            if($products){
+                $product_header = \Models\company_header::where('code','product_header')
+                        ->where('is_publish',1)
+                        ->orderBy('sequence')
+                        ->first();
+                $company_qualitys = \Models\company_quality::where('is_publish',1)
+                        ->orderBy('sequence')
+                        ->get();
                 $this->cms->countViewsModule($menu->getTable(),$menu->id); //hitung visitor website
-                $with['datas'] = $datas;
+                $with['products'] = $products;
+                $with['product_header'] = $product_header;
+                $with['company_qualitys'] = $company_qualitys;
                 $with['param'] = request()->all();
                 return view($this->view_path . '::product', $with);
             }
