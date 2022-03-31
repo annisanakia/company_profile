@@ -23,10 +23,11 @@ class cms {
         }
     }
 
-    public function recentPost($object,$company_id){
+    public function recentPost($object,$id,$company_id){
         $recents = [];
         if($object == 'article'){
             $recents = article::select(['name','date','slug'])
+                    ->where('id','!=',$id)
                     ->where('company_id',$company_id)
                     ->where('is_publish',1)
                     ->orderBy('date','desc')

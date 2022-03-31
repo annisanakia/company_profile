@@ -266,7 +266,7 @@ class Dashboard extends Controller {
 
             if($data){
                 $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
-                $recents = $this->cms->recentPost($data->getTable(),$data->company_id); //get Recents Post
+                $recents = $this->cms->recentPost($data->getTable(),$data->id,$data->company_id); //get Recents Post
 
                 $with['data'] = $data;
                 $with['recents'] = $recents;

@@ -46,7 +46,20 @@
                     <td>{{ isset($data->slug)? $data->slug : ''}}</td>
                     <td>{{ isset($data->parents) ? $data->parents->name : '' }}</td>
                     <td>{{ isset($data->ordering)? $data->ordering : '' }}</td>
-                    <td>{{ $data->display == 1 ? 'Publish' : 'Draft' }}</td>
+                    <td>
+                        @php
+                            switch ($data->display) {
+                                case 1:
+                                    $bg = 'bg-green';
+                                    break;
+                                default:
+                                    $bg = 'bg-red';
+                            }
+                        @endphp
+                        <span class="{{$bg}} bg-label">
+                            {{ $data->display == 1 ? 'Publish' : 'Draft' }}
+                        </span>
+                    </td>
                     <td ng-controller="actionController" class="action-list" nowrap>
                         @if ($priv['edit_priv'])
                             <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green">

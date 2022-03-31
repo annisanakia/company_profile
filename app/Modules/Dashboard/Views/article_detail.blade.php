@@ -44,12 +44,12 @@
                         ?>
                         @foreach($recents as $row)
                         <div class="col-md-12 border-bottom pb-2 mb-3 animated now zoomIn d-{{ $d++ }}">
-                            <a href="{{ url('/read/article/'.getDateSlug($data->date).$data->slug.'.html') }}" class="text-decoration-none">
+                            <a href="{{ url('/read/article/'.getDateSlug($row->date).$row->slug.'.html') }}" class="text-decoration-none">
                                 <span class="color-green font-weight-bold">{{ $row->name }}</span>
                                 <br>
                                 <span class="f-14">
-                                    {{ isset($data->date)? DateToDay($data->date) : '' }},
-                                    {{ isset($data->date)? DateToIndo($data->date) : '' }}
+                                    {{ isset($row->date)? DateToDay($row->date) : '' }},
+                                    {{ isset($row->date)? DateToIndo($row->date) : '' }}
                                 </span>
                             </a>
                         </div>
