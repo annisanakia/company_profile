@@ -6,7 +6,7 @@
         <div class="card-body p-md-4">
             <div class="row">
                 <div class="col-md-6 p-md-3">
-                    <h3 class="h3">Welcome Dashboard</h1>
+                    <h3 class="h3">Hello, {{ $user->name }}</h1>
                     <span class="fpx-14">Content Management System</span><br>
                     <span class="fpx-14">{{ Session()->get('company')? Session()->get('company')->name : '' }}</span>
                 </div>
