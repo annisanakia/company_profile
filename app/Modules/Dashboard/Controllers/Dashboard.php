@@ -285,33 +285,12 @@ class Dashboard extends Controller {
                 $with['previous'] = $data->previous()? $data->previous() : $data->oldData();
                 return view($this->view_path . '::article_detail', $with);
             }
-        }elseif($menu == 'events'){
-            //events
-            $data = \Models\article::where('type',3)
-                        ->where('display',1)
-                        ->where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
-                        ->orderBy('id', 'asc')
-                        ->first();
-
-            if($data){
-                $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
-                $recents = $this->cms->recentPost($data->getTable(),$data->type,$data->ng_department_id); //get Recents Post
-
-                $with['data'] = $data;
-                $with['recents'] = $recents;
-                $with['next'] = $data->next()? $data->next() : $data->oldData();
-                $with['previous'] = $data->previous()? $data->previous() : $data->newData();
-                return view($this->view_path . '::events_detail', $with);
-            }
-        }elseif($menu == 'achiev' && $request->ajax()){
+        }elseif($menu == 'career' && $request->ajax()){
             //achievement
-            $data = \Models\ng_achievement::where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
+            $data = \Models\career::where('slug',$slug)
+                        ->whereYear('start_date',$year)
+                        ->whereMonth('start_date',$month)
+                        ->orderBy('start_date', 'asc')
                         ->orderBy('id', 'asc')
                         ->first();
 
@@ -321,22 +300,22 @@ class Dashboard extends Controller {
                 $with['data'] = $data;
                 $with['next'] = $data->next()? $data->next() : $data->newData();
                 $with['previous'] = $data->previous()? $data->previous() : $data->oldData();
-                return view($this->view_path . '::achievements_detail', $with);
+                return view($this->view_path . '::career_detail', $with);
             }
-        }elseif($menu == 'achiev'){
+        }elseif($menu == 'career'){
             //achievement
-            $datas = \Models\ng_achievement::where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
+            $datas = \Models\career::where('slug',$slug)
+                        ->whereYear('start_date',$year)
+                        ->whereMonth('start_date',$month)
+                        ->orderBy('start_date', 'asc')
                         ->orderBy('id', 'asc');
             $datas = $datas->paginate($this->max_row2);
             $datas->chunk(100);
-            $data = \Models\ng_achievement::select(['id','date','slug'])
+            $data = \Models\career::select(['id','start_date','slug'])
                         ->where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
+                        ->whereYear('start_date',$year)
+                        ->whereMonth('start_date',$month)
+                        ->orderBy('start_date', 'asc')
                         ->orderBy('id', 'asc')
                         ->first();
 
@@ -345,59 +324,8 @@ class Dashboard extends Controller {
 
                 $with['datas'] = $datas;
                 $with['data_active'] = $data;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::achievements', $with);
-            }
-        }elseif($menu == 'facilities' && $request->ajax()){
-            //facilities
-            $data = \Models\ng_gallery::whereHas('ng_gallery_category',function($builder){
-                            $builder->where('code','fcy');
-                        })
-                        ->where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
-                        ->orderBy('id', 'asc')
-                        ->first();
-
-            if($data){
-                $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
-
-                $with['data'] = $data;
-                $with['next'] = $data->next()? $data->next() : $data->newData();
-                $with['previous'] = $data->previous()? $data->previous() : $data->oldData();
-                return view($this->view_path . '::facilities_detail', $with);
-            }
-        }elseif($menu == 'facilities'){
-            //facilities
-            $datas = \Models\ng_gallery::whereHas('ng_gallery_category',function($builder){
-                            $builder->where('code','fcy');
-                        })
-                        ->where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
-                        ->orderBy('id', 'asc');
-            $datas = $datas->paginate($this->max_row2);
-            $datas->chunk(100);
-            $data = \Models\ng_gallery::select(['id','date','slug'])
-                        ->whereHas('ng_gallery_category',function($builder){
-                            $builder->where('code','fcy');
-                        })
-                        ->where('slug',$slug)
-                        ->whereYear('date',$year)
-                        ->whereMonth('date',$month)
-                        ->orderBy('date', 'asc')
-                        ->orderBy('id', 'asc')
-                        ->first();
-
-            if($data){
-                $this->cms->countViewsModule($data->getTable(),$data->id); //hitung visitor website
-
-                $with['datas'] = $datas;
-                $with['data_active'] = $data;
-                $with['param'] = Input::all();
-                return view($this->view_path . '::facilities', $with);
+                $with['param'] = request()->all();
+                return view($this->view_path . '::career', $with);
             }
         }
         return response()->view('errors.unauthorized');

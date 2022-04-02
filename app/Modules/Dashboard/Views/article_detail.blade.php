@@ -11,10 +11,6 @@
             <div class="col-lg-8 mb-4">
                 @if($data->photo != '')
                     <img class="img-header mt-3 mb-3 d-block" src="{{ asset($data->photo) }}">
-                @else
-                    <div class="img-header mt-3 mb-3 d-block d-flex align-items-center" style="background:#eee;height:300px">
-                        <i class="fa-regular fa-image mx-auto" style="font-size: 70px;color: #cecece;"></i>
-                    </div>
                 @endif
                 <div class="animated now slideUp d-3">
                     <div class="detail-title mb-3">
@@ -29,7 +25,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="list-article">
-                <h5 class="font-weight-bold mt-3 mb-3 animated now slideUp d-2">Artikel Terbaru</h5>
+                <h5 class="font-weight-bold mt-3 mb-3 animated now slideUp d-2">Latest Articles</h5>
                 <div class="form-group">
                 {{-- <label class="font-weight-bold">Search</label>
                     <div class="input-group mb-4">

@@ -216,7 +216,7 @@
                                     {{ detailText($data->desc, 20) }}
                                 </p>
                                 <div class="card-btn position-absolute w-100 text-center">
-                                    <a href="#" class="btn bg-orange text-white d-block">Selengkapnya</a>
+                                    <a href="{{ url('/read/article/'.getDateSlug($data->date).$data->slug.'.html') }}" class="btn bg-orange text-white d-block">Selengkapnya</a>
                                 </div>
                             </div>
                         </div>

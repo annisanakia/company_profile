@@ -19,7 +19,7 @@
                 <div class="line"></div>
             </div>
             <b class="color-green animated now slideUp d-4">COMPANY</b>
-            <b class="color-orange animated now slideUp d-4">datas</b>
+            <b class="color-orange animated now slideUp d-4">ARTICLES</b>
         </div>
         <div class="row">
             @foreach($datas as $data)
