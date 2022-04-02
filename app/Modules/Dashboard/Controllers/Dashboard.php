@@ -334,6 +334,7 @@ class Dashboard extends Controller {
     public function storeContact()
     {
         $input = Request()->all();
+        $input['date'] = date('Y-m-d');
         $model = new \Models\contact();
         $validation = $model->validate($input);
 
