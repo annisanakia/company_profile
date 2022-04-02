@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class Dashboard extends Controller {
 
@@ -329,5 +329,22 @@ class Dashboard extends Controller {
             }
         }
         return response()->view('errors.unauthorized');
+    }
+
+    public function storeContact()
+    {
+        $input = Request()->all();
+        $model = new \Models\contact();
+        $validation = $model->validate($input);
+
+        if ($validation->passes()) {
+            $data = $model->create($input);
+
+            return Redirect::route(strtolower($this->controller_name) . '.category', 'contact');
+        }
+        return Redirect::route(strtolower($this->controller_name) . '.category', 'contact')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
     }
 }

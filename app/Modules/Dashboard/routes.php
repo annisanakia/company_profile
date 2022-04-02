@@ -15,4 +15,5 @@ Route::group(['prefix' => '', 'namespace' => 'App\Modules\Dashboard\Controllers'
     Route::get('/read/{menu}.html', ['as' => 'dashboard.read', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@read']);
     Route::get('/category/{category}.html', ['as' => 'dashboard.category', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@category']);
     Route::get('/read/{menu}/{year}/{month}/{slug}.html', ['as' => 'dashboard.read', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@read']);
+    Route::post('/storeContact.html', ['as' => 'dashboard.storeContact', 'uses' => '\App\Modules\Dashboard\Controllers\Dashboard@storeContact']);
 });

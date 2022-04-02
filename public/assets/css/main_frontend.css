@@ -343,6 +343,13 @@ nav .nav-item{
 #container{
     position:relative
 }
+.has-error input,
+.has-error select{
+    border-color:#f8ffb4 !important
+}
+.error{
+    color:#f8ffb4
+}
 @media (min-width: 768px) {
     .container-fluid{
         padding: 10px 60px;
