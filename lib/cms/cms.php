@@ -11,15 +11,17 @@ class cms {
     public function countViewsModule($object,$object_id){
         $input['object'] = $object;
         $input['object_id'] = $object_id;
-        $ng_visit_module = \Models\ng_visit_module::where('object',$object)
+        $input['last_update'] = date('Y-m-d H:i:s');
+
+        $visit_module = \Models\visit_module::where('object',$object)
                 ->where('object_id',$object_id)
                 ->first();
-        if($ng_visit_module){
-            $input['count_visit'] = $ng_visit_module->count_visit+1;
-            $ng_visit_module->update($input);
+        if($visit_module){
+            $input['count_visit'] = $visit_module->count_visit+1;
+            $visit_module->update($input);
         }else{
             $input['count_visit'] = 1;
-            $ng_visit_module = \Models\ng_visit_module::create($input);
+            $visit_module = \Models\visit_module::create($input);
         }
     }
 
