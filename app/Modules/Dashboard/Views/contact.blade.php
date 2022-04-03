@@ -11,6 +11,9 @@
         background-color: #dae0e5!important;
         color:#f15929
     }
+    .map .ol-viewport{
+        border-radius:10px
+    }
 </style>
 <section class="section-title position-relative text-white container-fluid">
     <div class="wrapper-page h-100 mt-5">
@@ -102,22 +105,7 @@
 @endsection
 
 @section('content')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh4uXlaB7X5cIzENQoUxGEv1KFjkns6pw&callback=initMap&libraries=&v=weekly" async></script>
-<script>
-    // Initialize and add the map
-    function initMap() {
-        // The location of Uluru
-        const uluru = { lat: -6.4757133, lng: 106.7317036};
-        // The map, centered at Uluru
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 17,
-            center: uluru,
-        });
-        // The marker, positioned at Uluru
-        const marker = new google.maps.Marker({
-            position: uluru,
-            map: map,
-        });
-    }
-</script>
+    <link rel="stylesheet" href="{{ asset('assets/plugins/openlayer/ol.css')}}">
+    <script src="{{ asset('assets/plugins/openlayer/ol.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/openlayer/openlayer.js')}}" type="text/javascript"></script>
 @endsection
