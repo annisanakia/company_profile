@@ -14,58 +14,47 @@
                 <th width="10px" data-tablesaw-priority="persist">#</th>
                 <th width="10px" data-tablesaw-priority="persist" class="text-center">No</th>
                 <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Name', array('sort_field'=> 'name'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Link', array('sort_field'=> 'slug'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Parent', array('sort_field'=> 'parent'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Ordering', array('sort_field'=> 'ordering'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
-                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Display', array('sort_field'=> 'display'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Email', array('sort_field'=> 'email'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Phone Number', array('sort_field'=> 'phone_no'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
+                <th ng-controller="sortController" data-tablesaw-priority="1">{{ link_to_route($controller_name.'.search', 'Date', array('sort_field'=> 'date'), array('ng-model'=>'sort_type', 'ng-click'=>'sort($event, sort_type)'))}}</th>
                 <th data-tablesaw-priority="1" class="text-center">Action</th>
             </tr>
             <tr>
                 <th>{{ Form::checkbox('group_row', null, null, array('class'=>'group_check iCheck', 'data-set'=>'.table-check .checkboxes')) }}</th>
                 <th><button type="submit"><i class="fas fa-search"></i></span></button></th>
                 <th>{{ Form::text('filter[name]') }}</th>
-                <th>{{ Form::text('filter[slug]') }}</th>
-                <th>{{ Form::select('filter[parent]', ([''=>''] + Models\job::nestedSelect())) }}</th>
-                <th>{{ Form::text('filter[ordering]') }}</th>
-                <th>{{ Form::select('filter[display]', ([''=>''] + array(1=>'Publish', 2=>'Draft'))) }}</th>
+                <th>{{ Form::text('filter[email]') }}</th>
+                <th>{{ Form::text('filter[phone_no]') }}</th>
+                <th>{{ Form::date('filter[date]') }}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @if (count($datas) <= 0)
                 <tr>                         
-                    <td colspan="9" style="text-align: center">{{ 'Data Tidak Ditemukan' }}</td> 
+                    <td colspan="7" style="text-align: center">{{ 'Data Tidak Ditemukan' }}</td> 
                 </tr>
             @else
-                @php $i = 0 @endphp
+                @php
+                    $i = 0
+                @endphp
                 @foreach ($datas as $data)
                 <tr>
                     <td>{{ Form::checkbox('select_row[]', $data->id, null, array('class'=>'checkboxes iCheck')) }}</td>
                     <td>{{ (($datas->currentPage() - 1 ) * $datas->perPage() ) + ++$i }}</td>
-                    <td>{{ isset($data->name)? $data->name : '' }}</td>
-                    <td>{{ isset($data->slug)? $data->slug : ''}}</td>
-                    <td>{{ isset($data->parents) ? $data->parents->name : '' }}</td>
-                    <td>{{ isset($data->ordering)? $data->ordering : '' }}</td>
                     <td>
-                        @php
-                            switch ($data->display) {
-                                case 1:
-                                    $bg = 'bg-green';
-                                    break;
-                                default:
-                                    $bg = 'bg-red';
-                            }
-                        @endphp
-                        <span class="{{$bg}} bg-label">
-                            {{ $data->display == 1 ? 'Publish' : 'Draft' }}
-                        </span>
+                        {{ isset($data->name)? $data->name : '' }}
                     </td>
-                    <td ng-controller="actionController" class="action-list" nowrap>
-                        @if ($priv['edit_priv'])
-                            <a href="{{ route($controller_name.'.edit',[$data->id]) }}" class="green">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                        @endif
+                    <td>
+                        {{ isset($data->email)? $data->email : '' }}
+                    </td>
+                    <td>
+                        {{ isset($data->phone_no)? $data->phone_no : '' }}
+                    </td>
+                    <td>
+                        {{ isset($data->date)? dateToIndo($data->date) : '' }}
+                    </td>
+                    <td ng-controller="actionController" class="action-list text-center" nowrap>
                         <a href="{{ route($controller_name.'.detail',[$data->id]) }}" class="yellow">
                             <i class="fas fa-list-alt"></i>
                         </a>
@@ -90,7 +79,9 @@
 {{ Form::close() }}
 
 @include('layouts.actions')
-
+<script type="text/javascript" src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-fileinput/css/jasny-bootstrap.min.css')}}"/>
+<script type="text/javascript" src="{{ asset('assets/plugins/bootstrap-fileinput/js/jasny-bootstrap.min.js')}}"></script>
 <script src="{{ asset('assets/js/actions.js')}}" type="text/javascript"></script>
 <script type="text/javascript">  
     $(document).trigger('enhance.tablesaw');

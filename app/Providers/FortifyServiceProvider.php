@@ -57,15 +57,29 @@ class FortifyServiceProvider extends ServiceProvider
 
             if ($user && Hash::check($request->password, $user->password)) {
                 $agent = new \Jenssegers\Agent\Agent();
-                $ng_user_access = new \Models\ng_user_access();
+
+                $access_date = date('Y-m-d H:i:s');
+                $user_access = \Models\user_access::where('users_id',$user->id)
+                    ->where('access_date',$access_date)
+                    ->where('platform',$agent->platform())
+                    ->where('browser',$agent->browser())
+                    ->where('device',$agent->device())
+                    ->where('ip_address',\Request::ip())
+                    ->first();
+                
+                if(!$user_access){
+                    $user_access = new \Models\user_access();
+                }
     
-                $ng_user_access->users_id = $user->id;
-                $ng_user_access->access_date = date('Y-m-d H:i:s');
-                $ng_user_access->platform = $agent->platform();
-                $ng_user_access->browser = $agent->browser();
-                $ng_user_access->device = $agent->device();
-                $ng_user_access->ip_address = \Request::ip();
-                $ng_user_access->save();
+                $user_access->users_id = $user->id;
+                $user_access->name = $user->name;
+                $user_access->username = $user->username;
+                $user_access->access_date = $access_date;
+                $user_access->platform = $agent->platform();
+                $user_access->browser = $agent->browser();
+                $user_access->device = $agent->device();
+                $user_access->ip_address = \Request::ip();
+                $user_access->save();
 
                 $request->session()->put('alert', 1);
                 return $user;

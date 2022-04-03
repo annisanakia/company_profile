@@ -26,6 +26,76 @@ class article extends Model {
     public function article_category() {
         return $this->belongsTo('Models\article_category');
     }
+
+    public function next(){
+        // get next
+        $date = $this->date;
+        $id = $this->id;
+        $article = article::select(['date','slug'])
+                ->where('is_publish',1)
+                ->where('company_id',$this->company_id)
+                ->where('date',$date)
+                ->where('id','<',$id)
+                ->orderBy('date','desc')
+                ->orderBy('id','desc')
+                ->first();
+        if(!$article){
+            $article = article::select(['date','slug'])
+                        ->where('is_publish',1)
+                        ->where('company_id',$this->company_id)
+                        ->where('date','<',$date)
+                        ->where('id','!=',$id)
+                        ->orderBy('date','desc')
+                        ->orderBy('id','desc')
+                        ->first();
+        }
+        return $article;
+    }
+
+    public  function previous(){
+        // get previous
+        $date = $this->date;
+        $id = $this->id;
+        $article = article::select(['date','slug'])
+                ->where('is_publish',1)
+                ->where('company_id',$this->company_id)
+                ->where('date',$date)
+                ->where('id','>',$id)
+                ->orderBy('date','desc')
+                ->orderBy('id','asc')
+                ->first();
+        if(!$article){
+            $article = article::select(['date','slug'])
+                        ->where('is_publish',1)
+                        ->where('company_id',$this->company_id)
+                        ->where('date','>',$date)
+                        ->where('id','!=',$id)
+                        ->orderBy('date','asc')
+                        ->orderBy('id','asc')
+                        ->first();
+        }
+        return $article;
+    }
+
+    public function newData(){
+        // get first
+        return article::select(['date','slug'])
+                        ->where('is_publish',1)
+                        ->where('company_id',$this->company_id)
+                        ->orderBy('date','desc')
+                        ->orderBy('id','desc')
+                        ->first();
+    }
+
+    public function oldData(){
+        // get last
+        return article::select(['date','slug'])
+                        ->where('is_publish',1)
+                        ->where('company_id',$this->company_id)
+                        ->orderBy('date','asc')
+                        ->orderBy('id','asc')
+                        ->first();
+    }
     
     public function validate($data)
     {

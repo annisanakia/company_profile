@@ -46,37 +46,8 @@
                 </div>
                 <div class="form-group <?php if ($errors->has('desc')) echo 'has-error' ?>">
                     {{ Form::label('Description', 'Description', array('class'=>'control-label')) }}
-                    {{ Form::textarea('desc', $data->desc, array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Description')) }}
+                    {{ Form::textarea('desc', $data->desc, array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Description')) }}
                     {!!$errors->first('desc', ' <span class="form-text error">:message</span>')!!}
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <div class="title-form">
-                Sosial Media
-            </div>
-            <div class="block-form">
-                <div class="form-group <?php if ($errors->has('instagram')) echo 'has-error' ?>">
-                    {{ Form::label('Instagram', 'Instagram', array('class'=>'control-label')) }}
-                    {{ Form::text('instagram', $data->instagram, array('class'=>'form-control', 'placeholder'=>'Instagram')) }}
-                    {!!$errors->first('instagram', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('facebook')) echo 'has-error' ?>">
-                    {{ Form::label('Facebook', 'Facebook', array('class'=>'control-label')) }}
-                    {{ Form::text('facebook', $data->facebook, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
-                    {!!$errors->first('facebook', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('twitter')) echo 'has-error' ?>">
-                    {{ Form::label('Twitter', 'Twitter', array('class'=>'control-label')) }}
-                    {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
-                    {!!$errors->first('twitter', ' <span class="form-text error">:message</span>')!!}
-                </div>
-                <div class="form-group <?php if ($errors->has('whatsapp')) echo 'has-error' ?>">
-                    {{ Form::label('Whatsapp', 'Whatsapp', array('class'=>'control-label')) }}
-                    {{ Form::text('whatsapp', $data->whatsapp, array('class'=>'form-control', 'placeholder'=>'Whatsapp')) }}
-                    {!!$errors->first('whatsapp', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
         </div>
@@ -116,7 +87,7 @@
                     {{ Form::label('Logo White Company', 'Logo White Company', array('class'=>'control-label')) }}<br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         @if($data->logo_white != '')
-                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover">
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover;background:#ddd">
                                 <img src="{{ asset($data->logo_white) }}">
                             </div>
                         @else
@@ -135,24 +106,107 @@
                     <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
                     {!!$errors->first('logo_white', ' <span class="form-text error">:message</span>')!!}
                 </div>
+                <div class="form-group <?php if ($errors->has('favicon')) echo 'has-error' ?>">
+                    {{ Form::label('Favicon Company', 'Favicon Company', array('class'=>'control-label')) }}<br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        @if($data->favicon != '')
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 50px; height: 50px;object-fit:cover;background:#ddd">
+                                <img src="{{ asset($data->favicon) }}">
+                            </div>
+                        @else
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 50px; height: 50px;object-fit:cover">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        @endif
+                        <div>
+                            <span class="btn btn-outline-secondary btn-file">
+                                <span class="fileinput-new">Select Photo</span>
+                                <span class="fileinput-exists">Change Photo</span>
+                                <input type="file" name="favicon" value="{{ isset($data->favicon)? $data->favicon : '' }}">
+                            </span>
+                        </div>
+                    </div>
+                    <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
+                    {!!$errors->first('favicon', ' <span class="form-text error">:message</span>')!!}
+                </div>
             </div>
         </div>
         </div>
+    </div>
+    <div class="col-md-12">
         <div class="card">
         <div class="card-body">
             <div class="title-form">
                 Sosial Media
             </div>
             <div class="block-form">
-                <div class="form-group <?php if ($errors->has('visi')) echo 'has-error' ?>">
-                    {{ Form::label('Visi', 'Visi', array('class'=>'control-label')) }}
-                    {{ Form::textarea('visi', $data->visi, array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Visi')) }}
-                    {!!$errors->first('visi', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group row">
+                    <div class="col-md-6 <?php if ($errors->has('instagram')) echo 'has-error' ?>">
+                        {{ Form::label('Instagram', 'Instagram', array('class'=>'control-label')) }}
+                        {{ Form::text('instagram', $data->instagram, array('class'=>'form-control', 'placeholder'=>'Instagram')) }}
+                        {!!$errors->first('instagram', ' <span class="form-text error">:message</span>')!!}
+                    </div>
+                    <div class="col-md-6 <?php if ($errors->has('facebook')) echo 'has-error' ?>">
+                        {{ Form::label('Facebook', 'Facebook', array('class'=>'control-label')) }}
+                        {{ Form::text('facebook', $data->facebook, array('class'=>'form-control', 'placeholder'=>'Facebook')) }}
+                        {!!$errors->first('facebook', ' <span class="form-text error">:message</span>')!!}
+                    </div>
                 </div>
-                <div class="form-group <?php if ($errors->has('misi')) echo 'has-error' ?>">
-                    {{ Form::label('Misi', 'Misi', array('class'=>'control-label')) }}
-                    {{ Form::textarea('misi', $data->misi, array('class'=>'form-control', 'rows'=>'3', 'placeholder'=>'Misi')) }}
-                    {!!$errors->first('misi', ' <span class="form-text error">:message</span>')!!}
+                <div class="form-group row">
+                    <div class="col-md-6 <?php if ($errors->has('twitter')) echo 'has-error' ?>">
+                        {{ Form::label('Twitter', 'Twitter', array('class'=>'control-label')) }}
+                        {{ Form::text('twitter', $data->twitter, array('class'=>'form-control', 'placeholder'=>'Twitter')) }}
+                        {!!$errors->first('twitter', ' <span class="form-text error">:message</span>')!!}
+                    </div>
+                    <div class="col-md-6 <?php if ($errors->has('whatsapp')) echo 'has-error' ?>">
+                        {{ Form::label('Whatsapp', 'Whatsapp', array('class'=>'control-label')) }}
+                        {{ Form::text('whatsapp', $data->whatsapp, array('class'=>'form-control', 'placeholder'=>'Whatsapp')) }}
+                        {!!$errors->first('whatsapp', ' <span class="form-text error">:message</span>')!!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="card">
+        <div class="card-body">
+            <div class="title-form">
+                Visi & Misi
+            </div>
+            <div class="block-form">
+                <div class="form-group row">
+                    <div class="col-md-6 <?php if ($errors->has('visi')) echo 'has-error' ?>">
+                        {{ Form::label('Visi', 'Visi', array('class'=>'control-label')) }}
+                        {{ Form::textarea('visi', $data->visi, array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Visi')) }}
+                        {!!$errors->first('visi', ' <span class="form-text error">:message</span>')!!}
+                    </div>
+                    <div class="col-md-6 <?php if ($errors->has('misi')) echo 'has-error' ?>">
+                        {{ Form::label('Misi', 'Misi', array('class'=>'control-label')) }}
+                        {{ Form::textarea('misi', $data->misi, array('class'=>'form-control summernote', 'rows'=>'3', 'placeholder'=>'Misi')) }}
+                        {!!$errors->first('misi', ' <span class="form-text error">:message</span>')!!}
+                    </div>
+                </div>
+                <div class="form-group <?php if ($errors->has('photo_visi_misi')) echo 'has-error' ?>">
+                    {{ Form::label('Photo Section Visi Misi', 'Photo Section Visi Misi', array('class'=>'control-label')) }}<br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        @if($data->photo_visi_misi != '')
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover;background:#ddd">
+                                <img src="{{ asset($data->photo_visi_misi) }}">
+                            </div>
+                        @else
+                            <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 180px; height: 135px;object-fit:cover">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        @endif
+                        <div>
+                            <span class="btn btn-outline-secondary btn-file">
+                                <span class="fileinput-new">Select Photo</span>
+                                <span class="fileinput-exists">Change Photo</span>
+                                <input type="file" name="photo_visi_misi" value="{{ isset($data->photo_visi_misi)? $data->photo_visi_misi : '' }}">
+                            </span>
+                        </div>
+                    </div>
+                    <span class="form-text text-muted">Upload file berformat JPEG, PNG, JPG.<br>Maksimal ukuran file 2 Mb.</span>
+                    {!!$errors->first('photo_visi_misi', ' <span class="form-text error">:message</span>')!!}
                 </div>
             </div>
         </div>
@@ -169,9 +223,15 @@
 <script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
 <script type="text/javascript">
-    var request;
-    $(document).ready(function () {
+var request;
+$(document).ready(function () {
     $(".form-validation").validate();
+    $('.summernote').summernote({
+        dialogsInBody: true,
+        placeholder: 'Deskripsi',
+        tabsize: 2,
+        height: 130
+    });
     $('.tab-ajax-navigation .submit').click(function (e) {
         // Abort any currently executing request
         if(request) {

@@ -196,6 +196,9 @@ class RESTful extends Controller
                         }
                         if (array_key_exists($key, $tables)) {
                             if ($tables[$key]->getType()->getName() == 'string' || $tables[$key]->getType()->getName() == 'text') {
+                                if($key == 'desc'){
+                                    dd('aw',$value);
+                                }
                                 $data->where($key, 'LIKE', '%' . $value . '%');
                             } elseif ($tables[$key]->getType()->getName() == 'date' || $tables[$key]->getType()->getName() == 'time') {
                                 if ($key == 'start' || $key == 'start_date') {

@@ -7,11 +7,24 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <?php
-            $title = 'Company Profile';
+            $company = \Models\company::where('code','HSP')->first();
+            $name = isset($company)? $company->name : 'Hadijaya Solusi Pangan';
+            $logo = isset($company)? asset($company->logo) : asset('assets/images/templates/ranchdeli.png');
+            $desc = isset($company->desc)? $company->desc : '';
+            $favicon = isset($company->favicon)? asset(ucwords(strtolower($company->favicon))) : '';
         ?>
 
-        <link rel="icon" href="{{ asset('assets/images/templates/favicon.png') }}">
-        <title>{{$title}}</title>
+        <meta name="description" content="{{ $desc }}">
+        <meta name="author" content="{{ $name }}">
+
+        <meta property="og:type" content="article">
+        <meta property="og:site_name" content="{{ isset($company)? $company->code : 'HSP' }}">
+        <meta property="og:title" content="{{ $name }}">
+        <meta property="og:image" content="{{ $favicon }}">
+        <meta property="og:description" content="{{ $desc }}">
+
+        <title>{{$name}}</title>
+        <link rel="icon" href="{{ $favicon }}">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
@@ -28,7 +41,7 @@
                     <div class="login-panel mx-auto">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img class="login-logo" src="{{ asset('assets/images/templates/ranchdeli.png') }}" alt="branding logo">
+                                <img class="login-logo" src="{{ $logo }}" alt="branding logo">
                                 <div class="login-title">
                                     Sign In
                                 </div>

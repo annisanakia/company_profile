@@ -33,6 +33,7 @@ class Career extends RESTful {
     {
         $input = Request()->all();
         $input['company_id'] = $this->company->id;
+        $input['slug'] = str_replace(' ', '-', strtolower(Request()->name));
         $validation = $this->model->validate($input);
 
         if ($validation->passes()) {
@@ -44,7 +45,7 @@ class Career extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/career');
 
                 if (!file_exists($destinationPath)) {
@@ -69,6 +70,7 @@ class Career extends RESTful {
     public function update(\Illuminate\Http\Request $request, $id)
     {
         $input = Request()->all();
+        $input['slug'] = str_replace(' ', '-', strtolower(Request()->name));
         $validation = $this->model->validate($input);
         
         $data = $this->model->find($id);
@@ -81,7 +83,7 @@ class Career extends RESTful {
                 ]);
 
                 $image = $request->file('photo');
-                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $imagename = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/file/career');
 
                 if (!file_exists($destinationPath)) {
@@ -109,7 +111,7 @@ class Career extends RESTful {
         ]);
 
         $image = $request->file('photo');
-        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $input['imagename'] = date('ymd') . time() . '.' . $image->getClientOriginalExtension();
         $destinationPath = public_path('assets/file/career');
         // dd($destinationPath);
         if (!file_exists($destinationPath)) {

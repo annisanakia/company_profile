@@ -25,8 +25,9 @@ class Home extends Controller {
 
     public function index(Request $request)
     {
+        $user = Auth::user();
         Session()->put('menu_as', 'home');
-        $with = [];
+        $with['user'] = $user;
         return view($this->controller_name . '::index', $with);
     }
 
